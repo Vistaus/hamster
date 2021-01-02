@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    auto app = Gtk::Application::create("org.gtkmm.examples.base");
+    auto app = Gtk::Application::create("com.github.slawtul.hamster");
 
     Window window{};
     window.set_border_width(1);
