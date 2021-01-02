@@ -1,20 +1,16 @@
-#include "hamster_window.h"
+#include "stage.h"
 
 
-HamsterWindow::HamsterWindow()
-    : main_box(Gtk::Orientation::ORIENTATION_VERTICAL),
-      search_entry(),
+Stage::Stage()
+    : search_entry(),
       scrolled_window(),
       list_view_text(1, false, Gtk::SELECTION_MULTIPLE)
 {
-    set_title("Hamster - clipboard manager");
-    set_resizable(false);
+    set_orientation(Gtk::ORIENTATION_VERTICAL);
 
-    add(main_box);
-    set_default_size(420, -1);
-    main_box.pack_start(search_entry);
-    main_box.pack_start(scrolled_window);
-    scrolled_window.set_size_request(-1, 600);
+    pack_start(search_entry);
+    pack_start(scrolled_window);
+    scrolled_window.set_size_request(-1, 420);
     scrolled_window.add(list_view_text);
 
     list_view_text.set_column_title(0, "Items");
@@ -40,4 +36,4 @@ HamsterWindow::HamsterWindow()
     show_all();
 }
 
-HamsterWindow::~HamsterWindow() = default;
+Stage::~Stage() = default;
