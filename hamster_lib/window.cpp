@@ -1,8 +1,6 @@
 #include "window.h"
 
 
-Window::Window()
-{
-}
+Window::Window() = default;
 
 Window::~Window() = default;
