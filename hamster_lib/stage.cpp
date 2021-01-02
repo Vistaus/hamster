@@ -5,7 +5,7 @@ Stage::Stage()
     : search_entry(),
       scrolled_window(),
       list_view_text(1, false, Gtk::SELECTION_MULTIPLE),
-      button("Ok")
+      button("OK")
 {
     set_orientation(Gtk::ORIENTATION_VERTICAL);
 
@@ -15,7 +15,7 @@ Stage::Stage()
 
     button.signal_clicked().connect(sigc::mem_fun(*this, &Stage::on_items_select));
 
-    scrolled_window.set_size_request(-1, 420);
+    scrolled_window.set_size_request(-1, 640);
     scrolled_window.add(list_view_text);
 
     list_view_text.set_column_title(0, "Items");
@@ -36,12 +36,29 @@ Stage::Stage()
     list_view_text.prepend("...");
     list_view_text.prepend("...");
     list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
     list_view_text.prepend("Hello world of C++!");
-    list_view_text.prepend("Gkt3 rules!");
+
+    Glib::ustring str = "Gkt3 rules! gtkmm and c++ and clion, and much more...";
+    str = str.substr(0, 38).append("...");
+
+    list_view_text.prepend(str);
     list_view_text.prepend("Welcome to Hamster");
 
-    list_view_text.signal_scroll_event().connect(sigc::mem_fun(*this, &Stage::on_scroll));
-    list_view_text.signal_selection_received().connect(sigc::mem_fun(*this, &Stage::on_selection));
+//    list_view_text
+//        .signal_scroll_event()
+//        .connect(sigc::mem_fun(*this, &Stage::on_scroll));
+
+    list_view_text
+        .signal_selection_received()
+        .connect(sigc::mem_fun(*this, &Stage::on_selection));
+
+    button.signal_focus().connect(sigc::mem_fun(*this, &Stage::on_focus));
 
     show_all();
 }
@@ -51,19 +68,18 @@ Stage::~Stage() = default;
 void Stage::on_selection(const Gtk::SelectionData &selection_data, guint time)
 {
     g_print("on selection");
-    g_print("");
+    g_print("_");
 }
 
 bool Stage::on_scroll(GdkEventScroll *scroll_event)
 {
-    if (scroll_event->direction == GdkScrollDirection::GDK_SCROLL_DOWN) {
-        g_print("scroll_down");
-    }
-    if (scroll_event->direction == GdkScrollDirection::GDK_SCROLL_UP) {
-        g_print("scroll_up");
-    }
     g_print("scroll");
-    g_print("");
+    return true;
+}
+
+bool Stage::on_focus(Gtk::DirectionType direction)
+{
+    g_print("on focus");
     return true;
 }
 
@@ -72,6 +88,8 @@ void Stage::on_items_select()
 //    for (int item_idx : list_view_text.get_selected()) {
 //        std::cout << "items selected: " << item_idx << "\n";
 //    }
+    g_print("%s", search_entry.get_text().c_str());
+    g_print("");
     for (int item_idx : list_view_text.get_selected()) {
         g_print("%d", item_idx);
         g_print("\n");

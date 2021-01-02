@@ -18,6 +18,7 @@ struct Stage: public Gtk::Box
     Gtk::Button button;
     bool on_scroll(GdkEventScroll *);
     void on_selection(const Gtk::SelectionData &selection_data, guint time);
+    bool on_focus(Gtk::DirectionType direction);
 };
 
 
