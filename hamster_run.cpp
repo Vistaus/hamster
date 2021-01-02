@@ -1,9 +1,9 @@
-#include <hamster.h>
+#include <hamster_window.h>
 
 
 int main(int argc, char *argv[])
 {
     auto app = Gtk::Application::create("org.gtkmm.examples.base");
-    hamster_window hw{};
-    return app->run(hw, argc, argv);
+    HamsterWindow window{};
+    return app->run(window, argc, argv);
 }
