@@ -2,32 +2,42 @@
 
 
 HamsterWindow::HamsterWindow()
-    : box(Gtk::Orientation::ORIENTATION_VERTICAL),
+    : main_box(Gtk::Orientation::ORIENTATION_VERTICAL),
       search_entry(),
-      list_box(),
-      row(),
-      label("hello world")
+      scrolled_window(),
+      list_view_text(1, false, Gtk::SELECTION_MULTIPLE)
 {
     set_title("Hamster - clipboard manager");
-    set_resizable(true);
-    set_default_size(420, 420);
-    set_border_width(12);
-    add(box);
-    box.pack_start(search_entry);
+    set_resizable(false);
 
-    row.add(label);
-    row.set_halign(Gtk::ALIGN_START);
-    list_box.append(row);
-    list_box.set_selection_mode(Gtk::SelectionMode::SELECTION_MULTIPLE);
+    add(main_box);
+    set_default_size(420, -1);
+    main_box.pack_start(search_entry);
+    main_box.pack_start(scrolled_window);
+    scrolled_window.set_size_request(-1, 600);
+    scrolled_window.add(list_view_text);
 
-    box.pack_start(list_box);
+    list_view_text.set_column_title(0, "Items");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("...");
+    list_view_text.prepend("Hello world of C++!");
+    list_view_text.prepend("Gkt3 rules!");
+    list_view_text.prepend("Welcome to Hamster");
 
     show_all();
-}
-
-void HamsterWindow::on_button_clicked(const Glib::ustring &data)
-{
-    std::cout << "Button clicked " << data << "\n";
 }
 
 HamsterWindow::~HamsterWindow() = default;
