@@ -9,6 +9,8 @@ Stage::Stage()
 {
     set_orientation(Gtk::ORIENTATION_VERTICAL);
 
+    search_entry.signal_search_changed().connect(sigc::mem_fun(*this, &Stage::on_search_change));
+
     pack_start(search_entry);
     pack_start(scrolled_window);
     pack_start(button);
@@ -65,6 +67,12 @@ Stage::Stage()
 
 Stage::~Stage() = default;
 
+void Stage::on_search_change()
+{
+    g_print("%s", search_entry.get_text().c_str());
+    g_print(" ");
+}
+
 void Stage::on_selection(const Gtk::SelectionData &selection_data, guint time)
 {
     g_print("on selection");
@@ -79,8 +87,9 @@ bool Stage::on_scroll(GdkEventScroll *scroll_event)
 
 bool Stage::on_focus(Gtk::DirectionType direction)
 {
+    g_print("%d", direction);
     g_print("on focus");
-    return true;
+    return false;
 }
 
 void Stage::on_items_select()
