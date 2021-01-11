@@ -79,12 +79,6 @@ void Stage::on_selection(const Gtk::SelectionData &selection_data, guint time)
     g_print("_");
 }
 
-bool Stage::on_scroll(GdkEventScroll *scroll_event)
-{
-    g_print("scroll");
-    return true;
-}
-
 bool Stage::on_focus(Gtk::DirectionType direction)
 {
     g_print("%d", direction);
