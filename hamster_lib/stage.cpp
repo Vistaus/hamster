@@ -19,11 +19,7 @@
 
 #include "stage.h"
 
-Stage::Stage()
-    : search_entry(),
-      scrolled_window(),
-      list_view_text(1, false, Gtk::SELECTION_MULTIPLE),
-      button("OK")
+Stage::Stage() : search_entry(), scrolled_window(), list_view_text(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
 {
     set_orientation(Gtk::ORIENTATION_VERTICAL);
 
@@ -69,15 +65,7 @@ Stage::Stage()
 
     list_view_text.prepend(str);
     list_view_text.prepend("Welcome to Hamster");
-
-//    list_view_text
-//        .signal_scroll_event()
-//        .connect(sigc::mem_fun(*this, &Stage::on_scroll));
-
-    list_view_text
-        .signal_selection_received()
-        .connect(sigc::mem_fun(*this, &Stage::on_selection));
-
+    list_view_text.signal_selection_received().connect(sigc::mem_fun(*this, &Stage::on_selection));
     button.signal_focus().connect(sigc::mem_fun(*this, &Stage::on_focus));
 
     show_all();
@@ -111,7 +99,9 @@ void Stage::on_items_select()
 //    }
     g_print("%s", search_entry.get_text().c_str());
     g_print("");
-    for (int item_idx : list_view_text.get_selected()) {
+
+    for (int item_idx : list_view_text.get_selected())
+    {
         g_print("%d", item_idx);
         g_print("\n");
     }
