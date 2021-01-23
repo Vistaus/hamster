@@ -1,5 +1,4 @@
 # Hamster
----
 
 Clipboard manager for elementary OS linux distro
 
