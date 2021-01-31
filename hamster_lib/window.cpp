@@ -13,19 +13,27 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authored by: Slawek Tuleja <slawek.tuleja@gmail.com>
  */
 
 #include "window.h"
 
-Window::Window()
+Window::Window() : headerBar(), settingsButton(), settingsIcon()
 {
     set_border_width(1);
-    set_title("Hamster");
     set_resizable(false);
-    set_default_size(320, -1);
+    set_default_size(360, -1);
     set_position(Gtk::WindowPosition::WIN_POS_MOUSE);
+
+    headerBar.set_show_close_button(true);
+    headerBar.set_title("Hamster");
+    headerBar.set_subtitle("Clipboard manager");
+
+    settingsIcon.set_from_icon_name("open-menu-symbolic", Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR);
+    settingsButton.set_image(settingsIcon);
+
+    headerBar.pack_start(settingsButton);
+    set_titlebar(headerBar);
 }
+
 
 Window::~Window() = default;

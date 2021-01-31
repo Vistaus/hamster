@@ -13,8 +13,6 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authored by: Slawek Tuleja <slawek.tuleja@gmail.com>
  */
 
 #ifndef STAGE_H
@@ -28,9 +26,9 @@ struct Stage : public Gtk::Box
     Stage();
     ~Stage() override;
 
-    Gtk::SearchEntry search_entry;
-    Gtk::ScrolledWindow scrolled_window;
-    Gtk::ListViewText list_view_text;
+    Gtk::SearchEntry searchEntry;
+    Gtk::ScrolledWindow scrolledWindow;
+    Gtk::ListViewText listViewText;
     Gtk::Button button;
 
     void on_items_select();

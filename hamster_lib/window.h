@@ -13,8 +13,6 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authored by: Slawek Tuleja <slawek.tuleja@gmail.com>
  */
 
 #ifndef WINDOW_H
@@ -22,10 +20,14 @@
 
 #include <gtkmm-3.0/gtkmm.h>
 
-struct Window : public Gtk::Window
+struct Window : public Gtk::ApplicationWindow
 {
     Window();
     ~Window() override;
+
+    Gtk::HeaderBar headerBar;
+    Gtk::MenuButton settingsButton;
+    Gtk::Image settingsIcon;
 };
 
 #endif //WINDOW_H
