@@ -17,7 +17,7 @@
 
 #include "window.h"
 
-Window::Window() : headerBar(), settingsButton(), settingsIcon()
+Window::Window() : headerBar(), settingsButton(), settingsIcon(), popoverMenu()
 {
     set_border_width(1);
     set_resizable(false);
@@ -30,6 +30,7 @@ Window::Window() : headerBar(), settingsButton(), settingsIcon()
 
     settingsIcon.set_from_icon_name("open-menu-symbolic", Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR);
     settingsButton.set_image(settingsIcon);
+    settingsButton.set_popover(popoverMenu);
 
     headerBar.pack_start(settingsButton);
     set_titlebar(headerBar);

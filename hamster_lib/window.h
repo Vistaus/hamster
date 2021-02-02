@@ -28,6 +28,7 @@ struct Window : public Gtk::ApplicationWindow
     Gtk::HeaderBar headerBar;
     Gtk::MenuButton settingsButton;
     Gtk::Image settingsIcon;
+    Gtk::PopoverMenu popoverMenu;
 };
 
 #endif //WINDOW_H

@@ -1,6 +1,6 @@
 # Hamster
 
-Clipboard manager for elementary OS linux distro
+Clipboard manager for Debian-based distributions
 
 ## Development
 
