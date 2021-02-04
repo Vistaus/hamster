@@ -21,7 +21,7 @@ Window::Window()
         : headerBar(), settingsButton(), settingsIcon(), popoverMenu(), popoverBox(), preferencesLabel(),
           shortcutsLabel(), aboutLabel(), quitLabel(), separator()
 {
-    set_border_width(1);
+    set_border_width(0);
     set_resizable(false);
     set_default_size(360, -1);
     set_position(Gtk::WindowPosition::WIN_POS_MOUSE);

@@ -23,6 +23,10 @@ Stage::Stage()
     set_orientation(Gtk::ORIENTATION_VERTICAL);
 
     searchEntry.signal_search_changed().connect(sigc::mem_fun(*this, &Stage::on_search_change));
+    searchEntry.set_margin_top(6);
+    searchEntry.set_margin_right(6);
+    searchEntry.set_margin_bottom(6);
+    searchEntry.set_margin_left(6);
     pack_start(searchEntry);
     pack_start(scrolledWindow);
     pack_start(button);
@@ -32,7 +36,6 @@ Stage::Stage()
     scrolledWindow.set_size_request(-1, 640);
     scrolledWindow.add(listViewText);
 
-    listViewText.set_column_title(0, "Items");
     listViewText.set_enable_search(false);
     listViewText.prepend("...");
     listViewText.prepend("Hello world of C++!");
