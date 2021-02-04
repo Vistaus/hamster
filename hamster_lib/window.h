@@ -29,6 +29,12 @@ struct Window : public Gtk::ApplicationWindow
     Gtk::MenuButton settingsButton;
     Gtk::Image settingsIcon;
     Gtk::PopoverMenu popoverMenu;
+    Gtk::Box popoverBox;
+    Gtk::Label preferencesLabel;
+    Gtk::Label shortcutsLabel;
+    Gtk::Label aboutLabel;
+    Gtk::Label quitLabel;
+    Gtk::Separator separator;
 };
 
 #endif //WINDOW_H
