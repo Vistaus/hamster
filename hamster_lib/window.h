@@ -20,7 +20,7 @@
 
 #include <gtkmm-3.0/gtkmm.h>
 
-struct Window : public Gtk::ApplicationWindow
+struct Window : public Gtk::Window
 {
     Window();
     ~Window() override;

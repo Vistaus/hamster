@@ -27,6 +27,7 @@ Stage::Stage()
     searchEntry.set_margin_right(6);
     searchEntry.set_margin_bottom(6);
     searchEntry.set_margin_left(6);
+
     pack_start(searchEntry);
     pack_start(scrolledWindow);
     pack_start(button);
@@ -36,6 +37,8 @@ Stage::Stage()
     scrolledWindow.set_size_request(-1, 640);
     scrolledWindow.add(listViewText);
 
+    listViewText.set_column_title(0, "");
+    listViewText.set_headers_visible(false);
     listViewText.set_enable_search(false);
     listViewText.prepend("...");
     listViewText.prepend("Hello world of C++!");
