@@ -18,7 +18,7 @@
 #include "stage.h"
 
 Stage::Stage()
-        : searchEntry(), scrolledWindow(), listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
+        : searchEntry(), scrolledWindow(), listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK"), separator()
 {
     set_orientation(Gtk::ORIENTATION_VERTICAL);
 
@@ -29,6 +29,7 @@ Stage::Stage()
     searchEntry.set_margin_left(6);
 
     pack_start(searchEntry);
+    pack_start(separator);
     pack_start(scrolledWindow);
     pack_start(button);
 

@@ -30,6 +30,7 @@ struct Stage : public Gtk::Box
     Gtk::ScrolledWindow scrolledWindow;
     Gtk::ListViewText listViewText;
     Gtk::Button button;
+    Gtk::Separator separator;
 
     void on_items_select();
 
