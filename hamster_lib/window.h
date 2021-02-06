@@ -30,11 +30,13 @@ struct Window : public Gtk::Window
     Gtk::Image settingsIcon;
     Gtk::PopoverMenu popoverMenu;
     Gtk::Box popoverBox;
-    Gtk::Label preferencesLabel;
-    Gtk::Label shortcutsLabel;
-    Gtk::Label aboutLabel;
-    Gtk::Label quitLabel;
     Gtk::Separator separator;
+    Gtk::Menu menu;
+    Gtk::MenuItem menuItem;
+    Gtk::ModelButton modelButton;
+    Gtk::ModelButton modelButton1;
+    Gtk::ModelButton modelButton2;
+    Gtk::ModelButton modelButton3;
 };
 
 #endif //WINDOW_H

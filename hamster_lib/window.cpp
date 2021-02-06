@@ -18,8 +18,9 @@
 #include "window.h"
 
 Window::Window()
-        : headerBar(), settingsButton(), settingsIcon(), popoverMenu(), popoverBox(), preferencesLabel(),
-          shortcutsLabel(), aboutLabel(), quitLabel(), separator()
+        : headerBar(), settingsButton(), settingsIcon(), popoverMenu(), popoverBox(), separator(), menu(), menuItem()
+        , modelButton(), modelButton1()
+          , modelButton2(), modelButton3()
 {
     set_border_width(0);
     set_resizable(false);
@@ -30,45 +31,27 @@ Window::Window()
     headerBar.set_title("Hamster");
     headerBar.set_subtitle("Clipboard manager");
 
-    preferencesLabel.set_label("Preferences");
-    preferencesLabel.set_halign(Gtk::ALIGN_START);
-    preferencesLabel.set_margin_bottom(12);
-    preferencesLabel.set_margin_right(12);
-    preferencesLabel.set_margin_left(12);
-    preferencesLabel.set_text_with_mnemonic("Preferences");
-
-    shortcutsLabel.set_label("Shortcuts");
-    shortcutsLabel.set_halign(Gtk::ALIGN_START);
-    shortcutsLabel.set_margin_bottom(6);
-    shortcutsLabel.set_margin_right(12);
-    shortcutsLabel.set_margin_left(12);
-
-    aboutLabel.set_label("About");
-    aboutLabel.set_halign(Gtk::ALIGN_START);
-    aboutLabel.set_margin_top(6);
-    aboutLabel.set_margin_bottom(12);
-    aboutLabel.set_margin_right(12);
-    aboutLabel.set_margin_left(12);
-
-    quitLabel.set_label("Quit");
-    quitLabel.set_halign(Gtk::ALIGN_START);
-    quitLabel.set_margin_right(12);
-    quitLabel.set_margin_left(12);
-
     popoverBox.set_orientation(Gtk::ORIENTATION_VERTICAL);
-    popoverBox.pack_start(preferencesLabel);
-    popoverBox.pack_start(shortcutsLabel);
 
-    popoverBox.pack_start(separator);
+    menuItem.set_label("Preferences...");
 
-    popoverBox.pack_start(aboutLabel);
-    popoverBox.pack_start(quitLabel);
-    popoverBox.show_all();
+    modelButton.property_text().set_value("Preferences");
+    modelButton1.property_text().set_value("Shortcuts");
+    modelButton2.property_text().set_value("About");
+    modelButton3.property_text().set_value("Quit");
+
 
     popoverBox.set_margin_top(12);
     popoverBox.set_margin_right(12);
     popoverBox.set_margin_bottom(12);
     popoverBox.set_margin_left(12);
+
+    popoverBox.pack_start(modelButton);
+    popoverBox.pack_start(modelButton1);
+    popoverBox.pack_start(separator);
+    popoverBox.pack_start(modelButton2);
+    popoverBox.pack_start(modelButton3);
+    popoverBox.show_all();
 
     popoverMenu.add(popoverBox);
 
