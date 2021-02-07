@@ -14,16 +14,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#include "SettingsMenuButton.h"
 
-#include <MainWindow.h>
-#include <Layout.h>
-
-int main(int argc, char *argv[])
+SettingsMenuButton::SettingsMenuButton() : btn_icon(), settings_popover()
 {
-    auto app = Gtk::Application::create("com.github.slawtul.hamster");
-
-    MainWindow win{};
-    win.show_all();
-
-    return app->run(win, argc, argv);
+    btn_icon.set_from_icon_name("open-menu-symbolic", Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR);
+    set_image(btn_icon);
+    set_popover(settings_popover);
 }
+
+SettingsMenuButton::~SettingsMenuButton() = default;

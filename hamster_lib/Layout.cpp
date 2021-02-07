@@ -15,14 +15,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "stage.h"
+#include "Layout.h"
 
-Stage::Stage()
+Layout::Layout()
     : searchEntry(), scrolledWindow(), listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK"), separator()
 {
-    set_orientation(Gtk::ORIENTATION_VERTICAL);
-
-    searchEntry.signal_search_changed().connect(sigc::mem_fun(*this, &Stage::on_search_change));
+    searchEntry.signal_search_changed().connect(sigc::mem_fun(*this, &Layout::on_search_change));
     searchEntry.set_margin_top(6);
     searchEntry.set_margin_right(6);
     searchEntry.set_margin_bottom(6);
@@ -33,7 +31,7 @@ Stage::Stage()
     pack_start(scrolledWindow);
     //pack_start(button);
 
-    button.signal_clicked().connect(sigc::mem_fun(*this, &Stage::on_items_select));
+    button.signal_clicked().connect(sigc::mem_fun(*this, &Layout::on_items_select));
 
     scrolledWindow.set_size_request(-1, 640);
     scrolledWindow.add(listViewText);
@@ -49,31 +47,31 @@ Stage::Stage()
 
     listViewText.prepend(str);
     listViewText.prepend("Welcome to Hamster");
-    listViewText.signal_selection_received().connect(sigc::mem_fun(*this, &Stage::on_selection));
-    button.signal_focus().connect(sigc::mem_fun(*this, &Stage::on_focus));
+    listViewText.signal_selection_received().connect(sigc::mem_fun(*this, &Layout::on_selection));
+    button.signal_focus().connect(sigc::mem_fun(*this, &Layout::on_focus));
 }
 
-Stage::~Stage() = default;
+Layout::~Layout() = default;
 
-void Stage::on_search_change()
+void Layout::on_search_change()
 {
     g_print("%s", searchEntry.get_text().c_str());
 }
 
-void Stage::on_selection(const Gtk::SelectionData &selection_data, guint time)
+void Layout::on_selection(const Gtk::SelectionData &selection_data, guint time)
 {
     g_print("on selection");
     g_print("_");
 }
 
-bool Stage::on_focus(Gtk::DirectionType direction)
+bool Layout::on_focus(Gtk::DirectionType direction)
 {
     g_print("%d", direction);
     g_print("on focus");
     return false;
 }
 
-void Stage::on_items_select()
+void Layout::on_items_select()
 {
 //    for (int item_idx : listViewText.get_selected()) {
 //        std::cout << "items selected: " << item_idx << "\n";

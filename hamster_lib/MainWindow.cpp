@@ -15,28 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WINDOW_H
-#define WINDOW_H
+#include "MainWindow.h"
 
-#include <gtkmm-3.0/gtkmm.h>
-
-struct Window : public Gtk::Window
+MainWindow::MainWindow() : header_bar{}, settings_btn{}, layout()
 {
-    Window();
-    ~Window() override;
+    add(layout);
 
-    Gtk::HeaderBar headerBar;
-    Gtk::MenuButton settingsButton;
-    Gtk::Image settingsIcon;
-    Gtk::PopoverMenu popoverMenu;
-    Gtk::Box popoverBox;
-    Gtk::Separator separator;
-    Gtk::Menu menu;
-    Gtk::MenuItem menuItem;
-    Gtk::ModelButton modelButton;
-    Gtk::ModelButton modelButton1;
-    Gtk::ModelButton modelButton2;
-    Gtk::ModelButton modelButton3;
-};
+    set_border_width(0);
+    set_resizable(false);
+    set_default_size(360, -1);
+    set_position(Gtk::WindowPosition::WIN_POS_CENTER_ALWAYS);
 
-#endif //WINDOW_H
+    header_bar.set_show_close_button(true);
+    header_bar.set_title(_("Hamster"));
+    header_bar.set_subtitle(_("Clipboard manager"));
+    header_bar.pack_end(settings_btn);
+    set_titlebar(header_bar);
+}
+
+MainWindow::~MainWindow() = default;

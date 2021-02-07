@@ -15,30 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STAGE_H
-#define STAGE_H
+#ifndef HAMSTER_MAINWINDOW_H
+#define HAMSTER_MAINWINDOW_H
 
-#include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/i18n.h>
+#include "settings_popover/SettingsMenuButton.h"
+#include "Layout.h"
 
-struct Stage : public Gtk::Box
+struct MainWindow : public Gtk::Window
 {
-    Stage();
-    ~Stage() override;
+    MainWindow();
 
-    Gtk::SearchEntry searchEntry;
-    Gtk::ScrolledWindow scrolledWindow;
-    Gtk::ListViewText listViewText;
-    Gtk::Button button;
-    Gtk::Separator separator;
+    ~MainWindow() override;
 
-    void on_items_select();
-
-    void on_selection(const Gtk::SelectionData &selection_data, guint time);
-
-    bool on_focus(Gtk::DirectionType direction);
-
-    void on_search_change();
+    Gtk::HeaderBar header_bar;
+    SettingsMenuButton settings_btn;
+    Layout layout;
 };
 
-#endif //STAGE_H
+#endif //HAMSTER_MAINWINDOW_H

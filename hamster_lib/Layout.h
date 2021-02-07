@@ -15,15 +15,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <MainWindow.h>
-#include <Layout.h>
+#ifndef HAMSTER_LAYOUT_H
+#define HAMSTER_LAYOUT_H
 
-int main(int argc, char *argv[])
+#include <iostream>
+#include <gtkmm-3.0/gtkmm.h>
+
+struct Layout : public Gtk::VBox
 {
-    auto app = Gtk::Application::create("com.github.slawtul.hamster");
+    Layout();
+    ~Layout() override;
 
-    MainWindow win{};
-    win.show_all();
+    Gtk::SearchEntry searchEntry;
+    Gtk::ScrolledWindow scrolledWindow;
+    Gtk::ListViewText listViewText;
+    Gtk::Button button;
+    Gtk::Separator separator;
 
-    return app->run(win, argc, argv);
-}
+    void on_items_select();
+
+    void on_selection(const Gtk::SelectionData &selection_data, guint time);
+
+    bool on_focus(Gtk::DirectionType direction);
+
+    void on_search_change();
+};
+
+#endif //HAMSTER_LAYOUT_H

@@ -14,16 +14,4 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include <MainWindow.h>
-#include <Layout.h>
-
-int main(int argc, char *argv[])
-{
-    auto app = Gtk::Application::create("com.github.slawtul.hamster");
-
-    MainWindow win{};
-    win.show_all();
-
-    return app->run(win, argc, argv);
-}
+#include "AboutDialog.h"
