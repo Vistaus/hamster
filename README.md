@@ -15,13 +15,13 @@ Application
 
 - [ ] Run automatically on system startup
 - [ ] Always on top
-- [ ] Placed at the current mouse position
+- [ ] Place at the current mouse position
 
 Text items
 
 - [ ] Eliminate leading and trailing spaces
-- [ ] Remove on quit
-- [ ] Size: 0 - 100 (scale button)
+- [ ] Clear list on quit
+- [ ] Set size: 0 - 100 (scale button)
 
 Text item group
 
