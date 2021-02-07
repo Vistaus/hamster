@@ -17,8 +17,7 @@
 
 #include "Layout.h"
 
-Layout::Layout()
-    : searchEntry(), scrolledWindow(), listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK"), separator()
+Layout::Layout() : listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
 {
     searchEntry.signal_search_changed().connect(sigc::mem_fun(*this, &Layout::on_search_change));
     searchEntry.set_margin_top(6);

@@ -16,7 +16,7 @@
  */
 #include "SettingsMenuButton.h"
 
-SettingsMenuButton::SettingsMenuButton() : btn_icon(), settings_popover()
+SettingsMenuButton::SettingsMenuButton()
 {
     btn_icon.set_from_icon_name("open-menu-symbolic", Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR);
     set_image(btn_icon);

@@ -17,10 +17,8 @@
 
 #include "MainWindow.h"
 
-MainWindow::MainWindow() : header_bar{}, settings_btn{}, layout()
+MainWindow::MainWindow()
 {
-    add(layout);
-
     set_border_width(0);
     set_resizable(false);
     set_default_size(360, -1);
@@ -30,7 +28,10 @@ MainWindow::MainWindow() : header_bar{}, settings_btn{}, layout()
     header_bar.set_title(_("Hamster"));
     header_bar.set_subtitle(_("Clipboard manager"));
     header_bar.pack_end(settings_btn);
+
     set_titlebar(header_bar);
+
+    add(layout);
 }
 
 MainWindow::~MainWindow() = default;

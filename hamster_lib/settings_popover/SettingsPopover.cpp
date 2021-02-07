@@ -16,7 +16,7 @@
  */
 #include "SettingsPopover.h"
 
-SettingsPopover::SettingsPopover() : v_box(), pref_btn(), shortcuts_btn(), about_btn(), quit_btn()
+SettingsPopover::SettingsPopover()
 {
     pref_btn.property_text().set_value(_("Preferences"));
     shortcuts_btn.property_text().set_value(_("Shortcuts"));
