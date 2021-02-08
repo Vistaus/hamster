@@ -38,7 +38,7 @@ struct MainWindow : public Gtk::Window
 
     void show_about_dialog();
 
-    void close_about_dialog(int response_id);
+    void hide_about_dialog(int response_id);
 };
 
 #endif //HAMSTER_MAINWINDOW_H

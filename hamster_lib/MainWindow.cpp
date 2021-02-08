@@ -39,7 +39,7 @@ MainWindow::MainWindow()
             .connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
     about_dialog
             .signal_response()
-            .connect(sigc::mem_fun(*this, &MainWindow::close_about_dialog));
+            .connect(sigc::mem_fun(*this, &MainWindow::hide_about_dialog));
 
 
     // PREFERENCES WINDOW
@@ -55,7 +55,7 @@ void MainWindow::show_about_dialog()
     about_dialog.present();
 }
 
-void MainWindow::close_about_dialog(int response_id)
+void MainWindow::hide_about_dialog(int response_id)
 {
     if (response_id == Gtk::ResponseType::RESPONSE_DELETE_EVENT)
     {
