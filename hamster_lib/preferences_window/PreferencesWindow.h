@@ -25,6 +25,32 @@ struct PreferencesWindow : public Gtk::Window
     PreferencesWindow();
 
     ~PreferencesWindow() override;
+
+    Gtk::VBox v_box;
+
+    Gtk::Frame app_frame;
+    Gtk::Frame items_frame;
+    Gtk::Frame item_group_frame;
+
+    Gtk::VBox app_box;
+    Gtk::VBox items_box;
+    Gtk::VBox item_group_box;
+
+    Gtk::CheckButton run_automatically_check;
+    Gtk::CheckButton always_on_top_check;
+    Gtk::CheckButton on_mouse_position_check;
+
+    Gtk::CheckButton eliminate_spaces_check;
+    Gtk::CheckButton clear_list_check;
+    Gtk::Label set_size_label;
+    Gtk::Scale item_list_size_scale;
+
+    Gtk::Box prefix_box;
+    Gtk::Box suffix_box;
+    Gtk::Label prefix_label;
+    Gtk::Label suffix_label;
+    Gtk::Entry item_prefix;
+    Gtk::Entry item_suffix;
 };
 
 #endif //HAMSTER_PREFERENCESWINDOW_H
