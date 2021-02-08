@@ -14,16 +14,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef HAMSTER_ABOUTDIALOG_H
+#define HAMSTER_ABOUTDIALOG_H
 
-#include <MainWindow.h>
-#include <Layout.h>
+#include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/i18n.h>
 
-int main(int argc, char *argv[])
+struct AboutDialog : public Gtk::AboutDialog
 {
-    auto app = Gtk::Application::create("com.github.slawtul.hamster");
+    AboutDialog();
 
-    MainWindow win{};
-    win.show_all();
+    ~AboutDialog() override;
+};
 
-    return app->run(win, argc, argv);
-}
+#endif //HAMSTER_ABOUTDIALOG_H

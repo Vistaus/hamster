@@ -14,16 +14,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef HAMSTER_SHORTCUTSWINDOW_H
+#define HAMSTER_SHORTCUTSWINDOW_H
 
-#include <MainWindow.h>
-#include <Layout.h>
-
-int main(int argc, char *argv[])
+struct ShortcutsWindow
 {
-    auto app = Gtk::Application::create("com.github.slawtul.hamster");
 
-    MainWindow win{};
-    win.show_all();
+};
 
-    return app->run(win, argc, argv);
-}
+#endif //HAMSTER_SHORTCUTSWINDOW_H

@@ -14,29 +14,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#include "SettingsPopover.h"
 
-#ifndef WINDOW_H
-#define WINDOW_H
-
-#include <gtkmm-3.0/gtkmm.h>
-
-struct Window : public Gtk::Window
+SettingsPopover::SettingsPopover()
 {
-    Window();
-    ~Window() override;
+    pref_btn.property_text().set_value(_("Preferences"));
+    shortcuts_btn.property_text().set_value(_("Shortcuts"));
+    about_btn.property_text().set_value(_("About"));
+    quit_btn.property_text().set_value(_("Quit"));
 
-    Gtk::HeaderBar headerBar;
-    Gtk::MenuButton settingsButton;
-    Gtk::Image settingsIcon;
-    Gtk::PopoverMenu popoverMenu;
-    Gtk::Box popoverBox;
-    Gtk::Separator separator;
-    Gtk::Menu menu;
-    Gtk::MenuItem menuItem;
-    Gtk::ModelButton modelButton;
-    Gtk::ModelButton modelButton1;
-    Gtk::ModelButton modelButton2;
-    Gtk::ModelButton modelButton3;
-};
+    v_box.set_margin_top(12);
+    v_box.set_margin_right(12);
+    v_box.set_margin_bottom(12);
+    v_box.set_margin_left(12);
 
-#endif //WINDOW_H
+    v_box.pack_start(pref_btn);
+    v_box.pack_start(shortcuts_btn);
+    v_box.pack_start(separator);
+    v_box.pack_start(about_btn);
+    v_box.pack_start(quit_btn);
+
+    v_box.show_all();
+
+    add(v_box);
+}
+
+SettingsPopover::~SettingsPopover() = default;

@@ -14,31 +14,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#include "AboutDialog.h"
 
-#ifndef STAGE_H
-#define STAGE_H
-
-#include <iostream>
-#include <gtkmm-3.0/gtkmm.h>
-
-struct Stage : public Gtk::Box
+AboutDialog::AboutDialog()
 {
-    Stage();
-    ~Stage() override;
+    set_program_name(_("Hamster"));
+    set_comments(_("Clipboard manager"));
+    set_version("1.0.0");
+    set_copyright("Slawek Tuleja");
+    set_license_type(Gtk::LICENSE_GPL_3_0);
+    set_website("https://github.com/slawtul/Hamster");
+    set_website_label("Github");
+}
 
-    Gtk::SearchEntry searchEntry;
-    Gtk::ScrolledWindow scrolledWindow;
-    Gtk::ListViewText listViewText;
-    Gtk::Button button;
-    Gtk::Separator separator;
-
-    void on_items_select();
-
-    void on_selection(const Gtk::SelectionData &selection_data, guint time);
-
-    bool on_focus(Gtk::DirectionType direction);
-
-    void on_search_change();
-};
-
-#endif //STAGE_H
+AboutDialog::~AboutDialog() = default;

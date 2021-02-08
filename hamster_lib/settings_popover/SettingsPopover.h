@@ -14,16 +14,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef HAMSTER_SETTINGSPOPOVER_H
+#define HAMSTER_SETTINGSPOPOVER_H
 
-#include <MainWindow.h>
-#include <Layout.h>
+#include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/i18n.h>
 
-int main(int argc, char *argv[])
+struct SettingsPopover : public Gtk::PopoverMenu
 {
-    auto app = Gtk::Application::create("com.github.slawtul.hamster");
+    SettingsPopover();
 
-    MainWindow win{};
-    win.show_all();
+    ~SettingsPopover() override;
 
-    return app->run(win, argc, argv);
-}
+    Gtk::VBox v_box;
+    Gtk::Separator separator;
+    Gtk::ModelButton pref_btn;
+    Gtk::ModelButton shortcuts_btn;
+    Gtk::ModelButton about_btn;
+    Gtk::ModelButton quit_btn;
+};
+
+#endif //HAMSTER_SETTINGSPOPOVER_H

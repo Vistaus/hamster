@@ -15,15 +15,29 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <MainWindow.h>
-#include <Layout.h>
+#ifndef HAMSTER_MAINWINDOW_H
+#define HAMSTER_MAINWINDOW_H
 
-int main(int argc, char *argv[])
+#include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/i18n.h>
+
+#include "Layout.h"
+#include "about_dialog/AboutDialog.h"
+#include "settings_popover/SettingsMenuButton.h"
+
+struct MainWindow : public Gtk::Window
 {
-    auto app = Gtk::Application::create("com.github.slawtul.hamster");
+    MainWindow();
 
-    MainWindow win{};
-    win.show_all();
+    ~MainWindow() override;
 
-    return app->run(win, argc, argv);
-}
+    void show_about_dialog();
+
+    Gtk::HeaderBar header_bar;
+    SettingsMenuButton settings_btn;
+    Layout layout;
+
+    AboutDialog about_dialog;
+};
+
+#endif //HAMSTER_MAINWINDOW_H
