@@ -3,7 +3,7 @@
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 2.1 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -32,15 +32,19 @@ MainWindow::MainWindow()
 
     add(layout);
 
-    // About dialog
+    // ABOUT DIALOG
     about_dialog.set_transient_for(*this);
     settings_btn.settings_popover.about_btn
             .signal_clicked()
             .connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
+    about_dialog
+            .signal_response()
+            .connect(sigc::mem_fun(*this, &MainWindow::close_about_dialog));
 
-    // Preferences window
 
-    // Shortcuts window
+    // PREFERENCES WINDOW
+
+    // SHORTCUTS WINDOW
 }
 
 MainWindow::~MainWindow() = default;
@@ -49,4 +53,12 @@ void MainWindow::show_about_dialog()
 {
     about_dialog.show();
     about_dialog.present();
+}
+
+void MainWindow::close_about_dialog(int response_id)
+{
+    if (response_id == Gtk::ResponseType::RESPONSE_DELETE_EVENT)
+    {
+        about_dialog.close();
+    }
 }
