@@ -24,7 +24,7 @@ AboutDialog::AboutDialog()
     set_copyright("Slawek Tuleja");
     set_license_type(Gtk::LICENSE_GPL_3_0);
     set_website("https://github.com/slawtul/Hamster");
-    set_website_label("Github");
+    set_website_label("https://github.com/slawtul/Hamster");
 }
 
 AboutDialog::~AboutDialog() = default;
