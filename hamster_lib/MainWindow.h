@@ -21,7 +21,7 @@
 #include <gtkmm-3.0/gtkmm.h>
 #include <glibmm/i18n.h>
 
-#include "Layout.h"
+#include "WindowLayout.h"
 #include "settings_popover/SettingsMenuButton.h"
 #include "about_dialog/AboutDialog.h"
 #include "shortcuts_window/ShortcutsWindow.h"
@@ -36,7 +36,7 @@ struct MainWindow : public Gtk::Window
 
     Gtk::HeaderBar header_bar;
     SettingsMenuButton menu_btn;
-    Layout layout;
+    WindowLayout layout;
     AboutDialog about_dialog;
     ShortcutsWindow shortcuts_window;
     PreferencesWindow preferences_window;

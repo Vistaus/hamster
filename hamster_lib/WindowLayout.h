@@ -15,16 +15,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_LAYOUT_H
-#define HAMSTER_LAYOUT_H
+#ifndef HAMSTER_WINDOWLAYOUT_H
+#define HAMSTER_WINDOWLAYOUT_H
 
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
 
-struct Layout : public Gtk::VBox
+struct WindowLayout : public Gtk::VBox
 {
-    Layout();
-    ~Layout() override;
+    WindowLayout();
+    ~WindowLayout() override;
 
     Gtk::SearchEntry searchEntry;
     Gtk::ScrolledWindow scrolledWindow;
@@ -41,4 +41,4 @@ struct Layout : public Gtk::VBox
     void on_search_change();
 };
 
-#endif //HAMSTER_LAYOUT_H
+#endif //HAMSTER_WINDOWLAYOUT_H

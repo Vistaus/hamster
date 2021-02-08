@@ -15,11 +15,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Layout.h"
+#include "WindowLayout.h"
 
-Layout::Layout() : listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
+WindowLayout::WindowLayout() : listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
 {
-    searchEntry.signal_search_changed().connect(sigc::mem_fun(*this, &Layout::on_search_change));
+    searchEntry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowLayout::on_search_change));
     searchEntry.set_margin_top(6);
     searchEntry.set_margin_right(6);
     searchEntry.set_margin_bottom(6);
@@ -30,7 +30,7 @@ Layout::Layout() : listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
     pack_start(scrolledWindow);
     //pack_start(button);
 
-    button.signal_clicked().connect(sigc::mem_fun(*this, &Layout::on_items_select));
+    button.signal_clicked().connect(sigc::mem_fun(*this, &WindowLayout::on_items_select));
 
     scrolledWindow.set_size_request(-1, 640);
     scrolledWindow.add(listViewText);
@@ -46,31 +46,31 @@ Layout::Layout() : listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
 
     listViewText.prepend(str);
     listViewText.prepend("Welcome to Hamster");
-    listViewText.signal_selection_received().connect(sigc::mem_fun(*this, &Layout::on_selection));
-    button.signal_focus().connect(sigc::mem_fun(*this, &Layout::on_focus));
+    listViewText.signal_selection_received().connect(sigc::mem_fun(*this, &WindowLayout::on_selection));
+    button.signal_focus().connect(sigc::mem_fun(*this, &WindowLayout::on_focus));
 }
 
-Layout::~Layout() = default;
+WindowLayout::~WindowLayout() = default;
 
-void Layout::on_search_change()
+void WindowLayout::on_search_change()
 {
     g_print("%s", searchEntry.get_text().c_str());
 }
 
-void Layout::on_selection(const Gtk::SelectionData &selection_data, guint time)
+void WindowLayout::on_selection(const Gtk::SelectionData &selection_data, guint time)
 {
     g_print("on selection");
     g_print("_");
 }
 
-bool Layout::on_focus(Gtk::DirectionType direction)
+bool WindowLayout::on_focus(Gtk::DirectionType direction)
 {
     g_print("%d", direction);
     g_print("on focus");
     return false;
 }
 
-void Layout::on_items_select()
+void WindowLayout::on_items_select()
 {
 //    for (int item_idx : listViewText.get_selected()) {
 //        std::cout << "items selected: " << item_idx << "\n";

@@ -16,7 +16,7 @@
  */
 
 #include <MainWindow.h>
-#include <Layout.h>
+#include <WindowLayout.h>
 
 int main(int argc, char *argv[])
 {
