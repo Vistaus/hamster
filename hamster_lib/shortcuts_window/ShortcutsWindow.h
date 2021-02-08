@@ -17,8 +17,14 @@
 #ifndef HAMSTER_SHORTCUTSWINDOW_H
 #define HAMSTER_SHORTCUTSWINDOW_H
 
-struct ShortcutsWindow
+#include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/i18n.h>
+
+struct ShortcutsWindow: public Gtk::ShortcutsWindow
 {
+    ShortcutsWindow();
+
+    ~ShortcutsWindow() override;
 
 };
 

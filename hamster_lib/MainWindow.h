@@ -22,8 +22,11 @@
 #include <glibmm/i18n.h>
 
 #include "Layout.h"
-#include "about_dialog/AboutDialog.h"
 #include "settings_popover/SettingsMenuButton.h"
+#include "about_dialog/AboutDialog.h"
+#include "shortcuts_window/ShortcutsWindow.h"
+#include "preferences_window/PreferencesWindow.h"
+
 
 struct MainWindow : public Gtk::Window
 {
@@ -32,13 +35,23 @@ struct MainWindow : public Gtk::Window
     ~MainWindow() override;
 
     Gtk::HeaderBar header_bar;
-    SettingsMenuButton settings_menu_btn;
+    SettingsMenuButton menu_btn;
     Layout layout;
     AboutDialog about_dialog;
+    ShortcutsWindow shortcuts_window;
+    PreferencesWindow preferences_window;
 
     void show_about_dialog();
 
+    void show_shortcuts_window();
+
+    void show_preferences_window();
+
     void hide_about_dialog(int response_id);
+
+    void hide_shortcuts_window();
+
+    void close_app();
 };
 
 #endif //HAMSTER_MAINWINDOW_H

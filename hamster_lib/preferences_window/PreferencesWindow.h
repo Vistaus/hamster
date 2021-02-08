@@ -14,11 +14,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ShortcutsWindow.h"
+#ifndef HAMSTER_PREFERENCESWINDOW_H
+#define HAMSTER_PREFERENCESWINDOW_H
 
-ShortcutsWindow::ShortcutsWindow()
+#include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/i18n.h>
+
+struct PreferencesWindow : public Gtk::Window
 {
-    set_title(_("Shortcuts"));
-}
+    PreferencesWindow();
 
-ShortcutsWindow::~ShortcutsWindow() = default;
+    ~PreferencesWindow() override;
+};
+
+#endif //HAMSTER_PREFERENCESWINDOW_H

@@ -14,6 +14,6 @@ set(SOURCE_FILES
         settings_popover/SettingsPopover.cpp
         settings_popover/SettingsMenuButton.cpp
         about_dialog/AboutDialog.cpp
-        shortcuts_window/ShortcutsWindow.cpp)
+        shortcuts_window/ShortcutsWindow.cpp preferences_window/PreferencesWindow.cpp preferences_window/PreferencesWindow.h)
 
 add_library(hamster_lib STATIC ${SOURCE_FILES} ${HEADER_FILES})
