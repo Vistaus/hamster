@@ -23,11 +23,6 @@ SettingsPopover::SettingsPopover()
     about_btn.property_text().set_value(_("About"));
     quit_btn.property_text().set_value(_("Quit"));
 
-    v_box.set_margin_top(12);
-    v_box.set_margin_right(12);
-    v_box.set_margin_bottom(12);
-    v_box.set_margin_left(12);
-
     v_box.pack_start(pref_btn);
     v_box.pack_start(shortcuts_btn);
     v_box.pack_start(separator);

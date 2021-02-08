@@ -27,14 +27,14 @@ MainWindow::MainWindow()
     header_bar.set_show_close_button(true);
     header_bar.set_title(_("Hamster"));
     header_bar.set_subtitle(_("Clipboard manager"));
-    header_bar.pack_end(settings_btn);
+    header_bar.pack_end(settings_menu_btn);
     set_titlebar(header_bar);
 
     add(layout);
 
     // ABOUT DIALOG
     about_dialog.set_transient_for(*this);
-    settings_btn.settings_popover.about_btn
+    settings_menu_btn.settings_popover.about_btn
             .signal_clicked()
             .connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
     about_dialog
@@ -59,6 +59,6 @@ void MainWindow::close_about_dialog(int response_id)
 {
     if (response_id == Gtk::ResponseType::RESPONSE_DELETE_EVENT)
     {
-        about_dialog.close();
+        about_dialog.hide();
     }
 }

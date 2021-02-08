@@ -31,13 +31,12 @@ struct MainWindow : public Gtk::Window
 
     ~MainWindow() override;
 
-    void show_about_dialog();
-
     Gtk::HeaderBar header_bar;
-    SettingsMenuButton settings_btn;
+    SettingsMenuButton settings_menu_btn;
     Layout layout;
-
     AboutDialog about_dialog;
+
+    void show_about_dialog();
 
     void close_about_dialog(int response_id);
 };
