@@ -28,10 +28,25 @@ MainWindow::MainWindow()
     header_bar.set_title(_("Hamster"));
     header_bar.set_subtitle(_("Clipboard manager"));
     header_bar.pack_end(settings_btn);
-
     set_titlebar(header_bar);
 
     add(layout);
+
+    // About dialog
+    about_dialog.set_transient_for(*this);
+    settings_btn.settings_popover.about_btn
+            .signal_clicked()
+            .connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
+
+    // Preferences window
+
+    // Shortcuts window
 }
 
 MainWindow::~MainWindow() = default;
+
+void MainWindow::show_about_dialog()
+{
+    about_dialog.show();
+    about_dialog.present();
+}

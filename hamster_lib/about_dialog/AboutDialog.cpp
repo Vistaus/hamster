@@ -15,3 +15,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "AboutDialog.h"
+
+AboutDialog::AboutDialog()
+{
+    set_program_name(_("Hamster"));
+    set_comments(_("Clipboard manager"));
+    set_version("1.0.0");
+    set_copyright("Slawek Tuleja");
+    set_license_type(Gtk::LICENSE_GPL_3_0);
+    set_website("https://github.com/slawtul/Hamster");
+    set_website_label("Github");
+}
+
+AboutDialog::~AboutDialog() = default;

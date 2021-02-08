@@ -17,9 +17,14 @@
 #ifndef HAMSTER_ABOUTDIALOG_H
 #define HAMSTER_ABOUTDIALOG_H
 
-struct AboutDialog
-{
+#include <gtkmm-3.0/gtkmm.h>
+#include <glibmm/i18n.h>
 
+struct AboutDialog : public Gtk::AboutDialog
+{
+    AboutDialog();
+
+    ~AboutDialog() override;
 };
 
 #endif //HAMSTER_ABOUTDIALOG_H

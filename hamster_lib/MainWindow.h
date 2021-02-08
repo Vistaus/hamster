@@ -20,8 +20,10 @@
 
 #include <gtkmm-3.0/gtkmm.h>
 #include <glibmm/i18n.h>
-#include "settings_popover/SettingsMenuButton.h"
+
 #include "Layout.h"
+#include "about_dialog/AboutDialog.h"
+#include "settings_popover/SettingsMenuButton.h"
 
 struct MainWindow : public Gtk::Window
 {
@@ -29,9 +31,13 @@ struct MainWindow : public Gtk::Window
 
     ~MainWindow() override;
 
+    void show_about_dialog();
+
     Gtk::HeaderBar header_bar;
     SettingsMenuButton settings_btn;
     Layout layout;
+
+    AboutDialog about_dialog;
 };
 
 #endif //HAMSTER_MAINWINDOW_H
