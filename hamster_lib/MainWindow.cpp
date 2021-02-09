@@ -22,7 +22,7 @@ MainWindow::MainWindow()
     set_border_width(0);
     set_resizable(false);
     set_default_size(360, -1);
-    set_position(Gtk::WindowPosition::WIN_POS_CENTER_ALWAYS);
+    set_position(Gtk::WindowPosition::WIN_POS_NONE);
 
     header_bar.set_show_close_button(true);
     header_bar.set_title(_("Hamster"));

@@ -26,6 +26,9 @@ struct ShortcutsWindow: public Gtk::ShortcutsWindow
 
     ~ShortcutsWindow() override;
 
+    Gtk::ShortcutsSection section;
+    Gtk::ShortcutsGroup app_group;
+    Gtk::ShortcutsShortcut show_hide_app_shortcut;
 };
 
 #endif //HAMSTER_SHORTCUTSWINDOW_H

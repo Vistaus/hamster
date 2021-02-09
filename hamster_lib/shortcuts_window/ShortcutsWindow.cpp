@@ -19,6 +19,19 @@
 ShortcutsWindow::ShortcutsWindow()
 {
     set_title(_("Shortcuts"));
+
+    section.set_name(_("Shortcuts"));
+    section.pack_start(app_group);
+
+    app_group.set_name(_("Application"));
+
+    show_hide_app_shortcut.set_name("sdfsadf");
+    app_group.pack_start(show_hide_app_shortcut);
+
+    app_group.show_all();
+    section.show_all();
+
+    add(section);
 }
 
 ShortcutsWindow::~ShortcutsWindow() = default;

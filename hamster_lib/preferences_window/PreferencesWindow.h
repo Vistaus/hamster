@@ -26,14 +26,17 @@ struct PreferencesWindow : public Gtk::Window
 
     ~PreferencesWindow() override;
 
+    Gtk::HeaderBar header_bar;
     Gtk::VBox v_box;
 
-    Gtk::Frame app_frame;
-    Gtk::Frame items_frame;
-    Gtk::Frame item_group_frame;
+    Gtk::Label app_label;
+    Gtk::Label items_label;
+    Gtk::Label set_size_label;
+    Gtk::Label item_group_label;
 
     Gtk::VBox app_box;
     Gtk::VBox items_box;
+    Gtk::VBox scale_box;
     Gtk::VBox item_group_box;
 
     Gtk::CheckButton run_automatically_check;
@@ -42,7 +45,6 @@ struct PreferencesWindow : public Gtk::Window
 
     Gtk::CheckButton eliminate_spaces_check;
     Gtk::CheckButton clear_list_check;
-    Gtk::Label set_size_label;
     Gtk::Scale item_list_size_scale;
 
     Gtk::Box prefix_box;
