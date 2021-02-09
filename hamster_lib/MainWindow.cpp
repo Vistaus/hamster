@@ -25,7 +25,7 @@ MainWindow::MainWindow()
     set_position(Gtk::WindowPosition::WIN_POS_NONE);
 
     header_bar.set_show_close_button(true);
-    header_bar.set_title(_("Hamster"));
+    header_bar.set_title(_("🐹 Hamster"));
     header_bar.set_subtitle(_("Clipboard manager"));
     header_bar.pack_end(menu_btn);
     set_titlebar(header_bar);
