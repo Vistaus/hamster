@@ -32,12 +32,12 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::Label app_label;
     Gtk::Label items_label;
     Gtk::Label set_size_label;
-    Gtk::Label item_group_label;
+    Gtk::Label item_label;
 
     Gtk::VBox app_box;
     Gtk::VBox items_box;
     Gtk::VBox scale_box;
-    Gtk::VBox item_group_box;
+    Gtk::VBox item_box;
 
     Gtk::CheckButton run_automatically_check;
     Gtk::CheckButton always_on_top_check;

@@ -57,7 +57,7 @@ ShortcutsWindow::ShortcutsWindow()
     delete_item_shortcut.set_halign(Gtk::ALIGN_START);
     select_items_shortcut.set_markup(_("Select items <b>SHIFT+&#8593;</b> or <b>SHIFT+&#8595;</b>"));
     select_items_shortcut.set_halign(Gtk::ALIGN_START);
-    group_items_shortcut.set_markup(_("Show popover to group selected items <b>G</b>"));
+    group_items_shortcut.set_markup(_("Set item prefix or suffix before pasting <b>G</b>"));
     group_items_shortcut.set_halign(Gtk::ALIGN_START);
 
     items_box.pack_start(paste_item_shortcut);
