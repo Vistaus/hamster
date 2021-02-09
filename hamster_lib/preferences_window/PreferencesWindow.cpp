@@ -79,16 +79,16 @@ PreferencesWindow::PreferencesWindow()
     scale_box.show_all();
 
     // ITEM GROUP PREFERENCES
-    item_group_label.set_markup(_("<b>Text item group</b>"));
-    item_group_label.set_halign(Gtk::ALIGN_START);
+    item_label.set_markup(_("<b>Text item</b>"));
+    item_label.set_halign(Gtk::ALIGN_START);
     item_prefix.set_margin_bottom(6);
     item_prefix.set_margin_left(12);
     item_prefix.set_placeholder_text(_("empty"));
 
-    item_group_box.set_margin_top(12);
-    item_group_box.set_margin_left(12);
-    item_group_box.set_margin_right(12);
-    item_group_box.set_margin_bottom(12);
+    item_box.set_margin_top(12);
+    item_box.set_margin_left(12);
+    item_box.set_margin_right(12);
+    item_box.set_margin_bottom(12);
 
     prefix_label.set_label(_("Prefix:"));
     suffix_label.set_label(_("Suffix:"));
@@ -105,9 +105,9 @@ PreferencesWindow::PreferencesWindow()
     suffix_box.pack_start(item_suffix);
     suffix_box.show_all();
 
-    item_group_box.pack_start(prefix_box);
-    item_group_box.pack_start(suffix_box);
-    item_group_box.show_all();
+    item_box.pack_start(prefix_box);
+    item_box.pack_start(suffix_box);
+    item_box.show_all();
 
     // MAIN BOX
     v_box.set_margin_top(12);
@@ -121,8 +121,8 @@ PreferencesWindow::PreferencesWindow()
     v_box.pack_start(items_box);
     v_box.pack_start(set_size_label);
     v_box.pack_start(scale_box);
-    v_box.pack_start(item_group_label);
-    v_box.pack_start(item_group_box);
+    v_box.pack_start(item_label);
+    v_box.pack_start(item_box);
 
     v_box.show_all();
 
