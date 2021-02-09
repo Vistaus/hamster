@@ -19,19 +19,67 @@
 ShortcutsWindow::ShortcutsWindow()
 {
     set_title(_("Shortcuts"));
+    set_default_size(420, -1);
+    set_resizable(false);
+    set_decorated(false);
+    set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    header_bar.set_show_close_button(true);
+    header_bar.set_has_subtitle(false);
 
-    section.set_name(_("Shortcuts"));
-    section.pack_start(app_group);
+    // APPLICATION SHORTCUTS
+    app_label.set_markup(_("<b>Application</b>"));
+    app_label.set_halign(Gtk::ALIGN_START);
+    app_box.set_margin_top(12);
+    app_box.set_margin_right(12);
+    app_box.set_margin_bottom(12);
+    app_box.set_margin_left(12);
+    show_app_shortcut.set_markup(_("Show application window <b>CTRL+ALT+V</b>"));
+    show_app_shortcut.set_halign(Gtk::ALIGN_START);
+    show_settings_shortcut.set_markup(_("Open settings menu <b>ALT+S</b>"));
+    show_settings_shortcut.set_halign(Gtk::ALIGN_START);
+    quit_app_shortcut.set_markup(_("Quit application <b>ALT+Q</b>"));
+    quit_app_shortcut.set_halign(Gtk::ALIGN_START);
+    app_box.pack_start(show_app_shortcut);
+    app_box.pack_start(show_settings_shortcut);
+    app_box.pack_start(quit_app_shortcut);
+    app_box.show_all();
 
-    app_group.set_name(_("Application"));
+    // ITEMS SHORTCUTS
+    items_label.set_markup(_("<b>Text items</b>"));
+    items_label.set_halign(Gtk::ALIGN_START);
+    items_box.set_margin_top(12);
+    items_box.set_margin_right(12);
+    items_box.set_margin_bottom(12);
+    items_box.set_margin_left(12);
+    paste_item_shortcut.set_markup(_("Paste item <b>ENTER</b>"));
+    paste_item_shortcut.set_halign(Gtk::ALIGN_START);
+    delete_item_shortcut.set_markup(_("Remove item <b>DEL</b>"));
+    delete_item_shortcut.set_halign(Gtk::ALIGN_START);
+    select_items_shortcut.set_markup(_("Select items <b>SHIFT+&#8593;</b> or <b>SHIFT+&#8595;</b>"));
+    select_items_shortcut.set_halign(Gtk::ALIGN_START);
+    group_items_shortcut.set_markup(_("Show popover to group selected items <b>G</b>"));
+    group_items_shortcut.set_halign(Gtk::ALIGN_START);
 
-    show_hide_app_shortcut.set_name("sdfsadf");
-    app_group.pack_start(show_hide_app_shortcut);
+    items_box.pack_start(paste_item_shortcut);
+    items_box.pack_start(select_items_shortcut);
+    items_box.pack_start(group_items_shortcut);
+    items_box.pack_start(delete_item_shortcut);
+    items_box.show_all();
 
-    app_group.show_all();
-    section.show_all();
+    // MAIN BOX
+    v_box.set_margin_top(12);
+    v_box.set_margin_right(12);
+    v_box.set_margin_bottom(12);
+    v_box.set_margin_left(12);
+    v_box.pack_start(header_bar);
+    v_box.pack_start(app_label);
+    v_box.pack_start(app_box);
+    v_box.pack_start(items_label);
+    v_box.pack_start(items_box);
 
-    add(section);
+    v_box.show_all();
+
+    add(v_box);
 }
 
 ShortcutsWindow::~ShortcutsWindow() = default;
