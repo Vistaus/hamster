@@ -31,8 +31,6 @@ struct MainWindow : public Gtk::Window
 {
     MainWindow();
 
-    ~MainWindow() override;
-
     Gtk::HeaderBar header_bar;
     SettingsMenuButton menu_btn;
     WindowLayout layout;
@@ -41,15 +39,10 @@ struct MainWindow : public Gtk::Window
     PreferencesWindow preferences_window;
 
     void show_about_dialog();
-
     void show_shortcuts_window();
-
     void show_preferences_window();
-
     void hide_about_dialog(int response_id);
-
     void hide_shortcuts_window();
-
     void close_app();
 };
 

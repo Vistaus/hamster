@@ -24,8 +24,6 @@ struct SettingsMenuButton : public Gtk::MenuButton
 {
     SettingsMenuButton();
 
-    ~SettingsMenuButton() override;
-
     Gtk::Image btn_icon;
     SettingsPopover settings_popover;
 };

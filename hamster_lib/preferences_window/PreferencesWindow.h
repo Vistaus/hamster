@@ -24,8 +24,6 @@ struct PreferencesWindow : public Gtk::Window
 {
     PreferencesWindow();
 
-    ~PreferencesWindow() override;
-
     Gtk::HeaderBar header_bar;
     Gtk::VBox v_box;
 

@@ -39,4 +39,3 @@ SettingsPopover::SettingsPopover()
     add(v_box);
 }
 
-SettingsPopover::~SettingsPopover() = default;

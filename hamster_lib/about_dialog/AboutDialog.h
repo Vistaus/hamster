@@ -23,8 +23,6 @@
 struct AboutDialog : public Gtk::AboutDialog
 {
     AboutDialog();
-
-    ~AboutDialog() override;
 };
 
 #endif //HAMSTER_ABOUTDIALOG_H

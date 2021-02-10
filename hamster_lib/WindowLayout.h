@@ -25,8 +25,6 @@ struct WindowLayout : public Gtk::VBox
 {
     WindowLayout();
 
-    ~WindowLayout() override;
-
     Gtk::SearchEntry searchEntry;
     Gtk::ScrolledWindow scrolledWindow;
     Gtk::ListViewText listViewText;
@@ -34,11 +32,8 @@ struct WindowLayout : public Gtk::VBox
     Gtk::Separator separator;
 
     void on_items_select();
-
     void on_selection(const Gtk::SelectionData &selection_data, guint time);
-
     bool on_focus(Gtk::DirectionType direction);
-
     void on_search_change();
 };
 

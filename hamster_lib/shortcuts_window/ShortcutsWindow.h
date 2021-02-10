@@ -23,7 +23,6 @@
 struct ShortcutsWindow : public Gtk::Window
 {
     ShortcutsWindow();
-    ~ShortcutsWindow() override;
 
     Gtk::ShortcutsSection section;
     Gtk::ShortcutsGroup app_group;
