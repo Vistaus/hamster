@@ -28,3 +28,12 @@ Text item group
 - [ ] Default prefix (empty entry)
 - [ ] Default suffix ('\n' entry)
 
+
+## How to build
+
+```bash
+cd hamster
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
+```

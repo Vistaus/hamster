@@ -23,22 +23,21 @@
 struct ShortcutsWindow : public Gtk::Window
 {
     ShortcutsWindow();
-
     ~ShortcutsWindow() override;
 
-    Gtk::Label app_label;
-    Gtk::Label items_label;
-    Gtk::VBox app_box;
-    Gtk::Label show_app_shortcut;
-    Gtk::Label show_settings_shortcut;
-    Gtk::Label quit_app_shortcut;
+    Gtk::ShortcutsSection section;
+    Gtk::ShortcutsGroup app_group;
+    Gtk::ShortcutsGroup items_group;
 
-    Gtk::Label paste_item_shortcut;
-    Gtk::Label select_items_shortcut;
-    Gtk::Label group_items_shortcut;
-    Gtk::Label delete_item_shortcut;
+    Gtk::ShortcutsShortcut show_app_shortcut;
+    Gtk::ShortcutsShortcut show_settings_shortcut;
+    Gtk::ShortcutsShortcut quit_app_shortcut;
 
-    Gtk::VBox items_box;
+    Gtk::ShortcutsShortcut paste_item_shortcut;
+    Gtk::ShortcutsShortcut select_items_shortcut;
+    Gtk::ShortcutsShortcut item_prefix_suffix_shortcut;
+    Gtk::ShortcutsShortcut letter_case_shortcut;
+    Gtk::ShortcutsShortcut delete_item_shortcut;
 
     Gtk::VBox v_box;
     Gtk::HeaderBar header_bar;
