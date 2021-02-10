@@ -27,4 +27,3 @@ AboutDialog::AboutDialog()
     set_website_label("https://github.com/slawtul/Hamster");
 }
 
-AboutDialog::~AboutDialog() = default;

@@ -50,8 +50,6 @@ WindowLayout::WindowLayout() : listViewText(1, false, Gtk::SELECTION_MULTIPLE), 
     button.signal_focus().connect(sigc::mem_fun(*this, &WindowLayout::on_focus));
 }
 
-WindowLayout::~WindowLayout() = default;
-
 void WindowLayout::on_search_change()
 {
     g_print("%s", searchEntry.get_text().c_str());
@@ -82,5 +80,5 @@ void WindowLayout::on_items_select()
         g_print("%d", item_idx);
         g_print("\n");
     }
-
 }
+

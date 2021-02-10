@@ -132,4 +132,3 @@ PreferencesWindow::PreferencesWindow()
     add(v_box);
 }
 
-PreferencesWindow::~PreferencesWindow() = default;

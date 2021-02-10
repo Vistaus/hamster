@@ -60,8 +60,6 @@ MainWindow::MainWindow()
             .connect(sigc::mem_fun(*this, &MainWindow::close_app));
 }
 
-MainWindow::~MainWindow() = default;
-
 void MainWindow::show_about_dialog()
 {
     about_dialog.show_all();

@@ -24,8 +24,6 @@ struct SettingsPopover : public Gtk::PopoverMenu
 {
     SettingsPopover();
 
-    ~SettingsPopover() override;
-
     Gtk::VBox v_box;
     Gtk::Separator separator;
     Gtk::ModelButton pref_btn;

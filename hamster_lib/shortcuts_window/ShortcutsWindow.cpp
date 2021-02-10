@@ -88,5 +88,3 @@ ShortcutsWindow::ShortcutsWindow()
     add(v_box);
 }
 
-ShortcutsWindow::~ShortcutsWindow() = default;
-

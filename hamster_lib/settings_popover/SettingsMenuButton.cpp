@@ -23,4 +23,3 @@ SettingsMenuButton::SettingsMenuButton()
     set_popover(settings_popover);
 }
 
-SettingsMenuButton::~SettingsMenuButton() = default;
