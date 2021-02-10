@@ -30,15 +30,15 @@ ShortcutsWindow::ShortcutsWindow()
     section.property_visible().set_value(true);
 
     // APPLICATION SHORTCUTS
-    show_app_shortcut.property_title().set_value("Show application window");
+    show_app_shortcut.property_title().set_value(_("Show application window"));
     show_app_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     show_app_shortcut.property_accelerator().set_value("<Ctrl><Alt>V");
 
-    show_settings_shortcut.property_title().set_value("Open settings menu");
+    show_settings_shortcut.property_title().set_value(_("Open settings menu"));
     show_settings_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     show_settings_shortcut.property_accelerator().set_value("<Alt>S");
 
-    quit_app_shortcut.property_title().set_value("Quit application");
+    quit_app_shortcut.property_title().set_value(_("Quit application"));
     quit_app_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     quit_app_shortcut.property_accelerator().set_value("<Alt>Q");
 
@@ -46,27 +46,27 @@ ShortcutsWindow::ShortcutsWindow()
     app_group.add(show_settings_shortcut);
     app_group.add(quit_app_shortcut);
 
-    app_group.property_title().set_value("Application");
+    app_group.property_title().set_value(_("Application"));
     section.add(app_group);
 
     // TEXT ITEMS SHORTCUTS
-    paste_item_shortcut.property_title().set_value("Paste item");
+    paste_item_shortcut.property_title().set_value(_("Paste item"));
     paste_item_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     paste_item_shortcut.property_accelerator().set_value("Return");
 
-    select_items_shortcut.property_title().set_value("Select items");
+    select_items_shortcut.property_title().set_value(_("Select items"));
     select_items_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     select_items_shortcut.property_accelerator().set_value("<Shift>Up Down");
 
-    item_prefix_suffix_shortcut.property_title().set_value("Set item prefix or suffix before pasting");
+    item_prefix_suffix_shortcut.property_title().set_value(_("Set item prefix or suffix before pasting"));
     item_prefix_suffix_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     item_prefix_suffix_shortcut.property_accelerator().set_value("G");
 
-    letter_case_shortcut.property_title().set_value("Change letter case");
+    letter_case_shortcut.property_title().set_value(_("Change letter case"));
     letter_case_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     letter_case_shortcut.property_accelerator().set_value("L");
 
-    delete_item_shortcut.property_title().set_value("Delete item");
+    delete_item_shortcut.property_title().set_value(_("Delete item"));
     delete_item_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     delete_item_shortcut.property_accelerator().set_value("Delete");
 
@@ -76,7 +76,7 @@ ShortcutsWindow::ShortcutsWindow()
     items_group.add(letter_case_shortcut);
     items_group.add(delete_item_shortcut);
 
-    items_group.property_title().set_value("Text items");
+    items_group.property_title().set_value(_("Text items"));
     section.add(items_group);
 
     // MAIN BOX
