@@ -19,12 +19,13 @@
 PreferencesWindow::PreferencesWindow()
 {
     set_title(_("Preferences"));
-    set_default_size(420, -1);
+    set_default_size(440, -1);
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     header_bar.set_show_close_button(true);
     header_bar.set_has_subtitle(false);
+    header_bar.set_margin_bottom(20);
 
     // TODO: add 'escape' key handling for preferences window
 
@@ -39,6 +40,7 @@ PreferencesWindow::PreferencesWindow()
     app_box.set_margin_right(12);
     app_box.set_margin_bottom(12);
     app_box.set_margin_left(12);
+    app_box.set_spacing(4);
     app_box.pack_start(run_automatically_check);
     app_box.pack_start(always_on_top_check);
     app_box.pack_start(on_mouse_position_check);
@@ -54,6 +56,7 @@ PreferencesWindow::PreferencesWindow()
     items_box.set_margin_left(12);
     items_box.set_margin_right(12);
     items_box.set_margin_bottom(12);
+    items_box.set_spacing(4);
     items_box.pack_start(eliminate_spaces_check);
     items_box.pack_start(clear_list_check);
     items_box.show_all();
@@ -72,13 +75,13 @@ PreferencesWindow::PreferencesWindow()
     set_size_label.set_halign(Gtk::ALIGN_START);
 
     scale_box.set_margin_top(12);
-    scale_box.set_margin_left(12);
+    scale_box.set_margin_left(0);
     scale_box.set_margin_right(12);
     scale_box.set_margin_bottom(12);
     scale_box.pack_start(item_list_size_scale);
     scale_box.show_all();
 
-    // ITEM GROUP PREFERENCES
+    // ITEM PREFERENCES
     item_label.set_markup(_("<b>Text item</b>"));
     item_label.set_halign(Gtk::ALIGN_START);
     item_prefix.set_margin_bottom(6);
@@ -113,7 +116,7 @@ PreferencesWindow::PreferencesWindow()
     v_box.set_margin_top(12);
     v_box.set_margin_right(12);
     v_box.set_margin_bottom(12);
-    v_box.set_margin_left(12);
+    v_box.set_margin_left(24);
     v_box.pack_start(header_bar);
     v_box.pack_start(app_label);
     v_box.pack_start(app_box);

@@ -24,6 +24,7 @@
 struct WindowLayout : public Gtk::VBox
 {
     WindowLayout();
+
     ~WindowLayout() override;
 
     Gtk::SearchEntry searchEntry;

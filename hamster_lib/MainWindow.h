@@ -27,7 +27,6 @@
 #include "shortcuts_window/ShortcutsWindow.h"
 #include "preferences_window/PreferencesWindow.h"
 
-
 struct MainWindow : public Gtk::Window
 {
     MainWindow();
