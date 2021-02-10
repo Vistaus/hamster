@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef HAMSTER_SETTINGSPOPOVER_H
 #define HAMSTER_SETTINGSPOPOVER_H
 
