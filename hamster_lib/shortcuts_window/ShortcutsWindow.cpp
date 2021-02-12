@@ -82,6 +82,8 @@ ShortcutsWindow::ShortcutsWindow()
     // MAIN BOX
     v_box.set_margin_top(12);
     v_box.set_margin_right(12);
+    v_box.set_margin_left(12);
+
     v_box.pack_start(header_bar);
     v_box.pack_start(section);
     v_box.show_all();
