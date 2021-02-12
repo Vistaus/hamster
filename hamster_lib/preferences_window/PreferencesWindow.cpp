@@ -76,7 +76,7 @@ PreferencesWindow::PreferencesWindow()
     set_size_label.set_halign(Gtk::ALIGN_START);
 
     scale_box.set_margin_top(12);
-    scale_box.set_margin_left(0);
+    scale_box.set_margin_left(12);
     scale_box.set_margin_right(12);
     scale_box.set_margin_bottom(12);
     scale_box.pack_start(item_list_size_scale);
@@ -117,7 +117,7 @@ PreferencesWindow::PreferencesWindow()
     v_box.set_margin_top(12);
     v_box.set_margin_right(12);
     v_box.set_margin_bottom(12);
-    v_box.set_margin_left(24);
+    v_box.set_margin_left(12);
     v_box.pack_start(header_bar);
     v_box.pack_start(app_label);
     v_box.pack_start(app_box);
