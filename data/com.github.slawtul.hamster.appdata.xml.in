@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2021 Slawek Tuleja <slawek.tuleja@gmail.com> -->
+<component type="desktop-application">
+    <id>com.github.slawtul.hamster</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0+</project_license>
+    <name>Hamster</name>
+    <summary>Clipboard manager</summary>
+    <description>
+        <p></p>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </description>
+    <provides>
+        <binary>com.github.slawtul.hamster</binary>
+    </provides>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/slawtul/hamster/main/data/screenshot.png</image>
+        </screenshot>
+    </screenshots>
+    <developer_name>Slawek Tuleja</developer_name>
+    <url type="homepage">https://github.com/slawtul/hamster</url>
+    <url type="bugtracker">https://github.com/slawtul/hamster/issues</url>
+    <custom>
+        <value key="x-appcenter-color-primary">rgb(234, 255, 198)</value>
+        <value key="x-appcenter-color-primary-text">rgb(23, 107, 0)</value>
+    </custom>
+    <releases>
+      <release version="1.0.0" date="2021-02-01">
+        <description>
+          <ul>
+            <li></li>
+          </ul>
+        </description>
+      </release>
+    </releases>
+</component>

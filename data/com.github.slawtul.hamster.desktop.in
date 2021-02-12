@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Hamster
+Comment=Clipboard manager
+GenericName=Hamster
+TryExec=com.github.slawtul.hamster
+Exec=com.github.slawtul.hamster
+Icon=com.github.slawtul.hamster
+Terminal=false
+Categories=GTK;Utility;
+Keywords=Hamster;Clipboard;Clipboard Manager;
