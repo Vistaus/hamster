@@ -32,6 +32,7 @@ PreferencesWindow::PreferencesWindow()
     app_label.set_markup(_("<b>Application</b>"));
     app_label.set_halign(Gtk::ALIGN_START);
     run_automatically_check.set_label(_("Run automatically on system startup"));
+    run_automatically_check.set_active(true);
     always_on_top_check.set_label(_("Always on top"));
     on_mouse_position_check.set_label(_("Place at the current mouse position"));
 
@@ -49,6 +50,7 @@ PreferencesWindow::PreferencesWindow()
     items_label.set_halign(Gtk::ALIGN_START);
     items_label.set_margin_top(24);
     eliminate_spaces_check.set_label(_("Eliminate leading and trailing spaces"));
+    eliminate_spaces_check.set_active(true);
     clear_list_check.set_label(_("Clear list on quit"));
 
     items_box.set_margin_left(12);
