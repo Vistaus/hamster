@@ -40,6 +40,7 @@ struct ShortcutsWindow : public Gtk::Window
     Gtk::ShortcutsShortcut delete_item_shortcut;
 
     Gtk::VBox v_box;
+    Gtk::VBox header_box;
     Gtk::HeaderBar header_bar;
 };
 

@@ -28,8 +28,6 @@ PreferencesWindow::PreferencesWindow()
     header_bar.set_has_subtitle(false);
     header_bar.set_margin_bottom(20);
 
-    // TODO: add 'escape' key handling for preferences window
-
     // APPLICATION PREFERENCES
     app_label.set_markup(_("<b>Application</b>"));
     app_label.set_halign(Gtk::ALIGN_START);
@@ -37,11 +35,10 @@ PreferencesWindow::PreferencesWindow()
     always_on_top_check.set_label(_("Always on top"));
     on_mouse_position_check.set_label(_("Place at the current mouse position"));
 
-    app_box.set_margin_top(12);
-    app_box.set_margin_right(12);
-    app_box.set_margin_bottom(12);
     app_box.set_margin_left(12);
-    app_box.set_spacing(4);
+    app_box.set_margin_right(12);
+    app_box.set_spacing(6);
+    app_box.pack_start(app_label);
     app_box.pack_start(run_automatically_check);
     app_box.pack_start(always_on_top_check);
     app_box.pack_start(on_mouse_position_check);
@@ -50,14 +47,14 @@ PreferencesWindow::PreferencesWindow()
     // ITEMS PREFERENCES
     items_label.set_markup(_("<b>Text items</b>"));
     items_label.set_halign(Gtk::ALIGN_START);
+    items_label.set_margin_top(24);
     eliminate_spaces_check.set_label(_("Eliminate leading and trailing spaces"));
     clear_list_check.set_label(_("Clear list on quit"));
 
-    items_box.set_margin_top(12);
     items_box.set_margin_left(12);
     items_box.set_margin_right(12);
-    items_box.set_margin_bottom(12);
-    items_box.set_spacing(4);
+    items_box.set_spacing(6);
+    items_box.pack_start(items_label);
     items_box.pack_start(eliminate_spaces_check);
     items_box.pack_start(clear_list_check);
     items_box.show_all();
@@ -74,25 +71,21 @@ PreferencesWindow::PreferencesWindow()
 
     set_size_label.set_markup(_("<b>Item list size</b>"));
     set_size_label.set_halign(Gtk::ALIGN_START);
-
-    scale_box.set_margin_top(12);
+    set_size_label.set_margin_top(24);
     scale_box.set_margin_left(12);
     scale_box.set_margin_right(12);
-    scale_box.set_margin_bottom(12);
+    scale_box.pack_start(set_size_label);
     scale_box.pack_start(item_list_size_scale);
     scale_box.show_all();
 
     // ITEM PREFERENCES
     item_label.set_markup(_("<b>Text item</b>"));
     item_label.set_halign(Gtk::ALIGN_START);
+    item_label.set_margin_top(24);
+    item_label.set_margin_bottom(6);
     item_prefix.set_margin_bottom(6);
     item_prefix.set_margin_left(12);
     item_prefix.set_placeholder_text(_("empty"));
-
-    item_box.set_margin_top(12);
-    item_box.set_margin_left(12);
-    item_box.set_margin_right(12);
-    item_box.set_margin_bottom(12);
 
     prefix_label.set_label(_("Prefix:"));
     suffix_label.set_label(_("Suffix:"));
@@ -109,6 +102,9 @@ PreferencesWindow::PreferencesWindow()
     suffix_box.pack_start(item_suffix);
     suffix_box.show_all();
 
+    item_box.set_margin_left(12);
+    item_box.set_margin_right(12);
+    item_box.pack_start(item_label);
     item_box.pack_start(prefix_box);
     item_box.pack_start(suffix_box);
     item_box.show_all();
@@ -116,16 +112,12 @@ PreferencesWindow::PreferencesWindow()
     // MAIN BOX
     v_box.set_margin_top(12);
     v_box.set_margin_right(12);
-    v_box.set_margin_bottom(12);
+    v_box.set_margin_bottom(24);
     v_box.set_margin_left(12);
     v_box.pack_start(header_bar);
-    v_box.pack_start(app_label);
     v_box.pack_start(app_box);
-    v_box.pack_start(items_label);
     v_box.pack_start(items_box);
-    v_box.pack_start(set_size_label);
     v_box.pack_start(scale_box);
-    v_box.pack_start(item_label);
     v_box.pack_start(item_box);
 
     v_box.show_all();
