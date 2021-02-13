@@ -58,13 +58,13 @@ ShortcutsWindow::ShortcutsWindow()
     select_items_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     select_items_shortcut.property_accelerator().set_value("<Shift>Up Down");
 
-    item_prefix_suffix_shortcut.property_title().set_value(_("Set item prefix or suffix before pasting"));
+    item_prefix_suffix_shortcut.property_title().set_value(_("Set item prefix and suffix before pasting"));
     item_prefix_suffix_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     item_prefix_suffix_shortcut.property_accelerator().set_value("<Shift>Return");
 
     letter_case_shortcut.property_title().set_value(_("Change letter case"));
     letter_case_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    letter_case_shortcut.property_accelerator().set_value("L");
+    letter_case_shortcut.property_accelerator().set_value("<Alt>L");
 
     delete_item_shortcut.property_title().set_value(_("Delete item"));
     delete_item_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
