@@ -35,28 +35,28 @@ MainWindow::MainWindow()
     // ABOUT DIALOG
     about_dialog.set_transient_for(*this);
     menu_btn.settings_popover.about_btn
-      .signal_clicked()
-      .connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
+        .signal_clicked()
+        .connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
     about_dialog
-      .signal_response()
-      .connect(sigc::mem_fun(*this, &MainWindow::hide_about_dialog));
+        .signal_response()
+        .connect(sigc::mem_fun(*this, &MainWindow::hide_about_dialog));
 
     // PREFERENCES WINDOW
     preferences_window.set_transient_for(*this);
     menu_btn.settings_popover.pref_btn
-      .signal_clicked()
-      .connect(sigc::mem_fun(*this, &MainWindow::show_preferences_window));
+        .signal_clicked()
+        .connect(sigc::mem_fun(*this, &MainWindow::show_preferences_window));
 
     // SHORTCUTS WINDOW
     shortcuts_window.set_transient_for(*this);
     menu_btn.settings_popover.shortcuts_btn
-      .signal_clicked()
-      .connect(sigc::mem_fun(*this, &MainWindow::show_shortcuts_window));
+        .signal_clicked()
+        .connect(sigc::mem_fun(*this, &MainWindow::show_shortcuts_window));
 
     // QUIT APP
     menu_btn.settings_popover.quit_btn
-      .signal_clicked()
-      .connect(sigc::mem_fun(*this, &MainWindow::close_app));
+        .signal_clicked()
+        .connect(sigc::mem_fun(*this, &MainWindow::close_app));
 }
 
 void MainWindow::show_about_dialog()
