@@ -32,7 +32,9 @@ MainWindow::MainWindow()
 
     add(layout);
 
+    //
     // ABOUT DIALOG
+    //
     about_dialog.set_transient_for(*this);
     menu_btn.settings_popover.about_btn
         .signal_clicked()
@@ -41,19 +43,25 @@ MainWindow::MainWindow()
         .signal_response()
         .connect(sigc::mem_fun(*this, &MainWindow::hide_about_dialog));
 
+    //
     // PREFERENCES WINDOW
+    //
     preferences_window.set_transient_for(*this);
     menu_btn.settings_popover.pref_btn
         .signal_clicked()
         .connect(sigc::mem_fun(*this, &MainWindow::show_preferences_window));
 
+    //
     // SHORTCUTS WINDOW
+    //
     shortcuts_window.set_transient_for(*this);
     menu_btn.settings_popover.shortcuts_btn
         .signal_clicked()
         .connect(sigc::mem_fun(*this, &MainWindow::show_shortcuts_window));
 
+    //
     // QUIT APP
+    //
     menu_btn.settings_popover.quit_btn
         .signal_clicked()
         .connect(sigc::mem_fun(*this, &MainWindow::close_app));
