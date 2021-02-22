@@ -20,10 +20,10 @@
 WindowLayout::WindowLayout() : item_list(1, false, Gtk::SELECTION_MULTIPLE)
 {
     search_entry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowLayout::on_search_change));
-    search_entry.set_margin_top(6);
-    search_entry.set_margin_right(6);
-    search_entry.set_margin_bottom(6);
-    search_entry.set_margin_left(6);
+    search_entry.set_margin_top(4);
+    search_entry.set_margin_right(4);
+    search_entry.set_margin_bottom(4);
+    search_entry.set_margin_left(4);
 
     pack_start(search_entry);
     pack_start(separator);
