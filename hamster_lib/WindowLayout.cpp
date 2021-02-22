@@ -32,11 +32,19 @@ WindowLayout::WindowLayout() : item_list(1, false, Gtk::SELECTION_MULTIPLE)
     scrolled_win.set_size_request(-1, 640);
     scrolled_win.add(item_list);
 
+    item_store = Gtk::ListStore::create(columns);
+    item_list.set_model(item_store);
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
+
+    auto row = *(item_store->append());
+    row[columns.col_name] = "This program is free software: you can redistribute it and/or ...";
+    auto row1 = *(item_store->append());
+    row1[columns.col_name] = "This program is free softwarey";
 }
 
 void WindowLayout::on_search_change()
 {
     g_print("%s\n", search_entry.get_text().c_str());
 }
+

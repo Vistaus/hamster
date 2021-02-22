@@ -27,8 +27,20 @@ struct WindowLayout : public Gtk::VBox
 
     Gtk::SearchEntry search_entry;
     Gtk::ScrolledWindow scrolled_win;
-    Gtk::ListViewText item_list;
     Gtk::Separator separator;
+
+    Gtk::ListViewText item_list;
+
+    struct ModelColumns : public Gtk::TreeModel::ColumnRecord
+    {
+        Gtk::TreeModelColumn<Glib::ustring> col_name;
+        ModelColumns() {
+            add(col_name);
+        }
+    };
+
+    ModelColumns columns;
+    Glib::RefPtr<Gtk::ListStore> item_store;
 
     void on_search_change();
 };
