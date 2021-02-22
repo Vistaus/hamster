@@ -17,68 +17,26 @@
 
 #include "WindowLayout.h"
 
-WindowLayout::WindowLayout() : listViewText(1, false, Gtk::SELECTION_MULTIPLE), button("OK")
+WindowLayout::WindowLayout() : item_list(1, false, Gtk::SELECTION_MULTIPLE)
 {
-    searchEntry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowLayout::on_search_change));
-    searchEntry.set_margin_top(6);
-    searchEntry.set_margin_right(6);
-    searchEntry.set_margin_bottom(6);
-    searchEntry.set_margin_left(6);
+    search_entry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowLayout::on_search_change));
+    search_entry.set_margin_top(6);
+    search_entry.set_margin_right(6);
+    search_entry.set_margin_bottom(6);
+    search_entry.set_margin_left(6);
 
-    pack_start(searchEntry);
+    pack_start(search_entry);
     pack_start(separator);
-    pack_start(scrolledWindow);
-    //pack_start(button);
+    pack_start(scrolled_win);
 
-    button.signal_clicked().connect(sigc::mem_fun(*this, &WindowLayout::on_items_select));
+    scrolled_win.set_size_request(-1, 640);
+    scrolled_win.add(item_list);
 
-    scrolledWindow.set_size_request(-1, 640);
-    scrolledWindow.add(listViewText);
-
-    listViewText.set_column_title(0, "");
-    listViewText.set_headers_visible(false);
-    listViewText.set_enable_search(false);
-    listViewText.prepend("...");
-    listViewText.prepend("Hello world of C++!");
-
-    Glib::ustring str = "Gkt3 rules! gtkmm and c++ and clion, and much more...";
-    str = str.substr(0, 38).append("...");
-
-    listViewText.prepend(str);
-    listViewText.prepend("Welcome to Hamster");
-    listViewText.signal_selection_received().connect(sigc::mem_fun(*this, &WindowLayout::on_selection));
-    button.signal_focus().connect(sigc::mem_fun(*this, &WindowLayout::on_focus));
+    item_list.set_headers_visible(false);
+    item_list.set_enable_search(false);
 }
 
 void WindowLayout::on_search_change()
 {
-    g_print("%s", searchEntry.get_text().c_str());
+    g_print("%s\n", search_entry.get_text().c_str());
 }
-
-void WindowLayout::on_selection(const Gtk::SelectionData &selection_data, guint time)
-{
-    g_print("on selection");
-    g_print("_");
-}
-
-bool WindowLayout::on_focus(Gtk::DirectionType direction)
-{
-    g_print("%d", direction);
-    g_print("on focus");
-    return false;
-}
-
-void WindowLayout::on_items_select()
-{
-//    for (int item_idx : listViewText.get_selected()) {
-//        std::cout << "items selected: " << item_idx << "\n";
-//    }
-    g_print("%s", searchEntry.get_text().c_str());
-
-    for (int item_idx : listViewText.get_selected())
-    {
-        g_print("%d", item_idx);
-        g_print("\n");
-    }
-}
-

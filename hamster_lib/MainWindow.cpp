@@ -47,7 +47,6 @@ MainWindow::MainWindow()
             .signal_clicked()
             .connect(sigc::mem_fun(*this, &MainWindow::show_preferences_window));
 
-
     // SHORTCUTS WINDOW
     shortcuts_window.set_transient_for(*this);
     menu_btn.settings_popover.shortcuts_btn
