@@ -25,15 +25,11 @@ struct WindowLayout : public Gtk::VBox
 {
     WindowLayout();
 
-    Gtk::SearchEntry searchEntry;
-    Gtk::ScrolledWindow scrolledWindow;
-    Gtk::ListViewText listViewText;
-    Gtk::Button button;
+    Gtk::SearchEntry search_entry;
+    Gtk::ScrolledWindow scrolled_win;
+    Gtk::ListViewText item_list;
     Gtk::Separator separator;
 
-    void on_items_select();
-    void on_selection(const Gtk::SelectionData &selection_data, guint time);
-    bool on_focus(Gtk::DirectionType direction);
     void on_search_change();
 };
 
