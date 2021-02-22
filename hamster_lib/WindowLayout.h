@@ -24,8 +24,9 @@
 struct ModelColumns : public Gtk::TreeModel::ColumnRecord
 {
     Gtk::TreeModelColumn<Glib::ustring> col_name;
-    
-    ModelColumns() {
+
+    ModelColumns()
+    {
         add(col_name);
     }
 };
@@ -38,9 +39,8 @@ struct WindowLayout : public Gtk::VBox
     Gtk::ScrolledWindow scrolled_win;
     Gtk::Separator separator;
 
-    Gtk::ListViewText item_list;
-
     ModelColumns columns;
+    Gtk::ListViewText item_list;
     Glib::RefPtr<Gtk::ListStore> item_store;
 
     void on_search_change();
