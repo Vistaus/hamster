@@ -31,6 +31,7 @@ PreferencesWindow::PreferencesWindow()
     // APPLICATION PREFERENCES
     app_label.set_markup(_("<b>Application</b>"));
     app_label.set_halign(Gtk::ALIGN_START);
+    app_label.set_margin_bottom(6);
     run_automatically_check.set_label(_("Run automatically on system startup"));
     run_automatically_check.set_active(true);
     always_on_top_check.set_label(_("Always on top"));
@@ -39,7 +40,6 @@ PreferencesWindow::PreferencesWindow()
     app_box.set_margin_left(12);
     app_box.set_margin_right(12);
     app_box.set_spacing(6);
-    app_box.pack_start(app_label);
     app_box.pack_start(run_automatically_check);
     app_box.pack_start(always_on_top_check);
     app_box.pack_start(on_mouse_position_check);
@@ -49,6 +49,7 @@ PreferencesWindow::PreferencesWindow()
     items_label.set_markup(_("<b>Text items</b>"));
     items_label.set_halign(Gtk::ALIGN_START);
     items_label.set_margin_top(24);
+    items_label.set_margin_bottom(6);
     eliminate_spaces_check.set_label(_("Eliminate leading and trailing spaces"));
     eliminate_spaces_check.set_active(true);
     clear_list_check.set_label(_("Clear list on quit"));
@@ -56,7 +57,6 @@ PreferencesWindow::PreferencesWindow()
     items_box.set_margin_left(12);
     items_box.set_margin_right(12);
     items_box.set_spacing(6);
-    items_box.pack_start(items_label);
     items_box.pack_start(eliminate_spaces_check);
     items_box.pack_start(clear_list_check);
     items_box.show_all();
@@ -74,9 +74,9 @@ PreferencesWindow::PreferencesWindow()
     set_size_label.set_markup(_("<b>Item list size</b>"));
     set_size_label.set_halign(Gtk::ALIGN_START);
     set_size_label.set_margin_top(24);
+    set_size_label.set_margin_bottom(6);
     scale_box.set_margin_left(12);
     scale_box.set_margin_right(12);
-    scale_box.pack_start(set_size_label);
     scale_box.pack_start(item_list_size_scale);
     scale_box.show_all();
 
@@ -84,7 +84,7 @@ PreferencesWindow::PreferencesWindow()
     item_label.set_markup(_("<b>Text item</b>"));
     item_label.set_halign(Gtk::ALIGN_START);
     item_label.set_margin_top(24);
-    item_label.set_margin_bottom(6);
+    item_label.set_margin_bottom(12);
     item_prefix.set_margin_bottom(6);
     item_prefix.set_margin_left(12);
     item_prefix.set_placeholder_text(_("empty"));
@@ -106,7 +106,6 @@ PreferencesWindow::PreferencesWindow()
 
     item_box.set_margin_left(12);
     item_box.set_margin_right(12);
-    item_box.pack_start(item_label);
     item_box.pack_start(prefix_box);
     item_box.pack_start(suffix_box);
     item_box.show_all();
@@ -117,9 +116,13 @@ PreferencesWindow::PreferencesWindow()
     v_box.set_margin_bottom(24);
     v_box.set_margin_left(12);
     v_box.pack_start(header_bar);
+    v_box.pack_start(app_label);
     v_box.pack_start(app_box);
+    v_box.pack_start(items_label);
     v_box.pack_start(items_box);
+    v_box.pack_start(set_size_label);
     v_box.pack_start(scale_box);
+    v_box.pack_start(item_label);
     v_box.pack_start(item_box);
 
     v_box.show_all();
