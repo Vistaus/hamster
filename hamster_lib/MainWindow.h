@@ -42,7 +42,6 @@ struct MainWindow : public Gtk::Window
     void show_shortcuts_window();
     void show_preferences_window();
     void hide_about_dialog(int response_id);
-    void hide_shortcuts_window();
     void close_app();
 };
 
