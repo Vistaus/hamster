@@ -15,6 +15,5 @@ include_directories(hamster_lib)
 add_subdirectory(hamster_lib)
 target_link_libraries(hamster hamster_lib ${GTKMM_LIBRARIES})
 
-
 # tests
-add_subdirectory(tests)
+# add_subdirectory(tests)
