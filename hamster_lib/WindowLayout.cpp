@@ -19,6 +19,9 @@
 
 WindowLayout::WindowLayout() : item_list(1, false, Gtk::SELECTION_MULTIPLE)
 {
+    ref_clipboard = Gtk::Clipboard::get();
+    ref_clipboard->signal_owner_change().connect(sigc::mem_fun(*this, &WindowLayout::on_clipboard_change));
+
     search_entry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowLayout::on_search_change));
     search_entry.set_margin_top(4);
     search_entry.set_margin_right(4);
@@ -32,19 +35,25 @@ WindowLayout::WindowLayout() : item_list(1, false, Gtk::SELECTION_MULTIPLE)
     scrolled_win.set_size_request(-1, 640);
     scrolled_win.add(item_list);
 
-    item_store = Gtk::ListStore::create(columns);
-    item_list.set_model(item_store);
+    ref_item_store = Gtk::ListStore::create(columns);
+    item_list.set_model(ref_item_store);
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
-
-    auto row = *(item_store->append());
-    row[columns.item_name] = "This program is free software: you can redistribute it and/or ...";
-    auto row1 = *(item_store->append());
-    row1[columns.item_name] = "This program is free softwarey";
+    item_list.set_search_entry(search_entry);
 }
 
 void WindowLayout::on_search_change()
 {
     g_print("%s\n", search_entry.get_text().c_str());
+}
+
+void WindowLayout::on_clipboard_change(GdkEventOwnerChange *event)
+{
+    if (event == nullptr) {
+        return;
+    }
+    auto text = ref_clipboard->wait_for_text();
+    auto row = *(ref_item_store->prepend());
+    row[columns.item_name] = text;
 }
 

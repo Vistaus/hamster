@@ -41,9 +41,11 @@ struct WindowLayout : public Gtk::VBox
 
     ItemModelColumns columns;
     Gtk::ListViewText item_list;
-    Glib::RefPtr<Gtk::ListStore> item_store;
+    Glib::RefPtr<Gtk::ListStore> ref_item_store;
+    Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
 
     void on_search_change();
+    void on_clipboard_change(GdkEventOwnerChange* event);
 };
 
 #endif //HAMSTER_WINDOWLAYOUT_H
