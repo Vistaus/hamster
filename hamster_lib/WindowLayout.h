@@ -21,13 +21,13 @@
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
 
-struct ModelColumns : public Gtk::TreeModel::ColumnRecord
+struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 {
-    Gtk::TreeModelColumn<Glib::ustring> col_name;
+    Gtk::TreeModelColumn<Glib::ustring> item_name;
 
-    ModelColumns()
+    ItemModelColumns()
     {
-        add(col_name);
+        add(item_name);
     }
 };
 
@@ -39,7 +39,7 @@ struct WindowLayout : public Gtk::VBox
     Gtk::ScrolledWindow scrolled_win;
     Gtk::Separator separator;
 
-    ModelColumns columns;
+    ItemModelColumns columns;
     Gtk::ListViewText item_list;
     Glib::RefPtr<Gtk::ListStore> item_store;
 
