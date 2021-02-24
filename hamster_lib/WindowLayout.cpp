@@ -38,9 +38,9 @@ WindowLayout::WindowLayout() : item_list(1, false, Gtk::SELECTION_MULTIPLE)
     item_list.set_enable_search(false);
 
     auto row = *(item_store->append());
-    row[columns.col_name] = "This program is free software: you can redistribute it and/or ...";
+    row[columns.item_name] = "This program is free software: you can redistribute it and/or ...";
     auto row1 = *(item_store->append());
-    row1[columns.col_name] = "This program is free softwarey";
+    row1[columns.item_name] = "This program is free softwarey";
 }
 
 void WindowLayout::on_search_change()
