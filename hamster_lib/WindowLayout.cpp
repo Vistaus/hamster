@@ -48,7 +48,7 @@ void WindowLayout::on_search_change()
     g_print("%s\n", search_entry.get_text().c_str());
 }
 
-void WindowLayout::on_clipboard_change(GdkEventOwnerChange *event)
+void WindowLayout::on_clipboard_change(GdkEventOwnerChange *event) const
 {
     if (event == nullptr)
     {
@@ -58,8 +58,9 @@ void WindowLayout::on_clipboard_change(GdkEventOwnerChange *event)
     if (!text.empty())
     {
         auto row = *(ref_item_store->prepend());
-        row[columns.item_display_value] = text;
+        row[columns.item_display_value] = text.uppercase();
         row[columns.item_value] = text;
     }
+    g_print("item store size: %d", ref_item_store->children().size());
 }
 

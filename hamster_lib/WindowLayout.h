@@ -23,7 +23,7 @@
 
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 {
-    Gtk::TreeModelColumn<Glib::ustring> item_display_value; // Clipboard text value showed in list view widget
+    Gtk::TreeModelColumn<Glib::ustring> item_display_value; // Modified clipboard text value showed in list view widget
     Gtk::TreeModelColumn<Glib::ustring> item_value; // Original clipboard text value
 
     ItemModelColumns()
@@ -47,7 +47,7 @@ struct WindowLayout : public Gtk::VBox
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
 
     void on_search_change();
-    void on_clipboard_change(GdkEventOwnerChange* event);
+    void on_clipboard_change(GdkEventOwnerChange* event) const;
 };
 
 #endif //HAMSTER_WINDOWLAYOUT_H
