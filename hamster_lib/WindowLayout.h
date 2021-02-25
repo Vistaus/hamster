@@ -23,11 +23,13 @@
 
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 {
-    Gtk::TreeModelColumn<Glib::ustring> item_name;
+    Gtk::TreeModelColumn<Glib::ustring> item_display_value; // Clipboard text value showed in list view widget
+    Gtk::TreeModelColumn<Glib::ustring> item_value; // Original clipboard text value
 
     ItemModelColumns()
     {
-        add(item_name);
+        add(item_display_value);
+        add(item_value);
     }
 };
 

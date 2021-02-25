@@ -17,7 +17,8 @@
 
 #include "WindowLayout.h"
 
-WindowLayout::WindowLayout() : item_list(1, false, Gtk::SELECTION_MULTIPLE)
+WindowLayout::WindowLayout()
+    : item_list(1, false, Gtk::SELECTION_MULTIPLE) // Where '1' means: show 'item_display_value' column only!
 {
     ref_clipboard = Gtk::Clipboard::get();
     ref_clipboard->signal_owner_change().connect(sigc::mem_fun(*this, &WindowLayout::on_clipboard_change));
@@ -49,11 +50,16 @@ void WindowLayout::on_search_change()
 
 void WindowLayout::on_clipboard_change(GdkEventOwnerChange *event)
 {
-    if (event == nullptr) {
+    if (event == nullptr)
+    {
         return;
     }
     auto text = ref_clipboard->wait_for_text();
-    auto row = *(ref_item_store->prepend());
-    row[columns.item_name] = text;
+    if (!text.empty())
+    {
+        auto row = *(ref_item_store->prepend());
+        row[columns.item_display_value] = text;
+        row[columns.item_value] = text;
+    }
 }
 
