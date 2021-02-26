@@ -16,6 +16,7 @@
  */
 
 #include "WindowBody.h"
+#include "util/text/TextUtil.h"
 
 WindowBody::WindowBody()
     : item_list(1, false, Gtk::SELECTION_MULTIPLE) // Where '1' means: show 'item_display_value' column only!
@@ -58,7 +59,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event) const
     if (!text.empty())
     {
         auto row = *(ref_item_store->prepend());
-        row[columns.item_display_value] = text;
+        row[columns.item_display_value] = TextUtil::short_text(text, 40);
         row[columns.item_value] = text;
     }
     g_print("item store size: %d\n", ref_item_store->children().size());
