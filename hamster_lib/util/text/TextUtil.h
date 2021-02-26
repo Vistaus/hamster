@@ -17,12 +17,15 @@
 #ifndef HAMSTER_TEXTUTIL_H
 #define HAMSTER_TEXTUTIL_H
 
+#include <regex>
 #include <gtkmm-3.0/gtkmm.h>
 
 struct TextUtil
 {
-    static Glib::ustring short_text(Glib::ustring text, uint n_letters);
+    static Glib::ustring join_lines(Glib::ustring &text, uint n_letters);
+    static Glib::ustring trim_str(const Glib::ustring &text);
+    static Glib::ustring sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end_text);
+    static bool has_only_spaces(const Glib::ustring &text);
 };
-
 
 #endif //HAMSTER_TEXTUTIL_H

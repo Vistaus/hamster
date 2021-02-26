@@ -55,12 +55,18 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event) const
     {
         return;
     }
-    auto text = ref_clipboard->wait_for_text();
-    if (!text.empty())
+
+    if (auto text = ref_clipboard->wait_for_text(); !TextUtil::has_only_spaces(text))
     {
-        auto row = *(ref_item_store->prepend());
-        row[columns.item_display_value] = TextUtil::short_text(text, 40);
-        row[columns.item_value] = text;
+        const auto row = *(ref_item_store->prepend());
+        row[columns.item_value] = text; // Save in memory original text value
+
+        text = TextUtil::join_lines(text, 48);
+        text = TextUtil::trim_str(text);
+        text = TextUtil::sub_str(text, 40, "...");
+        row[columns.item_display_value] = text; // Show short one liner text value
+
+        g_print("display value length: %lu\n", text.length());
     }
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
