@@ -8,6 +8,7 @@ set(HEADER_FILES
         about_dialog/AboutDialog.h
         shortcuts_window/ShortcutsWindow.h
         preferences_window/PreferencesWindow.h
+        util/text/TextUtil.h
         )
 
 set(SOURCE_FILES
@@ -17,6 +18,8 @@ set(SOURCE_FILES
         settings_popover/SettingsMenuButton.cpp
         about_dialog/AboutDialog.cpp
         shortcuts_window/ShortcutsWindow.cpp
-        preferences_window/PreferencesWindow.cpp)
+        preferences_window/PreferencesWindow.cpp
+        util/text/TextUtil.cpp
+        )
 
 add_library(hamster_lib STATIC ${SOURCE_FILES} ${HEADER_FILES})
