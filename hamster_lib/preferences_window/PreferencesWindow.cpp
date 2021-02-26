@@ -24,6 +24,9 @@ PreferencesWindow::PreferencesWindow()
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+
+    //ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
+
     header_bar.set_show_close_button(true);
     header_bar.set_has_subtitle(false);
     header_bar.set_margin_bottom(20);

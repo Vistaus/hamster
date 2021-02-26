@@ -20,6 +20,7 @@
 
 int main(int argc, char *argv[])
 {
+    //Glib::setenv("GSETTINGS_SCHEMA_DIR", ".", false);
     auto app = Gtk::Application::create("com.github.slawtul.hamster");
 
     MainWindow win{};
