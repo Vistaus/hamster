@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_WINDOWLAYOUT_H
-#define HAMSTER_WINDOWLAYOUT_H
+#ifndef HAMSTER_WINDOWBODY_H
+#define HAMSTER_WINDOWBODY_H
 
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
@@ -33,9 +33,9 @@ struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
     }
 };
 
-struct WindowLayout : public Gtk::VBox
+struct WindowBody : public Gtk::VBox
 {
-    WindowLayout();
+    WindowBody();
 
     Gtk::SearchEntry search_entry;
     Gtk::ScrolledWindow scrolled_win;
@@ -50,4 +50,4 @@ struct WindowLayout : public Gtk::VBox
     void on_clipboard_change(GdkEventOwnerChange* event) const;
 };
 
-#endif //HAMSTER_WINDOWLAYOUT_H
+#endif //HAMSTER_WINDOWBODY_H

@@ -30,33 +30,31 @@ MainWindow::MainWindow()
     header_bar.pack_end(menu_btn);
     set_titlebar(header_bar);
 
-    add(layout);
+    add(win_body);
+
 
     // ABOUT DIALOG
     about_dialog.set_transient_for(*this);
-    menu_btn.settings_popover.about_btn
-        .signal_clicked()
-        .connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
-    about_dialog
-        .signal_response()
-        .connect(sigc::mem_fun(*this, &MainWindow::hide_about_dialog));
+    menu_btn.settings_popover.about_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
+    about_dialog.signal_response().connect(sigc::mem_fun(*this, &MainWindow::hide_about_dialog));
+
 
     // PREFERENCES WINDOW
     preferences_window.set_transient_for(*this);
     menu_btn.settings_popover.pref_btn
         .signal_clicked()
-        .connect(sigc::mem_fun(*this, &MainWindow::show_preferences_window));
+        .connect(sigc::mem_fun(*this, &MainWindow::show_preferences_win));
+
 
     // SHORTCUTS WINDOW
     shortcuts_window.set_transient_for(*this);
     menu_btn.settings_popover.shortcuts_btn
         .signal_clicked()
-        .connect(sigc::mem_fun(*this, &MainWindow::show_shortcuts_window));
+        .connect(sigc::mem_fun(*this, &MainWindow::show_shortcuts_win));
+
 
     // QUIT APP
-    menu_btn.settings_popover.quit_btn
-        .signal_clicked()
-        .connect(sigc::mem_fun(*this, &MainWindow::close_app));
+    menu_btn.settings_popover.quit_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::close_app));
 }
 
 void MainWindow::show_about_dialog()
@@ -73,13 +71,13 @@ void MainWindow::hide_about_dialog(int response_id)
     }
 }
 
-void MainWindow::show_shortcuts_window()
+void MainWindow::show_shortcuts_win()
 {
     shortcuts_window.show_all();
     shortcuts_window.present();
 }
 
-void MainWindow::show_preferences_window()
+void MainWindow::show_preferences_win()
 {
     preferences_window.show_all();
     preferences_window.present();
