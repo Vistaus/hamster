@@ -25,6 +25,8 @@ struct PreferencesWindow : public Gtk::Window
 {
     PreferencesWindow();
 
+    //Glib::RefPtr<Gio::Settings> ref_settings;
+
     Gtk::HeaderBar header_bar;
     Gtk::VBox v_box;
 
