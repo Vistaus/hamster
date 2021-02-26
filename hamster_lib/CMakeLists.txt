@@ -2,7 +2,7 @@ project(hamster_lib)
 
 set(HEADER_FILES
         MainWindow.h
-        WindowLayout.h
+        WindowBody.h
         settings_popover/SettingsPopover.h
         settings_popover/SettingsMenuButton.h
         about_dialog/AboutDialog.h
@@ -12,7 +12,7 @@ set(HEADER_FILES
 
 set(SOURCE_FILES
         MainWindow.cpp
-        WindowLayout.cpp
+        WindowBody.cpp
         settings_popover/SettingsPopover.cpp
         settings_popover/SettingsMenuButton.cpp
         about_dialog/AboutDialog.cpp
