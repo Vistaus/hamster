@@ -20,7 +20,7 @@
 PreferencesWindow::PreferencesWindow()
 {
     set_title(_("Preferences"));
-    set_default_size(440, -1);
+    set_default_size(526, 512);
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -35,13 +35,14 @@ PreferencesWindow::PreferencesWindow()
     app_label.set_markup(_("<b>Application</b>"));
     app_label.set_halign(Gtk::ALIGN_START);
     app_label.set_margin_bottom(6);
+    app_label.set_margin_left(12);
     run_automatically_check.set_label(_("Run automatically on system startup"));
     run_automatically_check.set_active(true);
     always_on_top_check.set_label(_("Always on top"));
     on_mouse_position_check.set_label(_("Place at the current mouse position"));
 
-    app_box.set_margin_left(12);
-    app_box.set_margin_right(12);
+    app_box.set_margin_left(30);
+    app_box.set_margin_right(30);
     app_box.set_spacing(6);
     app_box.pack_start(run_automatically_check);
     app_box.pack_start(always_on_top_check);
@@ -53,12 +54,13 @@ PreferencesWindow::PreferencesWindow()
     items_label.set_halign(Gtk::ALIGN_START);
     items_label.set_margin_top(24);
     items_label.set_margin_bottom(6);
+    items_label.set_margin_left(12);
     eliminate_spaces_check.set_label(_("Eliminate leading and trailing spaces"));
     eliminate_spaces_check.set_active(true);
     clear_list_check.set_label(_("Clear list on quit"));
 
-    items_box.set_margin_left(12);
-    items_box.set_margin_right(12);
+    items_box.set_margin_left(30);
+    items_box.set_margin_right(30);
     items_box.set_spacing(6);
     items_box.pack_start(eliminate_spaces_check);
     items_box.pack_start(clear_list_check);
@@ -78,8 +80,9 @@ PreferencesWindow::PreferencesWindow()
     set_size_label.set_halign(Gtk::ALIGN_START);
     set_size_label.set_margin_top(24);
     set_size_label.set_margin_bottom(6);
-    scale_box.set_margin_left(12);
-    scale_box.set_margin_right(12);
+    set_size_label.set_margin_left(12);
+    scale_box.set_margin_left(30);
+    scale_box.set_margin_right(30);
     scale_box.pack_start(item_list_size_scale);
     scale_box.show_all();
 
@@ -88,8 +91,9 @@ PreferencesWindow::PreferencesWindow()
     item_label.set_halign(Gtk::ALIGN_START);
     item_label.set_margin_top(24);
     item_label.set_margin_bottom(12);
+    item_label.set_margin_left(12);
     item_prefix.set_margin_bottom(6);
-    item_prefix.set_margin_left(12);
+    item_prefix.set_margin_left(24);
     item_prefix.set_placeholder_text(_("empty"));
 
     prefix_label.set_label(_("Prefix:"));
@@ -101,14 +105,14 @@ PreferencesWindow::PreferencesWindow()
     prefix_box.show_all();
 
     item_suffix.property_text().set_value("\\n");
-    item_suffix.set_margin_left(12);
+    item_suffix.set_margin_left(24);
     suffix_box.set_halign(Gtk::ALIGN_START);
     suffix_box.pack_start(suffix_label);
     suffix_box.pack_start(item_suffix);
     suffix_box.show_all();
 
-    item_box.set_margin_left(12);
-    item_box.set_margin_right(12);
+    item_box.set_margin_left(30);
+    item_box.set_margin_right(30);
     item_box.pack_start(prefix_box);
     item_box.pack_start(suffix_box);
     item_box.show_all();
