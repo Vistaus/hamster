@@ -42,6 +42,7 @@ WindowBody::WindowBody()
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
     item_list.set_search_entry(search_entry);
+    item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_key_press));
 }
 
 void WindowBody::on_search_change()
@@ -71,3 +72,16 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event) const
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
 
+bool WindowBody::on_key_press(GdkEventKey *key_event)
+{
+    if (key_event == nullptr)
+    {
+        return Widget::on_key_press_event(key_event);
+    }
+    if (key_event->keyval == GDK_KEY_Escape)
+    {
+        g_print("deleted\n");
+        return true;
+    }
+    return Widget::on_key_press_event(key_event);
+}

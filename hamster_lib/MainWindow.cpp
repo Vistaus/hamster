@@ -30,6 +30,8 @@ MainWindow::MainWindow()
     header_bar.pack_end(menu_btn);
     set_titlebar(header_bar);
 
+    //add_events(Gdk::KEY_PRESS_MASK);
+
     add(win_body);
 
 

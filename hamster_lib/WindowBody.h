@@ -47,7 +47,8 @@ struct WindowBody : public Gtk::VBox
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
 
     void on_search_change();
-    void on_clipboard_change(GdkEventOwnerChange* event) const;
+    void on_clipboard_change(GdkEventOwnerChange *event) const;
+    bool on_key_press(GdkEventKey *key_event);
 };
 
 #endif //HAMSTER_WINDOWBODY_H
