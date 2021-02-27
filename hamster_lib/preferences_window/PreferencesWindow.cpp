@@ -24,6 +24,7 @@ PreferencesWindow::PreferencesWindow()
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
+    this->signal_key_press_event().connect(sigc::mem_fun(*this, &PreferencesWindow::on_key_press));
 
     //ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
 
@@ -137,3 +138,16 @@ PreferencesWindow::PreferencesWindow()
     add(v_box);
 }
 
+bool PreferencesWindow::on_key_press(GdkEventKey *key_event)
+{
+    if (key_event == nullptr)
+    {
+        return Widget::on_key_press_event(key_event);
+    }
+    if (key_event->keyval == GDK_KEY_Escape)
+    {
+        hide();
+        return true;
+    }
+    return Widget::on_key_press_event(key_event);
+}

@@ -25,6 +25,8 @@ ShortcutsWindow::ShortcutsWindow()
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
 
+    this->signal_key_press_event().connect(sigc::mem_fun(*this, &ShortcutsWindow::on_key_press));
+
     header_bar.set_show_close_button(true);
     header_bar.set_has_subtitle(false);
     section.property_visible().set_value(true);
@@ -92,3 +94,16 @@ ShortcutsWindow::ShortcutsWindow()
     add(v_box);
 }
 
+bool ShortcutsWindow::on_key_press(GdkEventKey *key_event)
+{
+    if (key_event == nullptr)
+    {
+        return Widget::on_key_press_event(key_event);
+    }
+    if (key_event->keyval == GDK_KEY_Escape)
+    {
+        hide();
+        return true;
+    }
+    return Widget::on_key_press_event(key_event);
+}

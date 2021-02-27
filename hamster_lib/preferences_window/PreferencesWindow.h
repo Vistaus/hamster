@@ -54,6 +54,8 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::Label suffix_label;
     Gtk::Entry item_prefix;
     Gtk::Entry item_suffix;
+
+    bool on_key_press(GdkEventKey *key_event);
 };
 
 #endif //HAMSTER_PREFERENCESWINDOW_H
