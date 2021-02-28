@@ -43,6 +43,22 @@ WindowBody::WindowBody()
     item_list.set_enable_search(false);
     item_list.set_search_entry(search_entry);
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_key_press));
+
+    const auto row1 = *(ref_item_store->prepend());
+    row1[columns.item_value] = "hamster";
+    row1[columns.item_display_value] = "hamster";
+
+    const auto row2 = *(ref_item_store->prepend());
+    row2[columns.item_value] = "clipboard manager";
+    row2[columns.item_display_value] = "clipboard manager";
+
+    const auto row3 = *(ref_item_store->prepend());
+    row3[columns.item_value] = "elementary os";
+    row3[columns.item_display_value] = "elementary os";
+
+    const auto row4 = *(ref_item_store->prepend());
+    row4[columns.item_value] = "linux";
+    row4[columns.item_display_value] = "linux";
 }
 
 void WindowBody::on_search_change()
@@ -78,10 +94,22 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
     {
         return Widget::on_key_press_event(key_event);
     }
-    if (key_event->keyval == GDK_KEY_Escape)
+
+    // 'DELETE' KEY PRESSED
+    if (const auto &ref_selection = item_list.get_selection();
+        key_event->keyval == GDK_KEY_Delete)
     {
-        g_print("deleted\n");
+        for (auto const _ : item_list.get_selected())
+        {
+            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_delete_callback));
+        }
         return true;
     }
+
     return Widget::on_key_press_event(key_event);
+}
+
+void WindowBody::selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const
+{
+    ref_item_store->erase(iter);
 }
