@@ -46,7 +46,6 @@ struct MainWindow : public Gtk::Window
     void hide_about_dialog(int response_id);
     void close_app();
 
-protected:
     bool on_delete_event(GdkEventAny *any_event) override;
 };
 
