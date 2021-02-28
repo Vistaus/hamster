@@ -22,7 +22,13 @@ MainWindow::MainWindow()
     set_border_width(0);
     set_resizable(false);
     set_default_size(360, -1);
-    set_position(Gtk::WindowPosition::WIN_POS_NONE);
+
+    ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
+
+    auto const x = ref_settings->get_int("window-x");
+    auto const y = ref_settings->get_int("window-y");
+
+    x == -1 && y == -1 ? set_position(Gtk::WIN_POS_CENTER) : move(x, y);
 
     header_bar.set_show_close_button(true);
     header_bar.set_title(_("🐹 Hamster"));
@@ -87,6 +93,21 @@ void MainWindow::show_preferences_win()
 
 void MainWindow::close_app()
 {
+    int cur_x, cur_y;
+    this->get_position(cur_x, cur_y);
+    ref_settings->set_int("window-x", cur_x);
+    ref_settings->set_int("window-y", cur_y);
+
     menu_btn.settings_popover.remove();
     exit(0);
+}
+
+bool MainWindow::on_delete_event(GdkEventAny *any_event)
+{
+    if (any_event == nullptr)
+    {
+        return false;
+    }
+    close_app();
+    return true;
 }
