@@ -42,6 +42,7 @@ WindowBody::WindowBody()
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
     item_list.set_search_entry(search_entry);
+    item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_event));
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_key_press));
 
     const auto row1 = *(ref_item_store->prepend());
@@ -88,15 +89,59 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event) const
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
 
+bool WindowBody::on_event(GdkEvent *gdk_event)
+{
+    if (gdk_event == nullptr)
+    {
+        return false;
+    }
+
+    // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
+
+    // 'SHIFT + ENTER' KEYS PRESSED
+    if (const auto SHIFT_MASK = 17;
+        gdk_event->type == GDK_KEY_PRESS &&
+        gdk_event->key.state == SHIFT_MASK &&
+        gdk_event->key.keyval == GDK_KEY_Return)
+    {
+        g_print("Shift + Enter keys pressed\n");
+        return true;
+    }
+
+    // 'ENTER' KEY PRESSED
+    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
+    {
+        g_print("Enter pressed\n");
+        return true;
+    }
+    return false;
+}
+
 bool WindowBody::on_key_press(GdkEventKey *key_event)
 {
     if (key_event == nullptr)
     {
-        return Widget::on_key_press_event(key_event);
+        return false;
     }
 
     const auto &ref_selection = item_list.get_selection();
-    
+
+    // 'ESCAPE' KEY PRESSED
+    // todo, if escape hit - jump to search entry
+    if (key_event->keyval == GDK_KEY_Escape)
+    {
+        g_print("Escape key pressed");
+        return true;
+    }
+
+    // 'ALT + L' KEYS PRESSED
+    // todo
+    if (key_event->keyval == GDK_KEY_Up)
+    {
+        g_print("Alt + L keys pressed");
+        return true;
+    }
+
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)
     {
@@ -107,7 +152,7 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
         return true;
     }
 
-    return Widget::on_key_press_event(key_event);
+    return false;
 }
 
 void WindowBody::selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const
