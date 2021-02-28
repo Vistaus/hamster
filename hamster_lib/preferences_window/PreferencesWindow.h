@@ -25,7 +25,7 @@ struct PreferencesWindow : public Gtk::Window
 {
     PreferencesWindow();
 
-    //Glib::RefPtr<Gio::Settings> ref_settings;
+    Glib::RefPtr<Gio::Settings> ref_settings;
 
     Gtk::HeaderBar header_bar;
     Gtk::VBox v_box;
@@ -56,6 +56,14 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::Entry item_suffix;
 
     bool on_key_press(GdkEventKey *key_event);
+    void on_run_automatically_click();
+    void on_always_on_top_click();
+    void on_mouse_position_click();
+    void on_eliminate_spaces_click();
+    void on_clear_list_click();
+    void on_item_list_size_change();
+    void on_item_prefix_change() const;
+    void on_item_suffix_change() const;
 };
 
 #endif //HAMSTER_PREFERENCESWINDOW_H

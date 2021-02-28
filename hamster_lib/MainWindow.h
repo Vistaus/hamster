@@ -31,6 +31,8 @@ struct MainWindow : public Gtk::Window
 {
     MainWindow();
 
+    Glib::RefPtr<Gio::Settings> ref_settings;
+
     Gtk::HeaderBar header_bar;
     SettingsMenuButton menu_btn;
     WindowBody win_body;
@@ -43,6 +45,9 @@ struct MainWindow : public Gtk::Window
     void show_preferences_win();
     void hide_about_dialog(int response_id);
     void close_app();
+
+protected:
+    bool on_delete_event(GdkEventAny *any_event) override;
 };
 
 #endif //HAMSTER_MAINWINDOW_H

@@ -1,3 +1,4 @@
+
 # Hamster
 
 Clipboard manager for Debian-based distributions
@@ -28,7 +29,6 @@ Text item group
 - [ ] Default prefix (empty entry)
 - [ ] Default suffix ('\n' entry)
 
-
 ## How to build
 
 ```bash
@@ -36,4 +36,12 @@ cd hamster
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
+```
+
+### Issues
+
+#### gsettings schema not installed
+
+```bash
+sudo /usr/bin/glib-compile-schemas ./data/com.github.slawtul.hamster.gschema.xml
 ```

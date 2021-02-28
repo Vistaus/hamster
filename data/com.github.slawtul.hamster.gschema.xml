@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema path="/com/github/slawtul/hamster/" id="com.github.slawtul.hamster"
+            gettext-domain="com.github.slawtul.hamster">
+        <key name="run-automatically" type="b">
+            <default>true</default>
+        </key>
+        <key name="always-on-top" type="b">
+            <default>false</default>
+        </key>
+        <key name="on-mouse-position" type="b">
+            <default>false</default>
+        </key>
+        <key name="eliminate-spaces" type="b">
+            <default>true</default>
+        </key>
+        <key name="clear-list" type="b">
+            <default>false</default>
+        </key>
+        <key name="item-list-size" type="d">
+            <default>256</default>
+        </key>
+        <key name="item-prefix" type="s">
+            <default>""</default>
+        </key>
+        <key name="item-suffix" type="s">
+            <default>"\\n"</default>
+        </key>
+        <key name="window-x" type="i">
+            <default>-1</default>
+        </key>
+        <key name="window-y" type="i">
+            <default>-1</default>
+        </key>
+    </schema>
+</schemalist>
