@@ -43,5 +43,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 #### gsettings schema not installed
 
 ```bash
-sudo /usr/bin/glib-compile-schemas ./data/com.github.slawtul.hamster.gschema.xml
+sudo cp data/com.github.slawtul.hamster.gschema.xml /usr/share/glib-2.0/schemas/
+sudo /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
+/usr/bin/glib-compile-schemas ./data/
 ```
