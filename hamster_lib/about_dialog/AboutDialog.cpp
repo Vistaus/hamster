@@ -23,7 +23,6 @@ AboutDialog::AboutDialog()
     set_comments(_("Clipboard manager"));
     set_version("1.0.0");
     set_copyright("Slawek Tuleja");
-    set_license_type(Gtk::LICENSE_GPL_3_0);
     set_website("https://github.com/slawtul/hamster");
     set_website_label("https://github.com/slawtul/hamster");
     set_logo(Gdk::Pixbuf::create_from_file("/home/slawtul/repos/hamster/data/icons/128/com.github.slawtul.hamster.svg"));
