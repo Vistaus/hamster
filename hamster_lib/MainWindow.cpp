@@ -36,8 +36,6 @@ MainWindow::MainWindow()
     header_bar.pack_end(menu_btn);
     set_titlebar(header_bar);
 
-    //add_events(Gdk::KEY_PRESS_MASK);
-
     add(win_body);
 
 
@@ -93,10 +91,10 @@ void MainWindow::show_preferences_win()
 
 void MainWindow::close_app()
 {
-    int cur_x, cur_y;
-    this->get_position(cur_x, cur_y);
-    ref_settings->set_int("window-x", cur_x);
-    ref_settings->set_int("window-y", cur_y);
+    int win_x, win_y;
+    this->get_position(win_x, win_y);
+    ref_settings->set_int("window-x", win_x);
+    ref_settings->set_int("window-y", win_y);
 
     menu_btn.settings_popover.remove();
     exit(0);
