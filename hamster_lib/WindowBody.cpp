@@ -99,9 +99,8 @@ bool WindowBody::on_event(GdkEvent *gdk_event)
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
 
     // 'SHIFT + ENTER' KEYS PRESSED
-    if (const auto SHIFT_MASK = 17;
-        gdk_event->type == GDK_KEY_PRESS &&
-        gdk_event->key.state == SHIFT_MASK &&
+    // On modern PC 'shift_mask' key.state is 17, on very old PC key.state is 1
+    if (gdk_event->type == GDK_KEY_PRESS && (gdk_event->key.state == 17 || gdk_event->key.state == 1) &&
         gdk_event->key.keyval == GDK_KEY_Return)
     {
         g_print("Shift + Enter keys pressed\n");
@@ -130,7 +129,7 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
     // todo, if escape hit - jump to search entry
     if (key_event->keyval == GDK_KEY_Escape)
     {
-        g_print("Escape key pressed");
+        g_print("Escape key pressed\n");
         return true;
     }
 
@@ -138,7 +137,7 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
     // todo
     if (key_event->keyval == GDK_KEY_Up)
     {
-        g_print("Alt + L keys pressed");
+        g_print("Alt + L keys pressed\n");
         return true;
     }
 
