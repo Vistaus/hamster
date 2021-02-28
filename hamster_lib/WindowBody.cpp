@@ -95,11 +95,12 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
         return Widget::on_key_press_event(key_event);
     }
 
+    const auto &ref_selection = item_list.get_selection();
+    
     // 'DELETE' KEY PRESSED
-    if (const auto &ref_selection = item_list.get_selection();
-        key_event->keyval == GDK_KEY_Delete)
+    if (key_event->keyval == GDK_KEY_Delete)
     {
-        for (auto const _ : item_list.get_selected())
+        for ([[maybe_unused]] const auto &_ : item_list.get_selected())
         {
             ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_delete_callback));
         }
