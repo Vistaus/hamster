@@ -67,7 +67,7 @@ MainWindow::MainWindow()
 
 void MainWindow::show_about_dialog()
 {
-    about_dialog.show_all();
+    about_dialog.show();
     about_dialog.present();
 }
 
