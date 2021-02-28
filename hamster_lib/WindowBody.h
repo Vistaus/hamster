@@ -51,6 +51,7 @@ struct WindowBody : public Gtk::VBox
     bool on_key_press(GdkEventKey *key_event);
 
     void selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const;
+    bool on_event(GdkEvent *gdk_event);
 };
 
 #endif //HAMSTER_WINDOWBODY_H
