@@ -43,7 +43,7 @@ WindowBody::WindowBody()
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
     item_list.set_search_entry(search_entry);
-    item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_event));
+    item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_event));
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
 
     const auto row1 = *(ref_item_store->prepend());
@@ -90,7 +90,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event) const
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
 
-bool WindowBody::on_event(GdkEvent *gdk_event)
+bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
 {
     if (gdk_event == nullptr)
     {

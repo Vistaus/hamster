@@ -46,13 +46,15 @@ struct WindowBody : public Gtk::VBox
     Glib::RefPtr<Gtk::ListStore> ref_item_store;
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
 
-    void on_search_change();
     void on_clipboard_change(GdkEventOwnerChange *event) const;
-    bool on_item_list_key_press(GdkEventKey *key_event);
+
+    void on_search_change();
     bool on_search_entry_event(GdkEvent *gdk_event);
 
+    bool on_item_list_key_press(GdkEventKey *key_event);
+    bool on_item_list_event(GdkEvent *gdk_event);
+
     void selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const;
-    bool on_event(GdkEvent *gdk_event);
 };
 
 #endif //HAMSTER_WINDOWBODY_H
