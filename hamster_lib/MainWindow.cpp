@@ -106,14 +106,14 @@ bool MainWindow::on_main_window_key_press(GdkEventKey *key_event)
         return false;
     }
 
-    const auto ALT_MASK = 24;
-    if (key_event->state == ALT_MASK && key_event->keyval == GDK_KEY_p)
+    const auto ALT_MASK = 24; // On modern PC
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_p)
     {
         show_preferences_win();
         return true;
     }
 
-    if (key_event->state == ALT_MASK && key_event->keyval == GDK_KEY_q)
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_q)
     {
         close_app();
         return true;
