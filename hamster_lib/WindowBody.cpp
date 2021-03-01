@@ -141,8 +141,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     {
         for ([[maybe_unused]] const auto &_ : item_list.get_selected())
         {
-            ref_selection->selected_foreach_iter(sigc::mem_fun(
-                *this, &WindowBody::selected_row_change_letter_case_callback));
+            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_change_letter_case_callback));
         }
         return true;
     }

@@ -40,8 +40,7 @@ PreferencesWindow::PreferencesWindow()
 
     run_automatically_check.set_label(_("Run automatically on system startup"));
     run_automatically_check.set_active(ref_settings->get_boolean("run-automatically"));
-    run_automatically_check.signal_toggled().connect(
-        sigc::mem_fun(*this, &PreferencesWindow::on_run_automatically_click));
+    run_automatically_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_run_automatically_click));
 
     always_on_top_check.set_label(_("Always on top"));
     always_on_top_check.set_active(ref_settings->get_boolean("always-on-top"));
@@ -68,8 +67,7 @@ PreferencesWindow::PreferencesWindow()
 
     eliminate_spaces_check.set_label(_("Eliminate leading and trailing spaces"));
     eliminate_spaces_check.set_active(ref_settings->get_boolean("eliminate-spaces"));
-    eliminate_spaces_check.signal_toggled().connect(
-        sigc::mem_fun(*this, &PreferencesWindow::on_eliminate_spaces_click));
+    eliminate_spaces_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_eliminate_spaces_click));
 
     clear_list_check.set_label(_("Clear list on quit"));
     clear_list_check.set_active(ref_settings->get_boolean("clear-list"));
@@ -91,8 +89,7 @@ PreferencesWindow::PreferencesWindow()
     item_list_size_scale.add_mark(768, Gtk::POS_TOP, "");
     item_list_size_scale.add_mark(1024, Gtk::POS_TOP, "");
     item_list_size_scale.set_value(ref_settings->get_double("item-list-size"));
-    item_list_size_scale.signal_value_changed().connect(
-        sigc::mem_fun(*this, &PreferencesWindow::on_item_list_size_change));
+    item_list_size_scale.signal_value_changed().connect(sigc::mem_fun(*this, &PreferencesWindow::on_item_list_size_change));
 
     set_size_label.set_markup(_("<b>Item list size</b>"));
     set_size_label.set_halign(Gtk::ALIGN_START);
