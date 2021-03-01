@@ -100,8 +100,8 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
 
     // 'SHIFT + ENTER' KEYS PRESSED
-    // On modern PC 'shift_mask' key.state is 17, on very old PC key.state is 1
-    if (gdk_event->type == GDK_KEY_PRESS && (gdk_event->key.state == 17 || gdk_event->key.state == 1) &&
+    // On modern PC 'shift_mask' key.state is 17, on very old PC key.state is 1 (GDK_SHIFT_MASK)
+    if (gdk_event->type == GDK_KEY_PRESS && (gdk_event->key.state == 17 || gdk_event->key.state == GDK_SHIFT_MASK) &&
         gdk_event->key.keyval == GDK_KEY_Return)
     {
         g_print("Shift + Enter keys pressed\n");

@@ -36,9 +36,9 @@ ShortcutsWindow::ShortcutsWindow()
     show_app_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     show_app_shortcut.property_accelerator().set_value("<Ctrl><Alt>V");
 
-    show_settings_shortcut.property_title().set_value(_("Open settings menu"));
+    show_settings_shortcut.property_title().set_value(_("Open preferences window"));
     show_settings_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    show_settings_shortcut.property_accelerator().set_value("<Alt>S");
+    show_settings_shortcut.property_accelerator().set_value("<Alt>P");
 
     quit_app_shortcut.property_title().set_value(_("Quit application"));
     quit_app_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);

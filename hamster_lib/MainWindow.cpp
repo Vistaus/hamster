@@ -38,6 +38,7 @@ MainWindow::MainWindow()
 
     add(win_body);
 
+    this->signal_key_press_event().connect(sigc::mem_fun(*this, &MainWindow::on_main_window_key_press));
 
     // ABOUT DIALOG
     about_dialog.set_transient_for(*this);
@@ -96,6 +97,21 @@ void MainWindow::close_app()
 
     menu_btn.settings_popover.remove();
     exit(0);
+}
+
+bool MainWindow::on_main_window_key_press(GdkEventKey *key_event)
+{
+    if (key_event == nullptr)
+    {
+        return false;
+    }
+    const auto ALT_MASK = 24;
+    if (key_event->state == ALT_MASK && key_event->keyval == GDK_KEY_p)
+    {
+        show_preferences_win();
+        return true;
+    }
+    return false;
 }
 
 bool MainWindow::on_delete_event(GdkEventAny *any_event)
