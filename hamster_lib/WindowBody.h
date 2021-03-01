@@ -55,6 +55,7 @@ struct WindowBody : public Gtk::VBox
     bool on_item_list_event(GdkEvent *gdk_event);
 
     void selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const;
+    void selected_row_change_letter_case_callback(const Gtk::TreeModel::iterator &iter) const;
 };
 
 #endif //HAMSTER_WINDOWBODY_H
