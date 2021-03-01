@@ -98,12 +98,14 @@ bool ShortcutsWindow::on_key_press(GdkEventKey *key_event)
 {
     if (key_event == nullptr)
     {
-        return Widget::on_key_press_event(key_event);
+        return false;
     }
+
     if (key_event->keyval == GDK_KEY_Escape)
     {
         hide();
         return true;
     }
-    return Widget::on_key_press_event(key_event);
+
+    return false;
 }
