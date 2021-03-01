@@ -48,7 +48,8 @@ struct WindowBody : public Gtk::VBox
 
     void on_search_change();
     void on_clipboard_change(GdkEventOwnerChange *event) const;
-    bool on_key_press(GdkEventKey *key_event);
+    bool on_item_list_key_press(GdkEventKey *key_event);
+    bool on_search_entry_event(GdkEvent *gdk_event);
 
     void selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const;
     bool on_event(GdkEvent *gdk_event);

@@ -25,6 +25,7 @@ WindowBody::WindowBody()
     ref_clipboard->signal_owner_change().connect(sigc::mem_fun(*this, &WindowBody::on_clipboard_change));
 
     search_entry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowBody::on_search_change));
+    search_entry.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_search_entry_event));
     search_entry.set_margin_top(4);
     search_entry.set_margin_right(4);
     search_entry.set_margin_bottom(4);
@@ -43,7 +44,7 @@ WindowBody::WindowBody()
     item_list.set_enable_search(false);
     item_list.set_search_entry(search_entry);
     item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_event));
-    item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_key_press));
+    item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
 
     const auto row1 = *(ref_item_store->prepend());
     row1[columns.item_value] = "hamster";
@@ -116,7 +117,7 @@ bool WindowBody::on_event(GdkEvent *gdk_event)
     return false;
 }
 
-bool WindowBody::on_key_press(GdkEventKey *key_event)
+bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
 {
     if (key_event == nullptr)
     {
@@ -125,8 +126,8 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
 
     const auto &ref_selection = item_list.get_selection();
 
-    // 'ESCAPE' KEY PRESSED
-    if (key_event->keyval == GDK_KEY_Escape)
+    // 'ESCAPE' OR 'TAB' KEY PRESSED
+    if (key_event->keyval == GDK_KEY_Escape || key_event->keyval == GDK_KEY_Tab)
     {
         search_entry.grab_focus();
         return true;
@@ -156,4 +157,19 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
 void WindowBody::selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const
 {
     ref_item_store->erase(iter);
+}
+
+bool WindowBody::on_search_entry_event(GdkEvent *gdk_event)
+{
+    if (gdk_event == nullptr)
+    {
+        return false;
+    }
+
+    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Down)
+    {
+        item_list.grab_focus();
+        return true;
+    }
+    return false;
 }
