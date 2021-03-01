@@ -126,10 +126,9 @@ bool WindowBody::on_key_press(GdkEventKey *key_event)
     const auto &ref_selection = item_list.get_selection();
 
     // 'ESCAPE' KEY PRESSED
-    // todo, if escape hit - jump to search entry
     if (key_event->keyval == GDK_KEY_Escape)
     {
-        g_print("Escape key pressed\n");
+        search_entry.grab_focus();
         return true;
     }
 
