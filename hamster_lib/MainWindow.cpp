@@ -93,7 +93,6 @@ void MainWindow::close_app()
     ref_settings->set_int("window-x", win_x);
     ref_settings->set_int("window-y", win_y);
 
-    menu_btn.settings_popover.remove();
     exit(0);
 }
 
