@@ -48,14 +48,12 @@ MainWindow::MainWindow()
 
     // PREFERENCES WINDOW
     preferences_window.set_transient_for(*this);
-    menu_btn.settings_popover.pref_btn.signal_clicked().connect(
-        sigc::mem_fun(*this, &MainWindow::show_preferences_win));
+    menu_btn.settings_popover.pref_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::show_preferences_win));
 
 
     // SHORTCUTS WINDOW
     shortcuts_window.set_transient_for(*this);
-    menu_btn.settings_popover.shortcuts_btn.signal_clicked().connect(
-        sigc::mem_fun(*this, &MainWindow::show_shortcuts_win));
+    menu_btn.settings_popover.shortcuts_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::show_shortcuts_win));
 
 
     // QUIT APP
