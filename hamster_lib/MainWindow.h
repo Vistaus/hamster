@@ -47,6 +47,7 @@ struct MainWindow : public Gtk::Window
     void close_app();
 
     bool on_delete_event(GdkEventAny *any_event) override;
+    bool on_main_window_key_press(GdkEventKey *key_event);
 };
 
 #endif //HAMSTER_MAINWINDOW_H
