@@ -98,10 +98,12 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     }
 
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
+    // In this widget 'Enter' means: row edit mode
 
     // 'SHIFT + ENTER' KEYS PRESSED
-    // On modern PC 'shift_mask' key.state is 17, on old PC key.state is 1 (GDK_SHIFT_MASK)
-    if (gdk_event->type == GDK_KEY_PRESS && (gdk_event->key.state == 17 || gdk_event->key.state == GDK_SHIFT_MASK) &&
+    const auto SHIFT_MASK = 17; // On modern PC
+    if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
+        gdk_event->type == GDK_KEY_PRESS &&
         gdk_event->key.keyval == GDK_KEY_Return)
     {
         g_print("Shift + Enter keys pressed\n");
@@ -134,10 +136,14 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     }
 
     // 'ALT + L' KEYS PRESSED
-    // todo
-    if (key_event->keyval == GDK_KEY_Up)
+    const auto ALT_MASK = 24; // On modern PC
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
     {
-        g_print("Alt + L keys pressed\n");
+        for ([[maybe_unused]] const auto &_ : item_list.get_selected())
+        {
+            ref_selection->selected_foreach_iter(sigc::mem_fun(
+                *this, &WindowBody::selected_row_change_letter_case_callback));
+        }
         return true;
     }
 
@@ -172,4 +178,11 @@ bool WindowBody::on_search_entry_event(GdkEvent *gdk_event)
         return true;
     }
     return false;
+}
+
+void WindowBody::selected_row_change_letter_case_callback(const Gtk::TreeModel::iterator &iter) const
+{
+    auto row = *(iter);
+    auto item_value = row.get_value(columns.item_display_value);
+    row[columns.item_display_value] = item_value.uppercase();
 }
