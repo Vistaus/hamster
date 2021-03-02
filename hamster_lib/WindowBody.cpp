@@ -16,7 +16,6 @@
  */
 
 #include "WindowBody.h"
-#include "util/text/TextUtil.h"
 
 WindowBody::WindowBody()
     : item_list(1, false, Gtk::SELECTION_MULTIPLE) // Where '1' means: show 'item_display_value' column only!
@@ -114,6 +113,31 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         g_print("Enter pressed\n");
+
+        this->get_window()->iconify();
+        ref_clipboard->set_text("New text item in clipboard...");
+        system("/home/slawtul/repos/hamster/data/fakeKey");
+        // auto ref_display = Gdk::Display::get_default();
+        // auto ref_screen = Gdk::Screen::get_default();
+        // auto all_opened_windows = ref_screen->get_window_stack();
+        // for (const auto &open_window : all_opened_windows) {
+        //     open_window->maximize();
+        // }
+//
+//        GdkEvent *event_key = gdk_event_new(GDK_KEY_PRESS);
+//        //((GdkEventKey *) event_key)->window = this->get_window()->gobj();
+//        ((GdkEventKey *) event_key)->window = ref_display->get_default_group()->gobj();
+//        ((GdkEventKey *) event_key)->send_event = TRUE;
+//        ((GdkEventKey *) event_key)->time = GDK_CURRENT_TIME;
+//        ((GdkEventKey *) event_key)->state = 20;
+//        ((GdkEventKey *) event_key)->keyval = GDK_KEY_v;
+//        ((GdkEventKey *) event_key)->hardware_keycode = 55;
+//        ((GdkEventKey *) event_key)->group = 0;
+//
+//        Gdk::Event(event_key).put();New text item in clipboard...
+
+
+
         return true;
     }
     return false;
@@ -141,7 +165,8 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     {
         for ([[maybe_unused]] const auto &_ : item_list.get_selected())
         {
-            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_change_letter_case_callback));
+            ref_selection->selected_foreach_iter(
+                sigc::mem_fun(*this, &WindowBody::selected_row_change_letter_case_callback));
         }
         return true;
     }
