@@ -117,6 +117,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         this->get_window()->iconify();
         ref_clipboard->set_text("New text item in clipboard...");
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         Display *disp = XOpenDisplay(NULL);
         KeyCode keycode, modcode;
         KeySym keysym = XK_v;
@@ -125,6 +126,8 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         XTestGrabControl(disp, True);
 
         modcode = XKeysymToKeycode(disp, modsym);
+
+        /* Generate modkey press */
         XTestFakeKeyEvent(disp, modcode, True, 0);
 
         /* Generate regular key press and release */
