@@ -19,6 +19,8 @@
 #define HAMSTER_WINDOWBODY_H
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include <gtkmm-3.0/gtkmm.h>
 #include <X11/Xlib.h>
 #include <X11/Intrinsic.h>
