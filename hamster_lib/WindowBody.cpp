@@ -118,7 +118,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         ref_clipboard->set_text("New text item in clipboard...");
 
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        Display *disp = XOpenDisplay(NULL);
+        Display *disp = XOpenDisplay(nullptr);
         KeyCode keycode, modcode;
         KeySym keysym = XK_v;
         KeySym modsym = XK_Control_L;
