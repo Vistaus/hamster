@@ -20,6 +20,9 @@
 
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
+#include <X11/Xlib.h>
+#include <X11/Intrinsic.h>
+#include <X11/extensions/XTest.h>
 #include "util/text/TextUtil.h"
 
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord

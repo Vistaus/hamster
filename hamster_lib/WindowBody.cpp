@@ -116,7 +116,29 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
 
         this->get_window()->iconify();
         ref_clipboard->set_text("New text item in clipboard...");
-        system("/home/slawtul/repos/hamster/data/fakeKey");
+
+        Display *disp = XOpenDisplay(NULL);
+        KeyCode keycode, modcode;
+        KeySym keysym = XK_v;
+        KeySym modsym = XK_Control_L;
+        keycode = XKeysymToKeycode(disp, keysym);
+        XTestGrabControl(disp, True);
+
+        modcode = XKeysymToKeycode(disp, modsym);
+        XTestFakeKeyEvent(disp, modcode, True, 0);
+
+        /* Generate regular key press and release */
+        XTestFakeKeyEvent(disp, keycode, True, 0);
+        XTestFakeKeyEvent(disp, keycode, False, 0);
+
+        /* Generate modkey release */
+        XTestFakeKeyEvent(disp, modcode, False, 0);
+
+        XSync(disp, False);
+        XTestGrabControl(disp, False);
+
+
+//        system("/home/slawtul/repos/hamster/data/fakeKey");
         // auto ref_display = Gdk::Display::get_default();
         // auto ref_screen = Gdk::Screen::get_default();
         // auto all_opened_windows = ref_screen->get_window_stack();
