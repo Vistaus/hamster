@@ -64,6 +64,7 @@ struct WindowBody : public Gtk::VBox
     void selected_row_delete_callback(const Gtk::TreeModel::iterator& iter) const;
     void selected_row_to_lowercase_callback(const Gtk::TreeModel::iterator& iter) const;
     void selected_row_to_uppercase_callback(const Gtk::TreeModel::iterator& iter) const;
+    void selected_row_to_clipboard_callback(const Gtk::TreeModel::iterator& iter) const;
 };
 
 #endif //HAMSTER_WINDOWBODY_H
