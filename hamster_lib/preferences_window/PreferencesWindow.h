@@ -18,8 +18,8 @@
 #ifndef HAMSTER_PREFERENCESWINDOW_H
 #define HAMSTER_PREFERENCESWINDOW_H
 
-#include <gtkmm-3.0/gtkmm.h>
 #include <glibmm/i18n.h>
+#include <gtkmm-3.0/gtkmm.h>
 
 struct PreferencesWindow : public Gtk::Window
 {
