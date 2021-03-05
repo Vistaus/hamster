@@ -52,7 +52,7 @@ struct WindowBody : public Gtk::VBox
     Glib::RefPtr<Gtk::ListStore> ref_item_store;
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
 
-    void on_clipboard_change(GdkEventOwnerChange *event) const;
+    void on_clipboard_change(GdkEventOwnerChange *event);
     void send_ctrl_v_key_event() const;
 
     void on_search_change();
