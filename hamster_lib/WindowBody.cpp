@@ -75,14 +75,17 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         return;
     }
 
-    if (auto text = ref_clipboard->wait_for_text(); !TextUtil::has_only_spaces(text))
+    TextUtil tu{};
+    if (auto text = ref_clipboard->wait_for_text(); !tu.has_only_spaces(text))
     {
         const auto row = *(ref_item_store->prepend());
         row[columns.item_value] = text; // Save in memory original text value
 
-        text = TextUtil::join_lines(text, 48);
-        text = TextUtil::trim_str(text);
-        text = TextUtil::sub_str(text, 40, "...");
+        TextUtil tu{};
+
+        text = tu.join_lines(text, 48);
+        text = tu.trim_str(text);
+        text = tu.sub_str(text, 40, "...");
         row[columns.item_display_value] = text; // Show short one liner text value
 
         g_print("display value length: %lu\n", text.length());
@@ -164,14 +167,24 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
         return true;
     }
 
-    // 'ALT + L' KEYS PRESSED
     const auto ALT_MASK = 24; // On modern PC
+
+    // 'ALT + L' KEYS PRESSED (transform to lowercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
     {
         for ([[maybe_unused]] const auto& _ : item_list.get_selected())
         {
-            ref_selection->selected_foreach_iter(
-                sigc::mem_fun(*this, &WindowBody::selected_row_change_letter_case_callback));
+            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_lowercase_callback));
+        }
+        return true;
+    }
+
+    // 'ALT + U' KEYS PRESSED (transform to uppercase)
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_u)
+    {
+        for ([[maybe_unused]] const auto& _ : item_list.get_selected())
+        {
+            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_uppercase_callback));
         }
         return true;
     }
@@ -209,9 +222,22 @@ bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
     return false;
 }
 
-void WindowBody::selected_row_change_letter_case_callback(const Gtk::TreeModel::iterator& iter) const
+void WindowBody::selected_row_to_lowercase_callback(const Gtk::TreeModel::iterator& iter) const
 {
     auto row = *(iter);
-    auto item_value = row.get_value(columns.item_display_value);
-    row[columns.item_display_value] = item_value.uppercase();
+    auto item_disp_value = row.get_value(columns.item_display_value);
+    auto item_value = row.get_value(columns.item_value);
+    
+    row[columns.item_display_value] = item_disp_value.lowercase();
+    row[columns.item_value] = item_value.lowercase();
+}
+
+void WindowBody::selected_row_to_uppercase_callback(const Gtk::TreeModel::iterator& iter) const
+{
+    auto row = *(iter);
+    auto item_disp_value = row.get_value(columns.item_display_value);
+    auto item_value = row.get_value(columns.item_value);
+    
+    row[columns.item_display_value] = item_disp_value.uppercase();
+    row[columns.item_value] = item_value.uppercase();
 }
