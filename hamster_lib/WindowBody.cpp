@@ -68,7 +68,7 @@ void WindowBody::on_search_change()
     g_print("%s\n", search_entry.get_text().c_str());
 }
 
-void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
+void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
 {
     if (event == nullptr)
     {
@@ -91,7 +91,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
 
-bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
+bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
 {
     if (gdk_event == nullptr)
     {
@@ -104,8 +104,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     // 'SHIFT + ENTER' KEYS PRESSED
     const auto SHIFT_MASK = 17; // On modern PC
     if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
-        gdk_event->type == GDK_KEY_PRESS &&
-        gdk_event->key.keyval == GDK_KEY_Return)
+        gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         g_print("Shift + Enter keys pressed\n");
         return true;
@@ -126,37 +125,37 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
 
 void WindowBody::send_ctrl_v_key_event() const
 {
-        Display *disp = XOpenDisplay(nullptr);
+    Display* disp = XOpenDisplay(nullptr);
 
-        KeyCode keycode, modcode;
-        KeySym keysym = XK_v;
-        KeySym modsym = XK_Control_L;
-        keycode = XKeysymToKeycode(disp, keysym);
-        XTestGrabControl(disp, True);
-        modcode = XKeysymToKeycode(disp, modsym);
+    KeyCode keycode, modcode;
+    KeySym keysym = XK_v;
+    KeySym modsym = XK_Control_L;
+    keycode = XKeysymToKeycode(disp, keysym);
+    XTestGrabControl(disp, True);
+    modcode = XKeysymToKeycode(disp, modsym);
 
-        /* Generate modkey press */
-        XTestFakeKeyEvent(disp, modcode, True, 0);
+    /* Generate modkey press */
+    XTestFakeKeyEvent(disp, modcode, True, 0);
 
-        /* Generate regular key press and release */
-        XTestFakeKeyEvent(disp, keycode, True, 0);
-        XTestFakeKeyEvent(disp, keycode, False, 0);
+    /* Generate regular key press and release */
+    XTestFakeKeyEvent(disp, keycode, True, 0);
+    XTestFakeKeyEvent(disp, keycode, False, 0);
 
-        /* Generate modkey release */
-        XTestFakeKeyEvent(disp, modcode, False, 0);
+    /* Generate modkey release */
+    XTestFakeKeyEvent(disp, modcode, False, 0);
 
-        XSync(disp, False);
-        XTestGrabControl(disp, False);
+    XSync(disp, False);
+    XTestGrabControl(disp, False);
 }
 
-bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
+bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
 {
     if (key_event == nullptr)
     {
         return false;
     }
 
-    const auto &ref_selection = item_list.get_selection();
+    const auto& ref_selection = item_list.get_selection();
 
     // 'ESCAPE' OR 'TAB' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Escape || key_event->keyval == GDK_KEY_Tab)
@@ -169,7 +168,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     const auto ALT_MASK = 24; // On modern PC
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
     {
-        for ([[maybe_unused]] const auto &_ : item_list.get_selected())
+        for ([[maybe_unused]] const auto& _ : item_list.get_selected())
         {
             ref_selection->selected_foreach_iter(
                 sigc::mem_fun(*this, &WindowBody::selected_row_change_letter_case_callback));
@@ -180,7 +179,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)
     {
-        for ([[maybe_unused]] const auto &_ : item_list.get_selected())
+        for ([[maybe_unused]] const auto& _ : item_list.get_selected())
         {
             ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_delete_callback));
         }
@@ -190,12 +189,12 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     return false;
 }
 
-void WindowBody::selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const
+void WindowBody::selected_row_delete_callback(const Gtk::TreeModel::iterator& iter) const
 {
     ref_item_store->erase(iter);
 }
 
-bool WindowBody::on_search_entry_event(GdkEvent *gdk_event)
+bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
 {
     if (gdk_event == nullptr)
     {
@@ -210,7 +209,7 @@ bool WindowBody::on_search_entry_event(GdkEvent *gdk_event)
     return false;
 }
 
-void WindowBody::selected_row_change_letter_case_callback(const Gtk::TreeModel::iterator &iter) const
+void WindowBody::selected_row_change_letter_case_callback(const Gtk::TreeModel::iterator& iter) const
 {
     auto row = *(iter);
     auto item_value = row.get_value(columns.item_display_value);

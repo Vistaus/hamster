@@ -18,7 +18,7 @@
 #include <MainWindow.h>
 #include <WindowBody.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // During development only...
     Glib::setenv("GSETTINGS_SCHEMA_DIR", "/home/slawtul/repos/hamster/data/", false);

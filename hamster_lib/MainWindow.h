@@ -18,14 +18,14 @@
 #ifndef HAMSTER_MAINWINDOW_H
 #define HAMSTER_MAINWINDOW_H
 
-#include <gtkmm-3.0/gtkmm.h>
 #include <glibmm/i18n.h>
+#include <gtkmm-3.0/gtkmm.h>
 
 #include "WindowBody.h"
-#include "settings_popover/SettingsMenuButton.h"
 #include "about_dialog/AboutDialog.h"
-#include "shortcuts_window/ShortcutsWindow.h"
 #include "preferences_window/PreferencesWindow.h"
+#include "settings_popover/SettingsMenuButton.h"
+#include "shortcuts_window/ShortcutsWindow.h"
 
 struct MainWindow : public Gtk::Window
 {
@@ -46,8 +46,8 @@ struct MainWindow : public Gtk::Window
     void hide_about_dialog(int response_id);
     void close_app();
 
-    bool on_delete_event(GdkEventAny *any_event) override;
-    bool on_main_window_key_press(GdkEventKey *key_event);
+    bool on_delete_event(GdkEventAny* any_event) override;
+    bool on_main_window_key_press(GdkEventKey* key_event);
 };
 
 #endif //HAMSTER_MAINWINDOW_H
