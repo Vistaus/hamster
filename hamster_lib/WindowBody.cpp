@@ -38,6 +38,7 @@ WindowBody::WindowBody()
     scrolled_win.add(item_list);
 
     ref_item_store = Gtk::ListStore::create(columns);
+
     item_list.set_model(ref_item_store);
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
@@ -116,15 +117,23 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
 
         this->get_window()->iconify();
         ref_clipboard->set_text("New text item in clipboard...");
+        std::this_thread::sleep_for(std::chrono::milliseconds(340));
+        send_ctrl_v_key_event();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return true;
+    }
+    return false;
+}
+
+void WindowBody::send_ctrl_v_key_event() const
+{
         Display *disp = XOpenDisplay(nullptr);
+
         KeyCode keycode, modcode;
         KeySym keysym = XK_v;
         KeySym modsym = XK_Control_L;
         keycode = XKeysymToKeycode(disp, keysym);
         XTestGrabControl(disp, True);
-
         modcode = XKeysymToKeycode(disp, modsym);
 
         /* Generate modkey press */
@@ -138,34 +147,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         XTestFakeKeyEvent(disp, modcode, False, 0);
 
         XSync(disp, False);
-        XTestGrabControl(disp, False);
-
-
-//        system("/home/slawtul/repos/hamster/data/fakeKey");
-        // auto ref_display = Gdk::Display::get_default();
-        // auto ref_screen = Gdk::Screen::get_default();
-        // auto all_opened_windows = ref_screen->get_window_stack();
-        // for (const auto &open_window : all_opened_windows) {
-        //     open_window->maximize();
-        // }
-//
-//        GdkEvent *event_key = gdk_event_new(GDK_KEY_PRESS);
-//        //((GdkEventKey *) event_key)->window = this->get_window()->gobj();
-//        ((GdkEventKey *) event_key)->window = ref_display->get_default_group()->gobj();
-//        ((GdkEventKey *) event_key)->send_event = TRUE;
-//        ((GdkEventKey *) event_key)->time = GDK_CURRENT_TIME;
-//        ((GdkEventKey *) event_key)->state = 20;
-//        ((GdkEventKey *) event_key)->keyval = GDK_KEY_v;
-//        ((GdkEventKey *) event_key)->hardware_keycode = 55;
-//        ((GdkEventKey *) event_key)->group = 0;
-//
-//        Gdk::Event(event_key).put();New text item in clipboard...
-
-
-
-        return true;
-    }
-    return false;
+        XTestGrabControl(disp, False);    
 }
 
 bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)

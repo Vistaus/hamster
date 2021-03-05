@@ -13,7 +13,6 @@ find_package(X11 REQUIRED)
 link_directories(${X11_LIBRARIES})
 include_directories(${X11_INCLUDE_DIR})
 
-
 # hamster program
 add_executable(hamster hamster_run.cpp)
 include_directories(hamster_lib)
