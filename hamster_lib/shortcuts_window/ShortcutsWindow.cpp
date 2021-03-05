@@ -20,7 +20,7 @@
 ShortcutsWindow::ShortcutsWindow()
 {
     set_title(_("Shortcuts"));
-    set_default_size(526, 444);
+    set_default_size(526, 480);
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -64,9 +64,13 @@ ShortcutsWindow::ShortcutsWindow()
     item_prefix_suffix_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     item_prefix_suffix_shortcut.property_accelerator().set_value("<Shift>Return");
 
-    letter_case_shortcut.property_title().set_value(_("Change letter case"));
-    letter_case_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    letter_case_shortcut.property_accelerator().set_value("<Alt>L");
+    lowercase_shortcut.property_title().set_value(_("Change to lowercase"));
+    lowercase_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
+    lowercase_shortcut.property_accelerator().set_value("<Alt>L");
+
+    uppercase_shortcut.property_title().set_value(_("Change to uppercase"));
+    uppercase_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
+    uppercase_shortcut.property_accelerator().set_value("<Alt>U");
 
     delete_item_shortcut.property_title().set_value(_("Delete item"));
     delete_item_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
@@ -75,7 +79,8 @@ ShortcutsWindow::ShortcutsWindow()
     items_group.add(paste_item_shortcut);
     items_group.add(select_items_shortcut);
     items_group.add(item_prefix_suffix_shortcut);
-    items_group.add(letter_case_shortcut);
+    items_group.add(lowercase_shortcut);
+    items_group.add(uppercase_shortcut);
     items_group.add(delete_item_shortcut);
 
     items_group.property_title().set_value(_("Text items"));

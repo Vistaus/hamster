@@ -36,7 +36,8 @@ struct ShortcutsWindow : public Gtk::Window
     Gtk::ShortcutsShortcut paste_item_shortcut;
     Gtk::ShortcutsShortcut select_items_shortcut;
     Gtk::ShortcutsShortcut item_prefix_suffix_shortcut;
-    Gtk::ShortcutsShortcut letter_case_shortcut;
+    Gtk::ShortcutsShortcut lowercase_shortcut;
+    Gtk::ShortcutsShortcut uppercase_shortcut;
     Gtk::ShortcutsShortcut delete_item_shortcut;
 
     Gtk::VBox v_box;

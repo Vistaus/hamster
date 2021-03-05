@@ -22,10 +22,10 @@
 
 struct TextUtil
 {
-    static Glib::ustring join_lines(Glib::ustring &text, uint n_letters);
-    static Glib::ustring trim_str(const Glib::ustring &text);
-    static Glib::ustring sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end_text);
-    static bool has_only_spaces(const Glib::ustring &text);
+    Glib::ustring join_lines(Glib::ustring &text, uint n_letters);
+    Glib::ustring trim_str(const Glib::ustring &text);
+    Glib::ustring sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end_text);
+    bool has_only_spaces(const Glib::ustring &text);
 };
 
 #endif //HAMSTER_TEXTUTIL_H
