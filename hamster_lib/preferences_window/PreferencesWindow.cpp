@@ -42,10 +42,6 @@ PreferencesWindow::PreferencesWindow()
     run_automatically_check.set_active(ref_settings->get_boolean("run-automatically"));
     run_automatically_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_run_automatically_click));
 
-    always_on_top_check.set_label(_("Always on top"));
-    always_on_top_check.set_active(ref_settings->get_boolean("always-on-top"));
-    always_on_top_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_always_on_top_click));
-
     on_mouse_position_check.set_label(_("Place at the current mouse position"));
     on_mouse_position_check.set_active(ref_settings->get_boolean("on-mouse-position"));
     on_mouse_position_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_mouse_position_click));
@@ -54,7 +50,6 @@ PreferencesWindow::PreferencesWindow()
     app_box.set_margin_right(30);
     app_box.set_spacing(6);
     app_box.pack_start(run_automatically_check);
-    app_box.pack_start(always_on_top_check);
     app_box.pack_start(on_mouse_position_check);
     app_box.show_all();
 
@@ -175,11 +170,6 @@ bool PreferencesWindow::on_key_press(GdkEventKey* key_event)
 void PreferencesWindow::on_run_automatically_click()
 {
     ref_settings->set_boolean("run-automatically", run_automatically_check.get_active());
-}
-
-void PreferencesWindow::on_always_on_top_click()
-{
-    ref_settings->set_boolean("always-on-top", always_on_top_check.get_active());
 }
 
 void PreferencesWindow::on_mouse_position_click()
