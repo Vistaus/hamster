@@ -68,7 +68,7 @@ void WindowBody::on_search_change()
     g_print("%s\n", search_entry.get_text().c_str());
 }
 
-void WindowBody::on_clipboard_change(GdkEventOwnerChange *event) const
+void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
 {
     if (event == nullptr)
     {
@@ -86,6 +86,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event) const
         row[columns.item_display_value] = text; // Show short one liner text value
 
         g_print("display value length: %lu\n", text.length());
+        item_list.scroll_to_row(ref_item_store->get_path(row));
     }
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
@@ -113,8 +114,6 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     // 'ENTER' KEY PRESSED
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
-        g_print("Enter pressed\n");
-
         this->get_window()->iconify();
         ref_clipboard->set_text("New text item in clipboard...");
         std::this_thread::sleep_for(std::chrono::milliseconds(340));
@@ -147,7 +146,7 @@ void WindowBody::send_ctrl_v_key_event() const
         XTestFakeKeyEvent(disp, modcode, False, 0);
 
         XSync(disp, False);
-        XTestGrabControl(disp, False);    
+        XTestGrabControl(disp, False);
 }
 
 bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
