@@ -118,7 +118,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     {
         this->get_window()->iconify();
         ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_clipboard_callback));
-        
+
         std::this_thread::sleep_for(std::chrono::milliseconds(340));
         send_ctrl_v_key_event();
 
@@ -210,7 +210,7 @@ void WindowBody::selected_row_to_lowercase_callback(const Gtk::TreeModel::iterat
     const auto row = *(iter);
     const auto item_disp_value = row.get_value(columns.item_display_value);
     const auto item_value = row.get_value(columns.item_value);
-    
+
     row[columns.item_display_value] = item_disp_value.lowercase();
     row[columns.item_value] = item_value.lowercase();
 }
@@ -220,7 +220,7 @@ void WindowBody::selected_row_to_uppercase_callback(const Gtk::TreeModel::iterat
     const auto row = *(iter);
     const auto item_disp_value = row.get_value(columns.item_display_value);
     const auto item_value = row.get_value(columns.item_value);
-    
+
     row[columns.item_display_value] = item_disp_value.uppercase();
     row[columns.item_value] = item_value.uppercase();
 }
@@ -232,7 +232,7 @@ void WindowBody::send_ctrl_v_key_event() const
     const auto modsym = XK_Control_L;
     const auto keycode = XKeysymToKeycode(disp, keysym);
     const auto modcode = XKeysymToKeycode(disp, modsym);
-    
+
     XTestGrabControl(disp, True);
     XTestFakeKeyEvent(disp, modcode, True, 0);  // Generate modkey press
     XTestFakeKeyEvent(disp, keycode, True, 0);  // Generate regular key press
