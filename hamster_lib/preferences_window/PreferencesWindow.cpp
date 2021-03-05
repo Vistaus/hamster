@@ -20,7 +20,7 @@
 PreferencesWindow::PreferencesWindow()
 {
     set_title(_("Preferences"));
-    set_default_size(526, 512);
+    set_default_size(526, 480);
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
