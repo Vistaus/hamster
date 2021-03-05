@@ -18,11 +18,11 @@
 #ifndef HAMSTER_WINDOWBODY_H
 #define HAMSTER_WINDOWBODY_H
 
+#include <gtkmm-3.0/gtkmm.h>
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
 #include <chrono>
-#include <gtkmm-3.0/gtkmm.h>
 #include <iostream>
 #include <thread>
 #include "util/text/TextUtil.h"
@@ -43,7 +43,7 @@ struct WindowBody : public Gtk::VBox
 {
     WindowBody();
 
-    Gtk::SearchEnccctry search_entry;
+    Gtk::SearchEntry search_entry;
     Gtk::ScrolledWindow scrolled_win;
     Gtk::Separator separator;
 
