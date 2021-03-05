@@ -101,6 +101,8 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         return false;
     }
 
+    const auto& ref_selection = item_list.get_selection();
+
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
     // In this widget 'Enter' means: row edit mode
 
@@ -117,7 +119,8 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         this->get_window()->iconify();
-        ref_clipboard->set_text("New text item in clipboard...");
+        ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_clipboard_callback));
+        
         std::this_thread::sleep_for(std::chrono::milliseconds(340));
         send_ctrl_v_key_event();
 
@@ -126,25 +129,11 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     return false;
 }
 
-void WindowBody::send_ctrl_v_key_event() const
+void WindowBody::selected_row_to_clipboard_callback(const Gtk::TreeModel::iterator& iter) const
 {
-    Display* disp = XOpenDisplay(nullptr);
-
-    KeyCode keycode, modcode;
-    KeySym keysym = XK_v;
-    KeySym modsym = XK_Control_L;
-
-    keycode = XKeysymToKeycode(disp, keysym);
-    XTestGrabControl(disp, True);
-    modcode = XKeysymToKeycode(disp, modsym);
-
-    XTestFakeKeyEvent(disp, modcode, True, 0);  // Generate modkey press
-    XTestFakeKeyEvent(disp, keycode, True, 0);  // Generate regular key press
-    XTestFakeKeyEvent(disp, keycode, False, 0); // and release
-    XTestFakeKeyEvent(disp, modcode, False, 0); // Generate modkey release
-
-    XSync(disp, False);
-    XTestGrabControl(disp, False);
+    const auto row = *(iter);
+    const auto item_value = row.get_value(columns.item_value);
+    ref_clipboard->set_text(item_value);
 }
 
 bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
@@ -220,9 +209,9 @@ bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
 
 void WindowBody::selected_row_to_lowercase_callback(const Gtk::TreeModel::iterator& iter) const
 {
-    auto row = *(iter);
-    auto item_disp_value = row.get_value(columns.item_display_value);
-    auto item_value = row.get_value(columns.item_value);
+    const auto row = *(iter);
+    const auto item_disp_value = row.get_value(columns.item_display_value);
+    const auto item_value = row.get_value(columns.item_value);
     
     row[columns.item_display_value] = item_disp_value.lowercase();
     row[columns.item_value] = item_value.lowercase();
@@ -230,10 +219,28 @@ void WindowBody::selected_row_to_lowercase_callback(const Gtk::TreeModel::iterat
 
 void WindowBody::selected_row_to_uppercase_callback(const Gtk::TreeModel::iterator& iter) const
 {
-    auto row = *(iter);
-    auto item_disp_value = row.get_value(columns.item_display_value);
-    auto item_value = row.get_value(columns.item_value);
+    const auto row = *(iter);
+    const auto item_disp_value = row.get_value(columns.item_display_value);
+    const auto item_value = row.get_value(columns.item_value);
     
     row[columns.item_display_value] = item_disp_value.uppercase();
     row[columns.item_value] = item_value.uppercase();
+}
+
+void WindowBody::send_ctrl_v_key_event() const
+{
+    const auto disp = XOpenDisplay(nullptr);
+    const auto keysym = XK_v;
+    const auto modsym = XK_Control_L;
+    const auto keycode = XKeysymToKeycode(disp, keysym);
+    const auto modcode = XKeysymToKeycode(disp, modsym);
+    
+    XTestGrabControl(disp, True);
+    XTestFakeKeyEvent(disp, modcode, True, 0);  // Generate modkey press
+    XTestFakeKeyEvent(disp, keycode, True, 0);  // Generate regular key press
+    XTestFakeKeyEvent(disp, keycode, False, 0); // and release
+    XTestFakeKeyEvent(disp, modcode, False, 0); // Generate modkey release
+
+    XSync(disp, False);
+    XTestGrabControl(disp, False);
 }
