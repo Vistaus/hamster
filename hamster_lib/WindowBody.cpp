@@ -81,8 +81,6 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         const auto row = *(ref_item_store->prepend());
         row[columns.item_value] = text; // Save in memory original text value
 
-        TextUtil tu{};
-
         text = tu.join_lines(text, 48);
         text = tu.trim_str(text);
         text = tu.sub_str(text, 40, "...");
