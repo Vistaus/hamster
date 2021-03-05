@@ -18,13 +18,13 @@
 #ifndef HAMSTER_WINDOWBODY_H
 #define HAMSTER_WINDOWBODY_H
 
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <gtkmm-3.0/gtkmm.h>
-#include <X11/Xlib.h>
 #include <X11/Intrinsic.h>
+#include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
+#include <chrono>
+#include <gtkmm-3.0/gtkmm.h>
+#include <iostream>
+#include <thread>
 #include "util/text/TextUtil.h"
 
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
@@ -43,7 +43,7 @@ struct WindowBody : public Gtk::VBox
 {
     WindowBody();
 
-    Gtk::SearchEntry search_entry;
+    Gtk::SearchEnccctry search_entry;
     Gtk::ScrolledWindow scrolled_win;
     Gtk::Separator separator;
 
@@ -52,17 +52,17 @@ struct WindowBody : public Gtk::VBox
     Glib::RefPtr<Gtk::ListStore> ref_item_store;
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
 
-    void on_clipboard_change(GdkEventOwnerChange *event);
+    void on_clipboard_change(GdkEventOwnerChange* event);
     void send_ctrl_v_key_event() const;
 
     void on_search_change();
-    bool on_search_entry_event(GdkEvent *gdk_event);
+    bool on_search_entry_event(GdkEvent* gdk_event);
 
-    bool on_item_list_key_press(GdkEventKey *key_event);
-    bool on_item_list_event(GdkEvent *gdk_event);
+    bool on_item_list_key_press(GdkEventKey* key_event);
+    bool on_item_list_event(GdkEvent* gdk_event);
 
-    void selected_row_delete_callback(const Gtk::TreeModel::iterator &iter) const;
-    void selected_row_change_letter_case_callback(const Gtk::TreeModel::iterator &iter) const;
+    void selected_row_delete_callback(const Gtk::TreeModel::iterator& iter) const;
+    void selected_row_change_letter_case_callback(const Gtk::TreeModel::iterator& iter) const;
 };
 
 #endif //HAMSTER_WINDOWBODY_H

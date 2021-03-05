@@ -24,7 +24,6 @@ MainWindow::MainWindow()
     set_default_size(360, -1);
 
     ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
-
     auto const x = ref_settings->get_int("window-x");
     auto const y = ref_settings->get_int("window-y");
 
@@ -45,16 +44,13 @@ MainWindow::MainWindow()
     menu_btn.settings_popover.about_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::show_about_dialog));
     about_dialog.signal_response().connect(sigc::mem_fun(*this, &MainWindow::hide_about_dialog));
 
-
     // PREFERENCES WINDOW
     preferences_window.set_transient_for(*this);
     menu_btn.settings_popover.pref_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::show_preferences_win));
 
-
     // SHORTCUTS WINDOW
     shortcuts_window.set_transient_for(*this);
     menu_btn.settings_popover.shortcuts_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::show_shortcuts_win));
-
 
     // QUIT APP
     menu_btn.settings_popover.quit_btn.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::close_app));
@@ -96,15 +92,16 @@ void MainWindow::close_app()
     exit(0);
 }
 
-bool MainWindow::on_main_window_key_press(GdkEventKey *key_event)
+bool MainWindow::on_main_window_key_press(GdkEventKey* key_event)
 {
     if (key_event == nullptr)
     {
         return false;
     }
 
-    const auto ALT_MASK = 24; // On modern PC
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_p) {
+    const auto ALT_MASK = 24;  // On modern PC
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_p)
+    {
         show_preferences_win();
         return true;
     }
@@ -118,7 +115,7 @@ bool MainWindow::on_main_window_key_press(GdkEventKey *key_event)
     return false;
 }
 
-bool MainWindow::on_delete_event(GdkEventAny *any_event)
+bool MainWindow::on_delete_event(GdkEventAny* any_event)
 {
     if (any_event == nullptr)
     {
