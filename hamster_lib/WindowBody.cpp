@@ -133,19 +133,15 @@ void WindowBody::send_ctrl_v_key_event() const
     KeyCode keycode, modcode;
     KeySym keysym = XK_v;
     KeySym modsym = XK_Control_L;
+
     keycode = XKeysymToKeycode(disp, keysym);
     XTestGrabControl(disp, True);
     modcode = XKeysymToKeycode(disp, modsym);
 
-    /* Generate modkey press */
-    XTestFakeKeyEvent(disp, modcode, True, 0);
-
-    /* Generate regular key press and release */
-    XTestFakeKeyEvent(disp, keycode, True, 0);
-    XTestFakeKeyEvent(disp, keycode, False, 0);
-
-    /* Generate modkey release */
-    XTestFakeKeyEvent(disp, modcode, False, 0);
+    XTestFakeKeyEvent(disp, modcode, True, 0);  // Generate modkey press
+    XTestFakeKeyEvent(disp, keycode, True, 0);  // Generate regular key press
+    XTestFakeKeyEvent(disp, keycode, False, 0); // and release
+    XTestFakeKeyEvent(disp, modcode, False, 0); // Generate modkey release
 
     XSync(disp, False);
     XTestGrabControl(disp, False);
