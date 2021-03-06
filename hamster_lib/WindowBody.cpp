@@ -123,8 +123,8 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
             // FIX: does not work if two or more row selected
             const auto row = *(ref_item_store->get_iter(path));
             const auto item_value = row.get_value(columns.item_value);
-            ref_clipboard->set_text(item_value);
             ref_item_store->erase(row);
+            ref_clipboard->set_text(item_value);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(280));
         send_ctrl_v_key_event();

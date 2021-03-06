@@ -5,6 +5,9 @@
         <key name="run-automatically" type="b">
             <default>true</default>
         </key>
+        <key name="always-minimize" type="b">
+            <default>false</default>
+        </key>
         <key name="on-mouse-position" type="b">
             <default>false</default>
         </key>

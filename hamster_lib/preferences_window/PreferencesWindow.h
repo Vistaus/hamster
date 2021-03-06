@@ -41,6 +41,7 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::VBox item_box;
 
     Gtk::CheckButton run_automatically_check;
+    Gtk::CheckButton always_minimize_check;
     Gtk::CheckButton on_mouse_position_check;
 
     Gtk::CheckButton eliminate_spaces_check;
@@ -56,6 +57,7 @@ struct PreferencesWindow : public Gtk::Window
 
     bool on_key_press(GdkEventKey *key_event);
     void on_run_automatically_click();
+    void on_always_minimize_click();
     void on_mouse_position_click();
     void on_eliminate_spaces_click();
     void on_clear_list_click();
