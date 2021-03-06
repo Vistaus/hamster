@@ -104,8 +104,9 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
     // In this widget 'Enter' means: row edit mode
 
-    // 'SHIFT + ENTER' KEYS PRESSED
     const auto SHIFT_MASK = 17; // On modern PC
+
+    // 'SHIFT + ENTER' KEYS PRESSED
     if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
         gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
@@ -119,7 +120,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         this->get_window()->iconify();
         ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_clipboard_callback));
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(340));
+        std::this_thread::sleep_for(std::chrono::milliseconds(280));
         send_ctrl_v_key_event();
 
         return true;
@@ -127,11 +128,16 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     return false;
 }
 
-void WindowBody::selected_row_to_clipboard_callback(const Gtk::TreeModel::iterator& iter) const
+void WindowBody::selected_row_to_clipboard_callback(const Gtk::TreeModel::iterator& iter)
 {
     const auto row = *(iter);
     const auto item_value = row.get_value(columns.item_value);
     ref_clipboard->set_text(item_value);
+    ref_item_store->erase(row);
+    search_entry.grab_focus();
+
+    const auto& ref_selection = item_list.get_selection();
+    ref_selection->unselect_all();
 }
 
 bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
@@ -155,9 +161,13 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'ALT + L' KEYS PRESSED (transform to lowercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
     {
-        for ([[maybe_unused]] const auto& _ : item_list.get_selected())
+        for (const auto& path : item_list.get_selection()->get_selected_rows())
         {
-            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_lowercase_callback));
+            const auto row = *(ref_item_store->get_iter(path));
+            const auto item_disp_value = row.get_value(columns.item_display_value);
+            const auto item_value = row.get_value(columns.item_value);
+            row[columns.item_display_value] = item_disp_value.lowercase();
+            row[columns.item_value] = item_value.lowercase();
         }
         return true;
     }
@@ -165,9 +175,13 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'ALT + U' KEYS PRESSED (transform to uppercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_u)
     {
-        for ([[maybe_unused]] const auto& _ : item_list.get_selected())
+        for (const auto& path : item_list.get_selection()->get_selected_rows())
         {
-            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_uppercase_callback));
+            const auto row = *(ref_item_store->get_iter(path));
+            const auto item_disp_value = row.get_value(columns.item_display_value);
+            const auto item_value = row.get_value(columns.item_value);
+            row[columns.item_display_value] = item_disp_value.uppercase();
+            row[columns.item_value] = item_value.uppercase();
         }
         return true;
     }
@@ -175,19 +189,15 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)
     {
-        for ([[maybe_unused]] const auto& _ : item_list.get_selected())
+        for (const auto& path : item_list.get_selection()->get_selected_rows())
         {
-            ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_delete_callback));
+            const auto row = *(ref_item_store->get_iter(path));
+            ref_item_store->erase(row);
         }
         return true;
     }
 
     return false;
-}
-
-void WindowBody::selected_row_delete_callback(const Gtk::TreeModel::iterator& iter) const
-{
-    ref_item_store->erase(iter);
 }
 
 bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
@@ -203,26 +213,6 @@ bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
         return true;
     }
     return false;
-}
-
-void WindowBody::selected_row_to_lowercase_callback(const Gtk::TreeModel::iterator& iter) const
-{
-    const auto row = *(iter);
-    const auto item_disp_value = row.get_value(columns.item_display_value);
-    const auto item_value = row.get_value(columns.item_value);
-
-    row[columns.item_display_value] = item_disp_value.lowercase();
-    row[columns.item_value] = item_value.lowercase();
-}
-
-void WindowBody::selected_row_to_uppercase_callback(const Gtk::TreeModel::iterator& iter) const
-{
-    const auto row = *(iter);
-    const auto item_disp_value = row.get_value(columns.item_display_value);
-    const auto item_value = row.get_value(columns.item_value);
-
-    row[columns.item_display_value] = item_disp_value.uppercase();
-    row[columns.item_value] = item_value.uppercase();
 }
 
 void WindowBody::send_ctrl_v_key_event() const
