@@ -42,6 +42,10 @@ PreferencesWindow::PreferencesWindow()
     run_automatically_check.set_active(ref_settings->get_boolean("run-automatically"));
     run_automatically_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_run_automatically_click));
 
+    always_minimize_check.set_label(_("Always minimize"));
+    always_minimize_check.set_active(ref_settings->get_boolean("always-minimize"));
+    always_minimize_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_always_minimize_click));
+
     on_mouse_position_check.set_label(_("Place at the current mouse position"));
     on_mouse_position_check.set_active(ref_settings->get_boolean("on-mouse-position"));
     on_mouse_position_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_mouse_position_click));
@@ -50,6 +54,7 @@ PreferencesWindow::PreferencesWindow()
     app_box.set_margin_right(30);
     app_box.set_spacing(6);
     app_box.pack_start(run_automatically_check);
+    app_box.pack_start(always_minimize_check);
     app_box.pack_start(on_mouse_position_check);
     app_box.show_all();
 
@@ -151,25 +156,28 @@ PreferencesWindow::PreferencesWindow()
     add(v_box);
 }
 
-bool PreferencesWindow::on_key_press(GdkEventKey* key_event)
+bool PreferencesWindow::on_key_press(GdkEventKey *key_event)
 {
     if (key_event == nullptr)
     {
         return false;
     }
-
     if (key_event->keyval == GDK_KEY_Escape)
     {
         hide();
         return true;
     }
-
     return false;
 }
 
 void PreferencesWindow::on_run_automatically_click()
 {
     ref_settings->set_boolean("run-automatically", run_automatically_check.get_active());
+}
+
+void PreferencesWindow::on_always_minimize_click()
+{
+    ref_settings->set_boolean("always-minimize", always_minimize_check.get_active());
 }
 
 void PreferencesWindow::on_mouse_position_click()

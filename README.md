@@ -45,5 +45,4 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 ```bash
 sudo cp data/com.github.slawtul.hamster.gschema.xml /usr/share/glib-2.0/schemas/
 sudo /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
-/usr/bin/glib-compile-schemas ./data/
 ```
