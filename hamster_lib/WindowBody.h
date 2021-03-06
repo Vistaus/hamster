@@ -60,8 +60,6 @@ struct WindowBody : public Gtk::VBox
 
     bool on_item_list_key_press(GdkEventKey* key_event);
     bool on_item_list_event(GdkEvent* gdk_event);
-
-    void selected_row_to_clipboard_callback(const Gtk::TreeModel::iterator& iter);
 };
 
 #endif //HAMSTER_WINDOWBODY_H

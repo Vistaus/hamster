@@ -99,7 +99,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         return false;
     }
 
-    const auto& ref_selection = item_list.get_selection();
+    const auto ref_selection = item_list.get_selection();
 
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
     // In this widget 'Enter' means: row edit mode
@@ -118,26 +118,20 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         this->get_window()->iconify();
-        ref_selection->selected_foreach_iter(sigc::mem_fun(*this, &WindowBody::selected_row_to_clipboard_callback));
-
+        for (const auto& path : item_list.get_selection()->get_selected_rows())
+        {
+            // FIX: does not work if two or more row selected
+            const auto row = *(ref_item_store->get_iter(path));
+            const auto item_value = row.get_value(columns.item_value);
+            ref_clipboard->set_text(item_value);
+            ref_item_store->erase(row);
+        }
         std::this_thread::sleep_for(std::chrono::milliseconds(280));
         send_ctrl_v_key_event();
 
         return true;
     }
     return false;
-}
-
-void WindowBody::selected_row_to_clipboard_callback(const Gtk::TreeModel::iterator& iter)
-{
-    const auto row = *(iter);
-    const auto item_value = row.get_value(columns.item_value);
-    ref_clipboard->set_text(item_value);
-    ref_item_store->erase(row);
-    search_entry.grab_focus();
-
-    const auto& ref_selection = item_list.get_selection();
-    ref_selection->unselect_all();
 }
 
 bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
