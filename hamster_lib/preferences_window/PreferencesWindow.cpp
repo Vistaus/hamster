@@ -20,7 +20,7 @@
 PreferencesWindow::PreferencesWindow()
 {
     set_title(_("Preferences"));
-    set_default_size(526, 540);
+    set_default_size(526, 520);
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -46,10 +46,6 @@ PreferencesWindow::PreferencesWindow()
     always_minimize_check.set_active(ref_settings->get_boolean("always-minimize"));
     always_minimize_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_always_minimize_click));
 
-    on_mouse_position_check.set_label(_("Place at the current mouse position"));
-    on_mouse_position_check.set_active(ref_settings->get_boolean("on-mouse-position"));
-    on_mouse_position_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_mouse_position_click));
-
     delay_pasting_label.set_label(_("Delay pasting [ms]"));
     delay_pasting_label.set_margin_top(6);
 
@@ -69,7 +65,6 @@ PreferencesWindow::PreferencesWindow()
     app_box.set_spacing(6);
     app_box.pack_start(run_automatically_check);
     app_box.pack_start(always_minimize_check);
-    app_box.pack_start(on_mouse_position_check);
     app_box.pack_start(delay_pasting_label);
     app_box.pack_start(delay_pasting_scale);
     app_box.show_all();
@@ -186,11 +181,6 @@ void PreferencesWindow::on_run_automatically_click()
 void PreferencesWindow::on_always_minimize_click()
 {
     ref_settings->set_boolean("always-minimize", always_minimize_check.get_active());
-}
-
-void PreferencesWindow::on_mouse_position_click()
-{
-    ref_settings->set_boolean("on-mouse-position", on_mouse_position_check.get_active());
 }
 
 void PreferencesWindow::on_delay_pasting_change()
