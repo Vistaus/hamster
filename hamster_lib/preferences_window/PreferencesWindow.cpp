@@ -20,7 +20,7 @@
 PreferencesWindow::PreferencesWindow()
 {
     set_title(_("Preferences"));
-    set_default_size(526, 480);
+    set_default_size(526, 540);
     set_resizable(false);
     set_decorated(false);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -50,12 +50,28 @@ PreferencesWindow::PreferencesWindow()
     on_mouse_position_check.set_active(ref_settings->get_boolean("on-mouse-position"));
     on_mouse_position_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_mouse_position_click));
 
+    delay_pasting_label.set_label(_("Delay pasting [ms]"));
+    delay_pasting_label.set_margin_top(6);
+
+    delay_pasting_scale.set_digits(0);
+    delay_pasting_scale.set_range(1, 1000);
+    delay_pasting_scale.add_mark(1, Gtk::POS_TOP, "");
+    delay_pasting_scale.add_mark(200, Gtk::POS_TOP, "");
+    delay_pasting_scale.add_mark(400, Gtk::POS_TOP, "");
+    delay_pasting_scale.add_mark(600, Gtk::POS_TOP, "");
+    delay_pasting_scale.add_mark(800, Gtk::POS_TOP, "");
+    delay_pasting_scale.add_mark(1000, Gtk::POS_TOP, "");
+    delay_pasting_scale.set_value(ref_settings->get_double("delay-pasting"));
+    delay_pasting_scale.signal_value_changed().connect(sigc::mem_fun(*this, &PreferencesWindow::on_delay_pasting_change));
+
     app_box.set_margin_left(30);
     app_box.set_margin_right(30);
     app_box.set_spacing(6);
     app_box.pack_start(run_automatically_check);
     app_box.pack_start(always_minimize_check);
     app_box.pack_start(on_mouse_position_check);
+    app_box.pack_start(delay_pasting_label);
+    app_box.pack_start(delay_pasting_scale);
     app_box.show_all();
 
     // ITEMS PREFERENCES
@@ -73,14 +89,9 @@ PreferencesWindow::PreferencesWindow()
     clear_list_check.set_active(ref_settings->get_boolean("clear-list"));
     clear_list_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_clear_list_click));
 
-    items_box.set_margin_left(30);
-    items_box.set_margin_right(30);
-    items_box.set_spacing(6);
-    items_box.pack_start(eliminate_spaces_check);
-    items_box.pack_start(clear_list_check);
-    items_box.show_all();
+    set_size_label.set_markup(_("Item list size"));
+    set_size_label.set_margin_top(6);
 
-    // LIST SIZE PREFERENCES
     item_list_size_scale.set_digits(0);
     item_list_size_scale.set_range(1, 1024);
     item_list_size_scale.add_mark(1, Gtk::POS_TOP, "");
@@ -91,16 +102,15 @@ PreferencesWindow::PreferencesWindow()
     item_list_size_scale.set_value(ref_settings->get_double("item-list-size"));
     item_list_size_scale.signal_value_changed().connect(sigc::mem_fun(*this, &PreferencesWindow::on_item_list_size_change));
 
-    set_size_label.set_markup(_("<b>Item list size</b>"));
-    set_size_label.set_halign(Gtk::ALIGN_START);
-    set_size_label.set_margin_top(24);
-    set_size_label.set_margin_bottom(6);
-    set_size_label.set_margin_left(12);
+    items_box.set_margin_left(30);
+    items_box.set_margin_right(30);
+    items_box.set_spacing(6);
+    items_box.pack_start(eliminate_spaces_check);
+    items_box.pack_start(clear_list_check);
+    items_box.pack_start(set_size_label);
+    items_box.pack_start(item_list_size_scale);
+    items_box.show_all();
 
-    scale_box.set_margin_left(30);
-    scale_box.set_margin_right(30);
-    scale_box.pack_start(item_list_size_scale);
-    scale_box.show_all();
 
     // ITEM PREFERENCES
     item_label.set_markup(_("<b>Text item</b>"));
@@ -146,8 +156,6 @@ PreferencesWindow::PreferencesWindow()
     v_box.pack_start(app_box);
     v_box.pack_start(items_label);
     v_box.pack_start(items_box);
-    v_box.pack_start(set_size_label);
-    v_box.pack_start(scale_box);
     v_box.pack_start(item_label);
     v_box.pack_start(item_box);
 
@@ -156,7 +164,7 @@ PreferencesWindow::PreferencesWindow()
     add(v_box);
 }
 
-bool PreferencesWindow::on_key_press(GdkEventKey *key_event)
+bool PreferencesWindow::on_key_press(GdkEventKey* key_event)
 {
     if (key_event == nullptr)
     {
@@ -183,6 +191,11 @@ void PreferencesWindow::on_always_minimize_click()
 void PreferencesWindow::on_mouse_position_click()
 {
     ref_settings->set_boolean("on-mouse-position", on_mouse_position_check.get_active());
+}
+
+void PreferencesWindow::on_delay_pasting_change()
+{
+    ref_settings->set_double("delay-pasting", delay_pasting_scale.get_value());
 }
 
 void PreferencesWindow::on_eliminate_spaces_click()

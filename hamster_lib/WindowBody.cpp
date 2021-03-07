@@ -123,11 +123,11 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     {
         this->get_window()->iconify();
 
-        Glib::ustring text_to_paste = "";
         const auto path_list = item_list.get_selection()->get_selected_rows();
         const auto path_sz = path_list.size();
         const auto prefix = ref_settings->get_string("item-prefix");
         const auto suffix = ref_settings->get_string("item-suffix");
+        Glib::ustring text_to_paste = "";
         for (const auto& path : path_list)
         {
             const auto row = *(ref_item_store->get_iter(path));
@@ -136,7 +136,10 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         }
 
         ref_clipboard->set_text(text_to_paste);
-        std::this_thread::sleep_for(std::chrono::milliseconds(280));
+
+        const auto delay_pasting = (long) ref_settings->get_double("delay-pasting");
+        g_print("delay pasting: %lu\n", delay_pasting);
+        std::this_thread::sleep_for(std::chrono::milliseconds(delay_pasting));
         send_ctrl_v_key_event();
 
         return true;
