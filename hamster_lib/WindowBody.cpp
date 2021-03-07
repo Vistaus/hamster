@@ -75,8 +75,10 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         return;
     }
 
+    auto text = ref_clipboard->wait_for_text();
+
     TextUtil tu{};
-    if (auto text = ref_clipboard->wait_for_text(); !tu.has_only_spaces(text))
+    if (!tu.has_only_spaces(text))
     {
         const auto row = *(ref_item_store->prepend());
         row[columns.item_value] = text; // Save in memory original text value
@@ -118,14 +120,15 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         this->get_window()->iconify();
+        Glib::ustring text_to_paste = "";
         for (const auto& path : item_list.get_selection()->get_selected_rows())
         {
             // FIX: does not work if two or more row selected
             const auto row = *(ref_item_store->get_iter(path));
             const auto item_value = row.get_value(columns.item_value);
-            ref_item_store->erase(row);
-            ref_clipboard->set_text(item_value);
+            text_to_paste += item_value + "\n";
         }
+        ref_clipboard->set_text(text_to_paste);
         std::this_thread::sleep_for(std::chrono::milliseconds(280));
         send_ctrl_v_key_event();
 
