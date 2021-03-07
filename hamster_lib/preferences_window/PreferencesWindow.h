@@ -42,7 +42,6 @@ struct PreferencesWindow : public Gtk::Window
 
     Gtk::CheckButton run_automatically_check;
     Gtk::CheckButton always_minimize_check;
-    Gtk::CheckButton on_mouse_position_check;
     Gtk::Label delay_pasting_label;
     Gtk::Scale delay_pasting_scale;
 
@@ -60,7 +59,6 @@ struct PreferencesWindow : public Gtk::Window
     bool on_key_press(GdkEventKey *key_event);
     void on_run_automatically_click();
     void on_always_minimize_click();
-    void on_mouse_position_click();
     void on_delay_pasting_change();
     void on_eliminate_spaces_click();
     void on_clear_list_click();
