@@ -50,8 +50,8 @@ PreferencesWindow::PreferencesWindow()
     delay_pasting_label.set_margin_top(6);
 
     delay_pasting_scale.set_digits(0);
-    delay_pasting_scale.set_range(1, 1000);
-    delay_pasting_scale.add_mark(1, Gtk::POS_TOP, "");
+    delay_pasting_scale.set_range(100, 1000);
+    delay_pasting_scale.add_mark(100, Gtk::POS_TOP, "");
     delay_pasting_scale.add_mark(200, Gtk::POS_TOP, "");
     delay_pasting_scale.add_mark(400, Gtk::POS_TOP, "");
     delay_pasting_scale.add_mark(600, Gtk::POS_TOP, "");
@@ -116,6 +116,8 @@ PreferencesWindow::PreferencesWindow()
     item_prefix.set_margin_bottom(6);
     item_prefix.set_margin_left(24);
     item_prefix.property_text().set_value(ref_settings->get_string("item-prefix"));
+    item_prefix.set_width_chars(42);
+    item_prefix.set_max_length(128);
     item_prefix.signal_changed().connect(sigc::mem_fun(*this, &PreferencesWindow::on_item_prefix_change));
 
     prefix_label.set_label(_("Prefix:"));
@@ -127,6 +129,8 @@ PreferencesWindow::PreferencesWindow()
     prefix_box.show_all();
 
     item_suffix.property_text().set_value(ref_settings->get_string("item-suffix"));
+    item_suffix.set_width_chars(42);
+    item_suffix.set_max_length(128);
     item_suffix.signal_changed().connect(sigc::mem_fun(*this, &PreferencesWindow::on_item_suffix_change));
     item_suffix.set_margin_left(24);
 
