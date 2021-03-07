@@ -23,6 +23,8 @@ WindowBody::WindowBody()
     ref_clipboard = Gtk::Clipboard::get();
     ref_clipboard->signal_owner_change().connect(sigc::mem_fun(*this, &WindowBody::on_clipboard_change));
 
+    ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
+
     search_entry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowBody::on_search_change));
     search_entry.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_search_entry_event));
     search_entry.set_margin_top(4);
@@ -120,14 +122,19 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         this->get_window()->iconify();
+
         Glib::ustring text_to_paste = "";
-        for (const auto& path : item_list.get_selection()->get_selected_rows())
+        const auto path_list = item_list.get_selection()->get_selected_rows();
+        const auto path_sz = path_list.size();
+        const auto prefix = ref_settings->get_string("item-prefix");
+        const auto suffix = ref_settings->get_string("item-suffix");
+        for (const auto& path : path_list)
         {
-            // FIX: does not work if two or more row selected
             const auto row = *(ref_item_store->get_iter(path));
             const auto item_value = row.get_value(columns.item_value);
-            text_to_paste += item_value + "\n";
+            text_to_paste += path_sz == 1 ? item_value : prefix + item_value + suffix;
         }
+
         ref_clipboard->set_text(text_to_paste);
         std::this_thread::sleep_for(std::chrono::milliseconds(280));
         send_ctrl_v_key_event();
