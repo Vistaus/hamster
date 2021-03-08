@@ -20,9 +20,6 @@
 
 int main(int argc, char* argv[])
 {
-    // During development only...
-    Glib::setenv("GSETTINGS_SCHEMA_DIR", "/home/slawtul/repos/hamster/data/", false);
-
     auto app = Gtk::Application::create("com.github.slawtul.hamster");
 
     MainWindow win{};
