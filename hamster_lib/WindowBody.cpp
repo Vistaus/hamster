@@ -80,19 +80,35 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     auto text = ref_clipboard->wait_for_text();
 
     TextUtil tu{};
-    if (!tu.has_only_spaces(text))
+    if (tu.has_only_spaces(text))
     {
-        const auto row = *(ref_item_store->prepend());
-        row[columns.item_value] = text; // Save in memory original text value
-
-        text = tu.join_lines(text, 48);
-        text = tu.trim_str(text);
-        text = tu.sub_str(text, 40, "...");
-        row[columns.item_display_value] = text; // Show short one liner text value
-
-        g_print("display value length: %lu\n", text.length());
-        item_list.scroll_to_row(ref_item_store->get_path(row));
+        return;
     }
+
+    // Delete just copied text if already exits in item list...
+    auto rows = ref_item_store->children();
+    for (auto row : rows) {
+        if (text.length() == row.get_value(columns.item_value).length() &&
+            text == row.get_value(columns.item_value)) {
+            g_print("remove %s\n", row.get_value(columns.item_value).c_str());
+            ref_item_store->erase(row);
+        }
+    }
+
+    const auto row = *(ref_item_store->prepend());
+    row[columns.item_value] = text; // Save in memory original text value
+
+    text = tu.join_lines(text, 48);
+    text = tu.trim_str(text);
+    text = tu.sub_str(text, 40, "...");
+    row[columns.item_display_value] = text; // Show short one liner text value
+
+    g_print("display value length: %lu\n", text.length());
+    item_list.scroll_to_row(ref_item_store->get_path(row));
+
+
+
+
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
 
