@@ -46,7 +46,7 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::Scale delay_pasting_scale;
 
     Gtk::CheckButton eliminate_spaces_check;
-    Gtk::CheckButton clear_list_check;
+    Gtk::CheckButton save_list_check;
     Gtk::Scale item_list_size_scale;
 
     Gtk::Box prefix_box;
@@ -61,7 +61,7 @@ struct PreferencesWindow : public Gtk::Window
     void on_always_minimize_click();
     void on_delay_pasting_change();
     void on_eliminate_spaces_click();
-    void on_clear_list_click();
+    void on_save_list_click();
     void on_item_list_size_change();
     void on_item_prefix_change() const;
     void on_item_suffix_change() const;

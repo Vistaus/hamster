@@ -80,9 +80,9 @@ PreferencesWindow::PreferencesWindow()
     eliminate_spaces_check.set_active(ref_settings->get_boolean("eliminate-spaces"));
     eliminate_spaces_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_eliminate_spaces_click));
 
-    clear_list_check.set_label(_("Clear list on quit"));
-    clear_list_check.set_active(ref_settings->get_boolean("clear-list"));
-    clear_list_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_clear_list_click));
+    save_list_check.set_label(_("Save list on quit"));
+    save_list_check.set_active(ref_settings->get_boolean("save-list"));
+    save_list_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_save_list_click));
 
     set_size_label.set_markup(_("Item list size"));
     set_size_label.set_margin_top(6);
@@ -101,7 +101,7 @@ PreferencesWindow::PreferencesWindow()
     items_box.set_margin_right(30);
     items_box.set_spacing(6);
     items_box.pack_start(eliminate_spaces_check);
-    items_box.pack_start(clear_list_check);
+    items_box.pack_start(save_list_check);
     items_box.pack_start(set_size_label);
     items_box.pack_start(item_list_size_scale);
     items_box.show_all();
@@ -197,9 +197,9 @@ void PreferencesWindow::on_eliminate_spaces_click()
     ref_settings->set_boolean("eliminate-spaces", eliminate_spaces_check.get_active());
 }
 
-void PreferencesWindow::on_clear_list_click()
+void PreferencesWindow::on_save_list_click()
 {
-    ref_settings->set_boolean("clear-list", clear_list_check.get_active());
+    ref_settings->set_boolean("save-list", save_list_check.get_active());
 }
 
 void PreferencesWindow::on_item_list_size_change()

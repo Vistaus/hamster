@@ -21,12 +21,17 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 
 ### Todo (last stuff)
 
+* to save list on quit
+* to search through all text items
 * to check if item list size is not exceeded
 * to generate translations
 * to handle - white spaces symbols (\t, \n) from prefix and suffix fields
 * to show small window on shift+enter hit (prefix/suffix)
 * to show item lenght on the bottom of window
 * to warn if capslock is on
+* to export items to json file and import when app starts
+* to prepare debian package
+* to show item preview (details ALT+D)
 * ...
 
 ### Issues
