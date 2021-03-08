@@ -47,22 +47,6 @@ WindowBody::WindowBody()
     item_list.set_search_entry(search_entry);
     item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_event));
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
-
-    const auto row1 = *(ref_item_store->prepend());
-    row1[columns.item_value] = "hamster";
-    row1[columns.item_display_value] = "hamster";
-
-    const auto row2 = *(ref_item_store->prepend());
-    row2[columns.item_value] = "clipboard manager";
-    row2[columns.item_display_value] = "clipboard manager";
-
-    const auto row3 = *(ref_item_store->prepend());
-    row3[columns.item_value] = "elementary os";
-    row3[columns.item_display_value] = "elementary os";
-
-    const auto row4 = *(ref_item_store->prepend());
-    row4[columns.item_value] = "linux";
-    row4[columns.item_display_value] = "linux";
 }
 
 void WindowBody::on_search_change()
@@ -93,10 +77,9 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
 
     // Delete just copied text if already exits in item list...
     auto rows = ref_item_store->children();
-    for (auto row : rows) {
+    for (const auto& row : rows) {
         if (text.length() == row.get_value(columns.item_value).length() &&
             text == row.get_value(columns.item_value)) {
-            g_print("remove %s\n", row.get_value(columns.item_value).c_str());
             ref_item_store->erase(row);
         }
     }
@@ -109,12 +92,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     text = tu.sub_str(text, 40, "...");
     row[columns.item_display_value] = text; // Show short one liner text value
 
-    g_print("display value length: %lu\n", text.length());
     item_list.scroll_to_row(ref_item_store->get_path(row));
-
-
-
-
     g_print("item store size: %d\n", ref_item_store->children().size());
 }
 

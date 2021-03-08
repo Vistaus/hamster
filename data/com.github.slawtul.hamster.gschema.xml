@@ -14,8 +14,8 @@
         <key name="eliminate-spaces" type="b">
             <default>true</default>
         </key>
-        <key name="clear-list" type="b">
-            <default>false</default>
+        <key name="save-list" type="b">
+            <default>true</default>
         </key>
         <key name="item-list-size" type="d">
             <default>256</default>
