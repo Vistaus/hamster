@@ -7,7 +7,7 @@ Clipboard manager for Debian-based distributions - for elementary OS mostly
 Before running app on you local machine, make sure you have *libgtkmm* lib installed
 
 ```bash
-sudo apt install libgtkmm-3.0-dev libgtkmm-3.0-doc
+sudo apt install g++ cmake libgtkmm-3.0-dev libgtkmm-3.0-doc
 ```
 
 ## How to build
@@ -23,6 +23,8 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 
 * to check if item list size is not exceeded
 * to generate translations
+* to handle - white spaces symbols (\t, \n) from prefix and suffix fields
+* to show small window on shift+enter hit (prefix/suffix)
 * to show item lenght on the bottom of window
 * to warn if capslock is on
 * ...
