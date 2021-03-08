@@ -19,7 +19,19 @@ cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 ```
 
+### Todo (last stuff)
+
+* to check if item list size is not exceeded
+* to generate translations
+* to show item lenght on the bottom of window
+* to warn if capslock is on
+* ...
+
 ### Issues
+
+#### Pinned screenshot from Flameshot app
+
+You cannot paste text if you made a screenshot and pinned to desktop
 
 #### gsettings schema not installed
 
