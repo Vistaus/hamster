@@ -85,6 +85,12 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         return;
     }
 
+    const auto eliminate_space = ref_settings->get_boolean("eliminate-spaces");
+    if (eliminate_space)
+    {
+        text = tu.trim_str(text);
+    }
+
     // Delete just copied text if already exits in item list...
     auto rows = ref_item_store->children();
     for (auto row : rows) {
