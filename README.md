@@ -33,6 +33,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to prepare debian package
 * to show item preview (details ALT+D)
 * to paste selected items considering selecting direction
+* to handle memory leak
 * ...
 
 ### Issues
