@@ -90,8 +90,8 @@ void MainWindow::show_preferences_win()
 
 void MainWindow::write_to_file()
 {
-    g_print("n-mseconds writing to file...");
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    g_print("n-mseconds writing to file...\n");
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     g_print("file closed\n");
 }
 
@@ -102,12 +102,14 @@ void MainWindow::close_app()
     ref_settings->set_int("window-x", win_x);
     ref_settings->set_int("window-y", win_y);
 
-    std::thread write_f(write_to_file);
+    const auto save_list = ref_settings->get_boolean("save-list");
+    if (save_list)
+    {
+        std::thread write_f(write_to_file);
+        write_f.join();
+    }
 
-    write_f.join();
-
-    g_print("app closed\n");
-
+    g_print("Hamster says bye!\n");
     exit(0);
 }
 
