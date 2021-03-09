@@ -235,16 +235,14 @@ bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
 void WindowBody::send_ctrl_v_key_event() const
 {
     const auto disp = XOpenDisplay(nullptr);
-    const auto keysym = XK_v;
-    const auto modsym = XK_Control_L;
-    const auto keycode = XKeysymToKeycode(disp, keysym);
-    const auto modcode = XKeysymToKeycode(disp, modsym);
+    const auto left_control = XKeysymToKeycode(disp, XK_Control_L);
+    const auto key_v = XKeysymToKeycode(disp, XK_v);
 
     XTestGrabControl(disp, True);
-    XTestFakeKeyEvent(disp, modcode, True, 0);  // Generate modkey press
-    XTestFakeKeyEvent(disp, keycode, True, 0);  // Generate regular key press
-    XTestFakeKeyEvent(disp, keycode, False, 0); // and release
-    XTestFakeKeyEvent(disp, modcode, False, 0); // Generate modkey release
+    XTestFakeKeyEvent(disp, left_control, True, 0);  // True means key press
+    XTestFakeKeyEvent(disp, key_v, True, 0);
+    XTestFakeKeyEvent(disp, key_v, False, 0);        // False means key release
+    XTestFakeKeyEvent(disp, left_control, False, 0);
 
     XSync(disp, False);
     XTestGrabControl(disp, False);
