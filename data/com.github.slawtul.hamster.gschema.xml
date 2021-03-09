@@ -9,7 +9,7 @@
             <default>false</default>
         </key>
         <key name="delay-pasting" type="d">
-            <default>200</default>
+            <default>320</default>
         </key>
         <key name="eliminate-spaces" type="b">
             <default>true</default>
