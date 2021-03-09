@@ -88,8 +88,10 @@ PreferencesWindow::PreferencesWindow()
     set_size_label.set_margin_top(6);
 
     item_list_size_scale.set_digits(0);
-    item_list_size_scale.set_range(1, 1024);
-    item_list_size_scale.add_mark(1, Gtk::POS_TOP, "");
+    item_list_size_scale.set_range(32, 1024);
+    item_list_size_scale.add_mark(32, Gtk::POS_TOP, "");
+    item_list_size_scale.add_mark(64, Gtk::POS_TOP, "");
+    item_list_size_scale.add_mark(128, Gtk::POS_TOP, "");
     item_list_size_scale.add_mark(256, Gtk::POS_TOP, "");
     item_list_size_scale.add_mark(512, Gtk::POS_TOP, "");
     item_list_size_scale.add_mark(768, Gtk::POS_TOP, "");
