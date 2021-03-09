@@ -17,7 +17,7 @@ include_directories(${X11_INCLUDE_DIR})
 add_executable(hamster hamster_run.cpp)
 include_directories(hamster_lib)
 add_subdirectory(hamster_lib)
-target_link_libraries(hamster hamster_lib ${GTKMM_LIBRARIES} ${X11_LIBRARIES} -lX11 -lXtst -lXext)
+target_link_libraries(hamster hamster_lib ${GTKMM_LIBRARIES} ${X11_LIBRARIES} -lX11 -lXtst -lXext -pthread)
 
 # tests
 # add_subdirectory(tests)

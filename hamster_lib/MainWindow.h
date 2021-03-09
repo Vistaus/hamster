@@ -20,6 +20,7 @@
 
 #include <glibmm/i18n.h>
 #include <gtkmm-3.0/gtkmm.h>
+#include <thread>
 
 #include "WindowBody.h"
 #include "about_dialog/AboutDialog.h"
@@ -48,6 +49,8 @@ struct MainWindow : public Gtk::Window
 
     bool on_delete_event(GdkEventAny* any_event) override;
     bool on_main_window_key_press(GdkEventKey* key_event);
+
+    static void write_to_file(); // testing thread...
 };
 
 #endif //HAMSTER_MAINWINDOW_H

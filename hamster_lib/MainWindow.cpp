@@ -88,12 +88,25 @@ void MainWindow::show_preferences_win()
     preferences_window.present();
 }
 
+void MainWindow::write_to_file()
+{
+    g_print("n-mseconds writing to file...");
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    g_print("file closed\n");
+}
+
 void MainWindow::close_app()
 {
     int win_x, win_y;
     this->get_position(win_x, win_y);
     ref_settings->set_int("window-x", win_x);
     ref_settings->set_int("window-y", win_y);
+
+    std::thread write_f(write_to_file);
+
+    write_f.join();
+
+    g_print("app closed\n");
 
     exit(0);
 }
