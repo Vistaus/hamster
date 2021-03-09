@@ -121,6 +121,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     // 'ENTER' KEY PRESSED
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
+        search_entry.grab_focus();
         this->get_window()->iconify();
 
         const auto path_list = item_list.get_selection()->get_selected_rows();
@@ -214,11 +215,20 @@ bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
         return false;
     }
 
+    // 'DOWN' KEY PRESSED (move to list)
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Down)
     {
         item_list.grab_focus();
         return true;
     }
+
+    // 'ESC' KEY PRESSED (clear search entry or minimize application)
+    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Escape) {
+        search_entry.get_text_length() == 0 ? this->get_window()->iconify() : search_entry.set_text("");
+        search_entry.grab_focus();
+        return true;
+    }
+
     return false;
 }
 
