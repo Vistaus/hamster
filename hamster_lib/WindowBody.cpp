@@ -92,7 +92,18 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     row[columns.item_display_value] = text; // Show short, one liner text value
 
     item_list.scroll_to_row(ref_item_store->get_path(row));
-    g_print("item store size: %d\n", ref_item_store->children().size());
+
+    // Delete last text items if too many in the list...
+    const auto list_size_setting = (int) ref_settings->get_double("item-list-size");
+    auto item_store_size = (int) ref_item_store->children().size();
+    auto diff_size = item_store_size - list_size_setting;
+    if (diff_size > 0)
+    {
+        for (int i = 1; i <= diff_size; ++i)
+        {
+            ref_item_store->erase(ref_item_store->children()[item_store_size - i]);
+        }
+    }
 }
 
 bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
@@ -138,7 +149,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
 
         ref_clipboard->set_text(text_to_paste);
 
-        const auto delay_pasting = (long) ref_settings->get_double("delay-pasting");
+        const auto delay_pasting = (short) ref_settings->get_double("delay-pasting");
         std::this_thread::sleep_for(std::chrono::milliseconds(delay_pasting));
         send_ctrl_v_key_event();
 
