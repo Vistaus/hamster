@@ -76,8 +76,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     }
 
     // Delete just copied text if already exits in item list...
-    auto rows = ref_item_store->children();
-    for (const auto& row : rows) {
+    for (const auto& row : ref_item_store->children()) {
         if (text.length() == row.get_value(columns.item_value).length() &&
             text == row.get_value(columns.item_value)) {
             ref_item_store->erase(row);
@@ -90,7 +89,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     text = tu.join_lines(text, 48);
     text = tu.trim_str(text);
     text = tu.sub_str(text, 40, "...");
-    row[columns.item_display_value] = text; // Show short one liner text value
+    row[columns.item_display_value] = text; // Show short, one liner text value
 
     item_list.scroll_to_row(ref_item_store->get_path(row));
     g_print("item store size: %d\n", ref_item_store->children().size());
