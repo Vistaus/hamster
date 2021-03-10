@@ -136,7 +136,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         this->get_window()->iconify();
 
         const auto path_list = item_list.get_selection()->get_selected_rows();
-        const auto path_sz = path_list.size();
+        const auto paths_sz = path_list.size();
         const auto prefix = ref_settings->get_string("item-prefix");
         const auto suffix = ref_settings->get_string("item-suffix");
 
@@ -145,7 +145,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         {
             const auto row = *(ref_item_store->get_iter(path));
             const auto item_value = row.get_value(columns.item_value);
-            text_to_paste += path_sz == 1 ? item_value : prefix + item_value + suffix;
+            text_to_paste += paths_sz == 1 ? item_value : prefix + item_value + suffix;
         }
 
         ref_clipboard->set_text(text_to_paste);
