@@ -22,6 +22,7 @@
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
+#include <regex>
 #include <chrono>
 #include <iostream>
 #include <thread>

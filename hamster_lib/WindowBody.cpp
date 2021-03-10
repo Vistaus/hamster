@@ -17,6 +17,9 @@
 
 #include "WindowBody.h"
 
+static std::regex newlines_re {"\\\\n+"};
+static std::regex tabs_re {"\\\\t+"};
+
 WindowBody::WindowBody()
     : item_list(1, false, Gtk::SELECTION_MULTIPLE) // Where '1' means: show 'item_display_value' column only!
 {
@@ -47,6 +50,14 @@ WindowBody::WindowBody()
     item_list.set_search_entry(search_entry);
     item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_event));
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
+
+    const auto row = *(ref_item_store->prepend());
+    row[columns.item_value] = "world";
+    row[columns.item_display_value] = "world";
+
+    const auto row1 = *(ref_item_store->prepend());
+    row1[columns.item_value] = "hello";
+    row1[columns.item_display_value] = "hello";
 }
 
 void WindowBody::on_search_change()
@@ -137,8 +148,14 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
 
         const auto path_list = item_list.get_selection()->get_selected_rows();
         const auto paths_sz = path_list.size();
-        const auto prefix = ref_settings->get_string("item-prefix");
-        const auto suffix = ref_settings->get_string("item-suffix");
+
+        auto prefix = (std::string) ref_settings->get_string("item-prefix");
+        auto suffix = (std::string) ref_settings->get_string("item-suffix");
+
+        prefix = std::regex_replace(prefix, newlines_re, "\n");
+        prefix = std::regex_replace(prefix, tabs_re, "\t");
+        suffix = std::regex_replace(suffix, newlines_re, "\n");
+        suffix = std::regex_replace(suffix, tabs_re, "\t");
 
         Glib::ustring text_to_paste = "";
         for (const auto& path : path_list)
