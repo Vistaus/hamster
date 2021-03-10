@@ -267,9 +267,9 @@ void WindowBody::send_ctrl_v_key_event() const
     const auto v_key = XKeysymToKeycode(disp, XK_v);
 
     XTestGrabControl(disp, True);
-    XTestFakeKeyEvent(disp, left_control_key, True, 0);  // True means key press
-    XTestFakeKeyEvent(disp, v_key, True, 0);
-    XTestFakeKeyEvent(disp, v_key, False, 0);            // False means key release
+    XTestFakeKeyEvent(disp, left_control_key, True, 0);
+    XTestFakeKeyEvent(disp, v_key, True, 0);  // True means key press
+    XTestFakeKeyEvent(disp, v_key, False, 0); // False means key release
     XTestFakeKeyEvent(disp, left_control_key, False, 0);
 
     XSync(disp, False);
