@@ -95,13 +95,13 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
 
     // Delete last text items if too many in the list...
     const auto list_size_setting = (int) ref_settings->get_double("item-list-size");
-    auto item_store_size = (int) ref_item_store->children().size();
-    auto diff_size = item_store_size - list_size_setting;
-    if (diff_size > 0)
+    auto item_store_sz = (int) ref_item_store->children().size();
+    auto diff_sz = item_store_sz - list_size_setting;
+    if (diff_sz > 0)
     {
-        for (int i = 1; i <= diff_size; ++i)
+        for (int i = 1; i <= diff_sz; ++i)
         {
-            ref_item_store->erase(ref_item_store->children()[item_store_size - i]);
+            ref_item_store->erase(ref_item_store->children()[item_store_sz - i]);
         }
     }
     g_print("stored items: %d\n", ref_item_store->children().size());
