@@ -31,6 +31,7 @@ struct ShortcutsWindow : public Gtk::Window
 
     Gtk::ShortcutsShortcut show_app_shortcut;
     Gtk::ShortcutsShortcut show_settings_shortcut;
+    Gtk::ShortcutsShortcut show_key_bindings_shortcut;
     Gtk::ShortcutsShortcut quit_app_shortcut;
 
     Gtk::ShortcutsShortcut paste_item_shortcut;

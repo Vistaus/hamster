@@ -129,6 +129,13 @@ bool MainWindow::on_main_window_key_press(GdkEventKey* key_event)
         return true;
     }
 
+    // 'ALT + S' KEYS PRESSED (show shortcuts window)
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_s)
+    {
+        show_shortcuts_win();
+        return true;
+    }
+
     // 'ALT + Q' KEYS PRESSED (quit application)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_q)
     {
