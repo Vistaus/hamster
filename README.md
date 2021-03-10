@@ -24,7 +24,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to save list on quit
 * to search through all text items
 * to generate translations
-* >> to handle - white spaces symbols (\t, \n) from prefix and suffix fields
 * to show small window on shift+enter hit (prefix/suffix)
 * to show item lenght on the bottom of window
 * to warn if capslock is on
