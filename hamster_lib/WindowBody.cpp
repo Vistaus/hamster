@@ -104,6 +104,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
             ref_item_store->erase(ref_item_store->children()[item_store_size - i]);
         }
     }
+    g_print("stored items: %d\n", ref_item_store->children().size());
 }
 
 bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
@@ -251,7 +252,7 @@ void WindowBody::send_ctrl_v_key_event() const
     XTestGrabControl(disp, True);
     XTestFakeKeyEvent(disp, left_control_key, True, 0);  // True means key press
     XTestFakeKeyEvent(disp, v_key, True, 0);
-    XTestFakeKeyEvent(disp, v_key, False, 0);        // False means key release
+    XTestFakeKeyEvent(disp, v_key, False, 0);            // False means key release
     XTestFakeKeyEvent(disp, left_control_key, False, 0);
 
     XSync(disp, False);
