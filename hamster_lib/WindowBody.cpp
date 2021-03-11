@@ -150,8 +150,8 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         auto suffix = (std::string) ref_settings->get_string("item-suffix");
 
         TextUtil tu {};
-        prefix = tu.replace_whitespaces(prefix);
-        suffix = tu.replace_whitespaces(suffix);
+        prefix = tu.convert_to_newline_or_tab(prefix);
+        suffix = tu.convert_to_newline_or_tab(suffix);
 
         Glib::ustring text_to_paste = "";
         for (const auto& path : path_list)

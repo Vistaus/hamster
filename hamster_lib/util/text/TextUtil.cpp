@@ -52,7 +52,7 @@ Glib::ustring TextUtil::trim_str(const Glib::ustring &text)
     return text.substr(begin, range);
 }
 
-std::string TextUtil::replace_whitespaces(std::string& text)
+std::string TextUtil::convert_to_newline_or_tab(std::string& text)
 {
     text = std::regex_replace(text, newlines_re, "\n");
     text = std::regex_replace(text, tabs_re, "\t");
