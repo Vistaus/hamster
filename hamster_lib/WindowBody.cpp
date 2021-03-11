@@ -48,13 +48,17 @@ WindowBody::WindowBody()
     item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_event));
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
 
-    const auto row = *(ref_item_store->prepend());
-    row[columns.item_value] = "world";
-    row[columns.item_display_value] = "world";
+    const auto row0 = *(ref_item_store->append());
+    row0[columns.item_value] = "Welcome to Hamster !";
+    row0[columns.item_display_value] = "Welcome to Hamster !";
 
-    const auto row1 = *(ref_item_store->prepend());
-    row1[columns.item_value] = "hello";
-    row1[columns.item_display_value] = "hello";
+    const auto row1 = *(ref_item_store->append());
+    row1[columns.item_value] = "Press <Alt+S> to open shortcuts window";
+    row1[columns.item_display_value] = "Press <Alt+S> to open shortcuts window";
+
+    const auto row2 = *(ref_item_store->append());
+    row2[columns.item_value] = "Press <Alt+P> to open preferences window";
+    row2[columns.item_display_value] = "Press <Alt+P> to open preferences window";
 }
 
 void WindowBody::on_search_change()
