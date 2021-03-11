@@ -40,6 +40,7 @@ WindowBody::WindowBody()
     scrolled_win.add(item_list);
 
     ref_item_store = Gtk::ListStore::create(columns);
+    ref_searched_item_store = Gtk::ListStore::create(columns);
 
     item_list.set_model(ref_item_store);
     item_list.set_headers_visible(false);
@@ -63,7 +64,27 @@ WindowBody::WindowBody()
 
 void WindowBody::on_search_change()
 {
-    g_print("%s\n", search_entry.get_text().c_str());
+    ref_searched_item_store->clear();
+    if (search_entry.get_text().length() >= 2)
+    {
+        const auto str_to_find = ".*" + search_entry.get_text().raw() + ".*";
+        const auto pattern = std::regex {str_to_find, std::regex_constants::icase};
+        std::smatch sm {};
+        for (const auto& row : ref_item_store->children())
+        {
+            if (std::regex_search(row.get_value(columns.item_value).raw(), sm, pattern))
+            {
+                const auto srow = *(ref_searched_item_store->append());
+                srow[columns.item_value] = row.get_value(columns.item_value);
+                srow[columns.item_display_value] = row.get_value(columns.item_display_value);
+            }
+        }
+        item_list.set_model(ref_searched_item_store);
+    }
+    else
+    {
+        item_list.set_model(ref_item_store);
+    }
 }
 
 void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
@@ -88,9 +109,10 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     }
 
     // Delete just copied text if already exits in item list...
-    for (const auto& row : ref_item_store->children()) {
-        if (text.length() == row.get_value(columns.item_value).length() &&
-            text == row.get_value(columns.item_value)) {
+    for (const auto& row : ref_item_store->children())
+    {
+        if (text.length() == row.get_value(columns.item_value).length() && text == row.get_value(columns.item_value))
+        {
             ref_item_store->erase(row);
         }
     }
@@ -251,7 +273,8 @@ bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
     }
 
     // 'ESC' KEY PRESSED (clear search entry or minimize application)
-    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Escape) {
+    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Escape)
+    {
         search_entry.get_text_length() == 0 ? this->get_window()->iconify() : search_entry.set_text("");
         search_entry.grab_focus();
         return true;
