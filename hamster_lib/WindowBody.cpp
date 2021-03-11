@@ -70,6 +70,8 @@ void WindowBody::on_search_change()
         const auto str_to_find = ".*" + search_entry.get_text().raw() + ".*";
         const auto pattern = std::regex {str_to_find, std::regex_constants::icase};
         std::smatch sm {};
+
+        // TODO: For huge text item list below regex search should be done with separate threads
         for (const auto& row : ref_item_store->children())
         {
             if (std::regex_search(row.get_value(columns.item_value).raw(), sm, pattern))
