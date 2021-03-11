@@ -17,9 +17,6 @@
 
 #include "WindowBody.h"
 
-static std::regex newlines_re {"\\\\n+"};
-static std::regex tabs_re {"\\\\t+"};
-
 WindowBody::WindowBody()
     : item_list(1, false, Gtk::SELECTION_MULTIPLE) // Where '1' means: show 'item_display_value' column only!
 {
@@ -152,10 +149,9 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         auto prefix = (std::string) ref_settings->get_string("item-prefix");
         auto suffix = (std::string) ref_settings->get_string("item-suffix");
 
-        prefix = std::regex_replace(prefix, newlines_re, "\n");
-        prefix = std::regex_replace(prefix, tabs_re, "\t");
-        suffix = std::regex_replace(suffix, newlines_re, "\n");
-        suffix = std::regex_replace(suffix, tabs_re, "\t");
+        TextUtil tu {};
+        prefix = tu.replace_whitespaces(prefix);
+        suffix = tu.replace_whitespaces(suffix);
 
         Glib::ustring text_to_paste = "";
         for (const auto& path : path_list)
