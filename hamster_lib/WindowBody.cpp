@@ -67,8 +67,7 @@ void WindowBody::on_search_change()
     ref_searched_item_store->clear();
     if (search_entry.get_text().length() >= 2)
     {
-        const auto str_to_find = ".*" + search_entry.get_text().raw() + ".*";
-        const auto pattern = std::regex {str_to_find, std::regex_constants::icase};
+        const auto pattern = std::regex {search_entry.get_text().raw(), std::regex_constants::icase};
         std::smatch sm {};
 
         // TODO: For huge text item list below regex search should be done with separate threads
