@@ -18,7 +18,7 @@
 
 static const std::regex newlines_re {"\\\\n+"};
 static const std::regex tabs_re {"\\\\t+"};
-static const std::regex whitespaces_re {"\\s{1,}"};
+static const std::regex whitespaces_re {"\\s+"};
 
 Glib::ustring TextUtil::sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end)
 {
