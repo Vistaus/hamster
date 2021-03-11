@@ -45,6 +45,8 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::Label delay_pasting_label;
     Gtk::Scale delay_pasting_scale;
 
+    // TODO: consider 'copy text items less then ...' scale widget
+
     Gtk::CheckButton eliminate_spaces_check;
     Gtk::CheckButton save_list_check;
     Gtk::Scale item_list_size_scale;
