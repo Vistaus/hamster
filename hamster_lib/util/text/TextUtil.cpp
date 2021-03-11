@@ -16,6 +16,10 @@
  */
 #include "TextUtil.h"
 
+static const std::regex newlines_re {"\\\\n+"};
+static const std::regex tabs_re {"\\\\t+"};
+static const std::regex whitespaces_re {"\\s{1,}"};
+
 Glib::ustring TextUtil::sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end)
 {
     if (text.length() > n_letters)
@@ -32,8 +36,7 @@ bool TextUtil::has_only_spaces(const Glib::ustring &text)
 
 Glib::ustring TextUtil::join_lines(Glib::ustring &text, uint n_letters)
 {
-    const auto re = std::regex{"\\s{1,}"};
-    return std::regex_replace(text.substr(0, n_letters).c_str(), re, " ");
+    return std::regex_replace(text.substr(0, n_letters).c_str(), whitespaces_re, " ");
 }
 
 Glib::ustring TextUtil::trim_str(const Glib::ustring &text)
@@ -47,4 +50,11 @@ Glib::ustring TextUtil::trim_str(const Glib::ustring &text)
     const auto end = text.find_last_not_of(whitespaces);
     const auto range = end - begin + 1;
     return text.substr(begin, range);
+}
+
+std::string TextUtil::replace_whitespaces(std::string& text)
+{
+    text = std::regex_replace(text, newlines_re, "\n");
+    text = std::regex_replace(text, tabs_re, "\t");
+    return text;
 }
