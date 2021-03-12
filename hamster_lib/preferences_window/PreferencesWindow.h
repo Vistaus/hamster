@@ -37,7 +37,6 @@ struct PreferencesWindow : public Gtk::Window
 
     Gtk::VBox app_box;
     Gtk::VBox items_box;
-    Gtk::VBox scale_box;
     Gtk::VBox item_box;
 
     Gtk::CheckButton run_automatically_check;
