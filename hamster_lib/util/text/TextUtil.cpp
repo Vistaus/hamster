@@ -20,6 +20,21 @@ static const std::regex newlines_re {"\\\\n+"};
 static const std::regex tabs_re {"\\\\t+"};
 static const std::regex whitespaces_re {"\\s+"};
 
+static const std::regex backslash_re {"\\\\"};
+static const std::regex star_re {"\\*"};
+static const std::regex par_l_re {"\\("};
+static const std::regex par_r_re {"\\)"};
+static const std::regex dot_re {"\\."};
+static const std::regex plus_re {"\\+"};
+static const std::regex qmark_re {"\\?"};
+static const std::regex bird_re {"\\^"};
+static const std::regex dol_re {"\\$"};
+static const std::regex sbra_l_re {"\\["};
+static const std::regex sbra_r_re {"\\]"};
+static const std::regex cbra_l_re {"\\{"};
+static const std::regex cbra_r_re {"\\}"};
+static const std::regex line_re {"\\|"};
+
 Glib::ustring TextUtil::sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end)
 {
     if (text.length() > n_letters)
@@ -57,4 +72,24 @@ std::string TextUtil::convert_to_newline_or_tab(std::string& text)
     text = std::regex_replace(text, newlines_re, "\n");
     text = std::regex_replace(text, tabs_re, "\t");
     return text;
+}
+
+std::string TextUtil::escape_nonalpha(const std::string& text)
+{
+    std::string esc_str = "";
+    esc_str = std::regex_replace(text,    backslash_re, "\\\\");
+    esc_str = std::regex_replace(esc_str, star_re, "\\*");
+    esc_str = std::regex_replace(esc_str, par_l_re, "\\(");
+    esc_str = std::regex_replace(esc_str, par_r_re, "\\)");
+    esc_str = std::regex_replace(esc_str, dot_re, "\\.");
+    esc_str = std::regex_replace(esc_str, plus_re, "\\+");
+    esc_str = std::regex_replace(esc_str, qmark_re, "\\?");
+    esc_str = std::regex_replace(esc_str, bird_re, "\\^");
+    esc_str = std::regex_replace(esc_str, dol_re, "\\$");
+    esc_str = std::regex_replace(esc_str, sbra_l_re, "\\[");
+    esc_str = std::regex_replace(esc_str, sbra_r_re, "\\]");
+    esc_str = std::regex_replace(esc_str, cbra_l_re, "\\{");
+    esc_str = std::regex_replace(esc_str, cbra_r_re, "\\}");
+    esc_str = std::regex_replace(esc_str, line_re, "\\|");
+    return esc_str;
 }
