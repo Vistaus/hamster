@@ -216,7 +216,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     const auto& ref_selection = item_list.get_selection();
 
     // 'ESCAPE' OR 'TAB' KEY PRESSED
-    if (key_event->keyval == GDK_KEY_Escape || key_event->keyval == GDK_KEY_Tab)
+    if (key_event->keyval == GDK_KEY_Escape || key_event->keyval == GDK_KEY_Tab || key_event->keyval == GDK_KEY_slash)
     {
         search_entry.grab_focus();
         return true;
