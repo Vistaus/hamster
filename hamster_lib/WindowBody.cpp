@@ -67,7 +67,11 @@ void WindowBody::on_search_change()
     ref_searched_item_store->clear();
     if (search_entry.get_text().length() >= 2)
     {
-        const auto pattern = std::regex {search_entry.get_text().raw(), std::regex_constants::icase};
+        TextUtil tu {};
+        auto str_to_find = (std::string) search_entry.get_text();
+        auto esc_str = tu.escape_nonalpha(str_to_find);
+
+        const auto pattern = std::regex {esc_str, std::regex_constants::icase};
         std::smatch sm {};
 
         // TODO: For huge text item list below regex search should be done with separate threads
@@ -75,9 +79,9 @@ void WindowBody::on_search_change()
         {
             if (std::regex_search(row.get_value(columns.item_value).raw(), sm, pattern))
             {
-                const auto srow = *(ref_searched_item_store->append());
-                srow[columns.item_value] = row.get_value(columns.item_value);
-                srow[columns.item_display_value] = row.get_value(columns.item_display_value);
+                const auto s_row = *(ref_searched_item_store->append());
+                s_row[columns.item_value] = row.get_value(columns.item_value);
+                s_row[columns.item_display_value] = row.get_value(columns.item_display_value);
             }
         }
         item_list.set_model(ref_searched_item_store);
@@ -97,7 +101,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
 
     auto text = ref_clipboard->wait_for_text();
 
-    TextUtil tu{};
+    TextUtil tu {};
     if (tu.has_only_spaces(text))
     {
         return;
