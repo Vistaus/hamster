@@ -18,13 +18,13 @@
 #ifndef HAMSTER_WINDOWBODY_H
 #define HAMSTER_WINDOWBODY_H
 
+#include <glibmm/i18n.h>
 #include <gtkmm-3.0/gtkmm.h>
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
 #include <regex>
 #include <chrono>
-#include <iostream>
 #include <thread>
 #include "util/text/TextUtil.h"
 

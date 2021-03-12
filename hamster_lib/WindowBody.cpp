@@ -50,16 +50,16 @@ WindowBody::WindowBody()
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
 
     const auto row0 = *(ref_item_store->append());
-    row0[columns.item_value] = "Welcome to Hamster !";
-    row0[columns.item_display_value] = "Welcome to Hamster !";
+    row0[columns.item_value] = _("Welcome to Hamster !");
+    row0[columns.item_display_value] = _("Welcome to Hamster !");
 
     const auto row1 = *(ref_item_store->append());
-    row1[columns.item_value] = "Press <Alt+S> to open shortcuts window";
-    row1[columns.item_display_value] = "Press <Alt+S> to open shortcuts window";
+    row1[columns.item_value] = _("Press <Alt+S> to open shortcuts window");
+    row1[columns.item_display_value] = _("Press <Alt+S> to open shortcuts window");
 
     const auto row2 = *(ref_item_store->append());
-    row2[columns.item_value] = "Press <Alt+P> to open preferences window";
-    row2[columns.item_display_value] = "Press <Alt+P> to open preferences window";
+    row2[columns.item_value] = _("Press <Alt+P> to open preferences window");
+    row2[columns.item_display_value] = _("Press <Alt+P> to open preferences window");
 }
 
 void WindowBody::on_search_change()
