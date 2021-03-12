@@ -68,9 +68,12 @@ void WindowBody::on_search_change()
     if (search_entry.get_text().length() >= 2)
     {
         TextUtil tu {};
-        auto str_to_find = (std::string) search_entry.get_text();
-        auto esc_str = tu.escape_nonalpha(str_to_find);
+        auto search_str = (std::string) search_entry.get_text();
 
+        // Escape nonaplha chars because we want treat them as regular chars
+        // Eg. user wants to use '.' as dot not as 'any' regexp char
+        // Eg. user wants to use '*' as star not as 'zero or more' regexp character, etc...
+        auto esc_str = tu.escape_nonalpha(search_str);
         const auto pattern = std::regex {esc_str, std::regex_constants::icase};
         std::smatch sm {};
 
