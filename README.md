@@ -22,7 +22,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 ### Todo (last stuff)
 
 * to save list on quit
-* to search through all text items
 * to generate translations
 * to show small window on shift+enter hit (prefix/suffix)
 * to show item lenght on the bottom of window
@@ -32,7 +31,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to show item preview (details ALT+D)
 * to paste selected items considering selecting direction
 * to handle memory leak
-* to move selection to the top after pasting
 * ...
 
 ### Issues

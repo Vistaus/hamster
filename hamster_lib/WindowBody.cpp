@@ -133,7 +133,9 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     text = tu.sub_str(text, 40, "...");
     row[columns.item_display_value] = text; // Show short, one liner text value
 
+    item_list.set_cursor(ref_item_store->get_path(row));
     item_list.scroll_to_row(ref_item_store->get_path(row));
+
 
     // Delete last text items if too many in the list...
     const auto list_size_setting = (int) ref_settings->get_double("item-list-size");
