@@ -27,6 +27,7 @@
 #include <chrono>
 #include <thread>
 #include "util/text/TextUtil.h"
+#include "item_details_window/ItemDetailsWindow.h"
 
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 {
@@ -55,6 +56,8 @@ struct WindowBody : public Gtk::VBox
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
     Glib::RefPtr<Gio::Settings> ref_settings;
 
+    ItemDetailsWindow item_details_window;
+
     void on_clipboard_change(GdkEventOwnerChange* event);
     void send_ctrl_v_key_event() const;
 
@@ -63,6 +66,8 @@ struct WindowBody : public Gtk::VBox
 
     bool on_item_list_key_press(GdkEventKey* key_event);
     bool on_item_list_event(GdkEvent* gdk_event);
+
+    void show_item_details_window(const Glib::ustring& text);
 };
 
 #endif //HAMSTER_WINDOWBODY_H

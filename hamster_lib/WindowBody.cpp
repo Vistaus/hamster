@@ -70,7 +70,7 @@ void WindowBody::on_search_change()
         TextUtil tu {};
         auto search_str = (std::string) search_entry.get_text();
 
-        // Escape nonaplha chars because we want treat them as regular chars
+        // Escape non-alpha chars because we want treat them as regular chars
         // Eg. user wants to use '.' as dot not as 'any' regexp char
         // Eg. user wants to use '*' as star not as 'zero or more' regexp character, etc...
         auto esc_str = tu.escape_nonalpha(search_str);
@@ -254,6 +254,17 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
         return true;
     }
 
+    // 'ALT + D' KEYS PRESSED (show item details window)
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_d)
+    {
+        const auto path = item_list.get_selection()->get_selected_rows()[0];
+        const auto row = *(ref_item_store->get_iter(path));
+        const auto item_value = row.get_value(columns.item_value);
+        show_item_details_window(item_value);
+        return true;
+    }
+
+
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)
     {
@@ -307,4 +318,10 @@ void WindowBody::send_ctrl_v_key_event() const
 
     XSync(disp, False);
     XTestGrabControl(disp, False);
+}
+
+void WindowBody::show_item_details_window(const Glib::ustring& text)
+{
+    item_details_window.show_all();
+    item_details_window.present();
 }
