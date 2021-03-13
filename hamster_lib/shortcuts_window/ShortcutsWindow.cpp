@@ -20,7 +20,7 @@
 ShortcutsWindow::ShortcutsWindow()
 {
     set_title(_("Shortcuts"));
-    set_default_size(526, 520);
+    set_default_size(526, 540);
     set_resizable(false);
     set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -67,6 +67,10 @@ ShortcutsWindow::ShortcutsWindow()
     item_prefix_suffix_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     item_prefix_suffix_shortcut.property_accelerator().set_value("<Shift>Return");
 
+    details_shortcut.property_title().set_value(_("Show item details"));
+    details_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
+    details_shortcut.property_accelerator().set_value("<Alt>D");
+
     lowercase_shortcut.property_title().set_value(_("Change to lowercase"));
     lowercase_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     lowercase_shortcut.property_accelerator().set_value("<Alt>L");
@@ -82,6 +86,7 @@ ShortcutsWindow::ShortcutsWindow()
     items_group.add(paste_item_shortcut);
     items_group.add(select_items_shortcut);
     items_group.add(item_prefix_suffix_shortcut);
+    items_group.add(details_shortcut);
     items_group.add(lowercase_shortcut);
     items_group.add(uppercase_shortcut);
     items_group.add(delete_item_shortcut);
