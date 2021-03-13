@@ -21,21 +21,16 @@ ItemDetailsWindow::ItemDetailsWindow()
 {
     set_title(_("Item details"));
     set_default_size(480, 520);
-    set_resizable(true);
-    set_decorated(false);
+    set_resizable(false);
+    set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     //this->signal_key_press_event().connect(sigc::mem_fun(*this, &PreferencesWindow::on_key_press));
-
-    header_bar.set_show_close_button(true);
-    header_bar.set_has_subtitle(false);
-    header_bar.set_margin_bottom(20);
 
     // MAIN BOX
     v_box.set_margin_top(12);
     v_box.set_margin_right(12);
     v_box.set_margin_bottom(24);
     v_box.set_margin_left(12);
-    v_box.pack_start(header_bar);
     v_box.show_all();
 
     add(v_box);

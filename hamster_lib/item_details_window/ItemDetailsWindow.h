@@ -25,7 +25,6 @@ struct ItemDetailsWindow : public Gtk::Window
 {
     ItemDetailsWindow();
 
-    Gtk::HeaderBar header_bar;
     Gtk::VBox v_box;
 };
 
