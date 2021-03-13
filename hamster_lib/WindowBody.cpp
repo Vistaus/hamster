@@ -258,7 +258,11 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_d)
     {
         const auto path = item_list.get_selection()->get_selected_rows()[0];
-        const auto row = *(ref_item_store->get_iter(path));
+        auto row = *(ref_item_store->get_iter(path));
+        if (ref_searched_item_store->children().size() > 0)
+        {
+            row = *(ref_searched_item_store->get_iter(path));
+        }
         const auto item_value = row.get_value(columns.item_value);
         show_item_details_window(item_value);
         return true;

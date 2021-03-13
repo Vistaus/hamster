@@ -20,7 +20,7 @@
 ItemDetailsWindow::ItemDetailsWindow()
 {
     set_title(_("Item details"));
-    set_default_size(640, 480);
+    set_default_size(640, 520);
     set_resizable(true);
     set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
