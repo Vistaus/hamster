@@ -22,21 +22,18 @@ PreferencesWindow::PreferencesWindow()
     set_title(_("Preferences"));
     set_default_size(480, 520);
     set_resizable(false);
-    set_decorated(false);
+    set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
     this->signal_key_press_event().connect(sigc::mem_fun(*this, &PreferencesWindow::on_key_press));
 
     ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
-
-    header_bar.set_show_close_button(true);
-    header_bar.set_has_subtitle(false);
-    header_bar.set_margin_bottom(20);
 
     // APPLICATION PREFERENCES
     app_label.set_markup(_("<b>Application</b>"));
     app_label.set_halign(Gtk::ALIGN_START);
     app_label.set_margin_bottom(6);
     app_label.set_margin_left(12);
+    app_label.set_margin_top(6);
 
     run_automatically_check.set_label(_("Run automatically on system startup"));
     run_automatically_check.set_active(ref_settings->get_boolean("run-automatically"));
@@ -152,7 +149,6 @@ PreferencesWindow::PreferencesWindow()
     v_box.set_margin_right(12);
     v_box.set_margin_bottom(24);
     v_box.set_margin_left(12);
-    v_box.pack_start(header_bar);
     v_box.pack_start(app_label);
     v_box.pack_start(app_box);
     v_box.pack_start(items_label);

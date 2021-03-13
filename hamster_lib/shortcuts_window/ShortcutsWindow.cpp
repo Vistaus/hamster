@@ -22,13 +22,11 @@ ShortcutsWindow::ShortcutsWindow()
     set_title(_("Shortcuts"));
     set_default_size(526, 520);
     set_resizable(false);
-    set_decorated(false);
+    set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
 
     this->signal_key_press_event().connect(sigc::mem_fun(*this, &ShortcutsWindow::on_key_press));
 
-    header_bar.set_show_close_button(true);
-    header_bar.set_has_subtitle(false);
     section.property_visible().set_value(true);
 
     // APPLICATION SHORTCUTS
@@ -92,12 +90,6 @@ ShortcutsWindow::ShortcutsWindow()
     section.add(items_group);
 
     // MAIN BOX
-    header_box.set_margin_left(12);
-    header_box.set_margin_right(12);
-    header_box.pack_start(header_bar);
-    header_box.show_all();
-    v_box.set_margin_top(12);
-    v_box.pack_start(header_box);
     v_box.pack_start(section);
     v_box.show_all();
 
