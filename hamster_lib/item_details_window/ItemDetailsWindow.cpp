@@ -20,11 +20,12 @@
 ItemDetailsWindow::ItemDetailsWindow()
 {
     set_title(_("Item details"));
-    set_default_size(480, 520);
+    set_default_size(640, 480);
     set_resizable(true);
     set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
-    //this->signal_key_press_event().connect(sigc::mem_fun(*this, &PreferencesWindow::on_key_press));
+
+    this->signal_key_press_event().connect(sigc::mem_fun(*this, &ItemDetailsWindow::on_key_press));
 
     // MAIN BOX
     v_box.set_margin_top(12);
@@ -35,3 +36,18 @@ ItemDetailsWindow::ItemDetailsWindow()
 
     add(v_box);
 }
+
+bool ItemDetailsWindow::on_key_press(GdkEventKey* key_event)
+{
+    if (key_event == nullptr)
+    {
+        return false;
+    }
+    if (key_event->keyval == GDK_KEY_Escape)
+    {
+        hide();
+        return true;
+    }
+    return false;
+}
+

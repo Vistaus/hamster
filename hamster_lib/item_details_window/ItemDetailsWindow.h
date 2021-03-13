@@ -25,7 +25,10 @@ struct ItemDetailsWindow : public Gtk::Window
 {
     ItemDetailsWindow();
 
+    Gtk::TextView text_view;
     Gtk::VBox v_box;
+
+    bool on_key_press(GdkEventKey* key_event);
 };
 
 #endif //HAMSTER_ITEMDETAILSWINDOW_H
