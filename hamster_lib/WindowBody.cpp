@@ -322,6 +322,7 @@ void WindowBody::send_ctrl_v_key_event() const
 
 void WindowBody::show_item_details_window(const Glib::ustring& text)
 {
+    item_details_window.set_text(text);
     item_details_window.show_all();
     item_details_window.present();
 }

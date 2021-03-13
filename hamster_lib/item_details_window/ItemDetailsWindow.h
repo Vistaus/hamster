@@ -25,10 +25,13 @@ struct ItemDetailsWindow : public Gtk::Window
 {
     ItemDetailsWindow();
 
+    Gtk::ScrolledWindow scrolled_win;
     Gtk::TextView text_view;
+    Glib::RefPtr<Gtk::TextBuffer> ref_text_buffer;
     Gtk::VBox v_box;
 
     bool on_key_press(GdkEventKey* key_event);
+    void set_text(const Glib::ustring& text);
 };
 
 #endif //HAMSTER_ITEMDETAILSWINDOW_H
