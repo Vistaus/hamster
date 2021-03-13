@@ -27,14 +27,28 @@ ItemDetailsWindow::ItemDetailsWindow()
 
     this->signal_key_press_event().connect(sigc::mem_fun(*this, &ItemDetailsWindow::on_key_press));
 
+	ref_text_buffer = Gtk::TextBuffer::create();
+
+	text_view.set_editable(false);
+	text_view.set_cursor_visible(false);
+	text_view.set_buffer(ref_text_buffer);
+
+    scrolled_win.add(text_view);
+
     // MAIN BOX
     v_box.set_margin_top(12);
     v_box.set_margin_right(12);
-    v_box.set_margin_bottom(24);
+    v_box.set_margin_bottom(12);
     v_box.set_margin_left(12);
+    v_box.pack_start(scrolled_win);
     v_box.show_all();
 
     add(v_box);
+}
+
+void ItemDetailsWindow::set_text(const Glib::ustring& text)
+{
+	ref_text_buffer->set_text(text);
 }
 
 bool ItemDetailsWindow::on_key_press(GdkEventKey* key_event)
