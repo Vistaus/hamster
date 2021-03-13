@@ -29,18 +29,17 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to warn if capslock is on
 * to export items to json file and import when app starts
 * to prepare debian package
-* to show item preview (details ALT+D)
 * to paste selected items considering selecting direction
 * to handle memory leak
 * ...
 
 ### Issues
 
-#### Pinned screenshot from Flameshot app
+#### 1. Pinned screenshot from Flameshot app
 
 You cannot paste text if you made a screenshot and pinned to desktop
 
-#### gsettings schema not installed
+#### 2. Gsettings schema not installed
 
 ```bash
 sudo cp data/com.github.slawtul.hamster.gschema.xml /usr/share/glib-2.0/schemas/
