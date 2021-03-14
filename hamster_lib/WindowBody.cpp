@@ -78,7 +78,6 @@ void WindowBody::on_search_change()
         const auto pattern = std::regex {esc_str, std::regex_constants::icase};
         std::smatch sm {};
 
-        // TODO: For huge text item list below regex search should be done with separate threads
         for (const auto& row : ref_item_store->children())
         {
             if (std::regex_search(row.get_value(columns.item_value).raw(), sm, pattern))
@@ -188,7 +187,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
-        auto selected_paths = path_list; // Copy selected paths
+        auto selected_paths = path_list; // Calculate reversing on copy object
         if (selection_order == SelectionOrder::SHIFT_UP)
         {
             std::reverse(selected_paths.begin(), selected_paths.end());
@@ -197,7 +196,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         Glib::ustring text_to_paste = "";
         for (const auto& path : selected_paths)
         {
-            const auto row = *(ref_item_store->get_iter(path));
+            const auto row = *(item_list.get_model()->get_iter(path));
             const auto item_value = row.get_value(columns.item_value);
             text_to_paste += paths_sz == 1 ? item_value : prefix + item_value + suffix;
         }
@@ -255,7 +254,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     {
         for (const auto& path : item_list.get_selection()->get_selected_rows())
         {
-            const auto row = *(ref_item_store->get_iter(path));
+            const auto row = *(item_list.get_model()->get_iter(path));
             const auto item_disp_value = row.get_value(columns.item_display_value);
             const auto item_value = row.get_value(columns.item_value);
             row[columns.item_display_value] = item_disp_value.lowercase();
@@ -269,7 +268,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     {
         for (const auto& path : item_list.get_selection()->get_selected_rows())
         {
-            const auto row = *(ref_item_store->get_iter(path));
+            const auto row = *(item_list.get_model()->get_iter(path));
             const auto item_disp_value = row.get_value(columns.item_display_value);
             const auto item_value = row.get_value(columns.item_value);
             row[columns.item_display_value] = item_disp_value.uppercase();
@@ -282,11 +281,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_d)
     {
         const auto path = item_list.get_selection()->get_selected_rows()[0];
-        auto row = *(ref_item_store->get_iter(path));
-        if (!ref_searched_item_store->children().empty())
-        {
-            row = *(ref_searched_item_store->get_iter(path));
-        }
+        const auto row = *(item_list.get_model()->get_iter(path));
         const auto item_value = row.get_value(columns.item_value);
         show_item_details_window(item_value);
         return true;
