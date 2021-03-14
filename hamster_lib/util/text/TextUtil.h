@@ -22,6 +22,24 @@
 
 struct TextUtil
 {
+    static const std::regex newlines_re;
+    static const std::regex tabs_re;
+    static const std::regex whitespaces_re;
+    static const std::regex backslash_re;
+    static const std::regex star_re;
+    static const std::regex par_l_re;
+    static const std::regex par_r_re;
+    static const std::regex dot_re;
+    static const std::regex plus_re;
+    static const std::regex qmark_re;
+    static const std::regex bird_re;
+    static const std::regex dol_re;
+    static const std::regex sbra_l_re;
+    static const std::regex sbra_r_re;
+    static const std::regex cbra_l_re;
+    static const std::regex cbra_r_re;
+    static const std::regex line_re;
+
     Glib::ustring join_lines(Glib::ustring& text, uint n_letters);
     Glib::ustring trim_str(const Glib::ustring& text);
     Glib::ustring sub_str(const Glib::ustring& text, uint n_letters, const Glib::ustring& end_text);

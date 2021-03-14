@@ -16,24 +16,24 @@
  */
 #include "TextUtil.h"
 
-static const std::regex newlines_re {"\\\\n+"};
-static const std::regex tabs_re {"\\\\t+"};
-static const std::regex whitespaces_re {"\\s+"};
+const std::regex TextUtil::newlines_re {"\\\\n+"};
+const std::regex TextUtil::tabs_re {"\\\\t+"};
+const std::regex TextUtil::whitespaces_re {"\\s+"};
 
-static const std::regex backslash_re {"\\\\"};
-static const std::regex star_re {"\\*"};
-static const std::regex par_l_re {"\\("};
-static const std::regex par_r_re {"\\)"};
-static const std::regex dot_re {"\\."};
-static const std::regex plus_re {"\\+"};
-static const std::regex qmark_re {"\\?"};
-static const std::regex bird_re {"\\^"};
-static const std::regex dol_re {"\\$"};
-static const std::regex sbra_l_re {"\\["};
-static const std::regex sbra_r_re {"\\]"};
-static const std::regex cbra_l_re {"\\{"};
-static const std::regex cbra_r_re {"\\}"};
-static const std::regex line_re {"\\|"};
+const std::regex TextUtil::backslash_re {"\\\\"};
+const std::regex TextUtil::star_re {"\\*"};
+const std::regex TextUtil::par_l_re {"\\("};
+const std::regex TextUtil::par_r_re {"\\)"};
+const std::regex TextUtil::dot_re {"\\."};
+const std::regex TextUtil::plus_re {"\\+"};
+const std::regex TextUtil::qmark_re {"\\?"};
+const std::regex TextUtil::bird_re {"\\^"};
+const std::regex TextUtil::dol_re {"\\$"};
+const std::regex TextUtil::sbra_l_re {"\\["};
+const std::regex TextUtil::sbra_r_re {"\\]"};
+const std::regex TextUtil::cbra_l_re {"\\{"};
+const std::regex TextUtil::cbra_r_re {"\\}"};
+const std::regex TextUtil::line_re {"\\|"};
 
 Glib::ustring TextUtil::sub_str(const Glib::ustring& text, uint n_letters, const Glib::ustring& end)
 {
