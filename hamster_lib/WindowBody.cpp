@@ -187,7 +187,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
-        auto selected_paths = path_list; // Calculate reversing on copy object
+        auto selected_paths = path_list; // Calculate reversing on copied vector
         if (selection_order == SelectionOrder::SHIFT_UP)
         {
             std::reverse(selected_paths.begin(), selected_paths.end());
