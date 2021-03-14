@@ -23,11 +23,17 @@
 #include <X11/Intrinsic.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
+#include <algorithm>
 #include <regex>
 #include <chrono>
 #include <thread>
 #include "util/text/TextUtil.h"
 #include "item_details_window/ItemDetailsWindow.h"
+
+enum struct SelectionOrder
+{
+    SHIFT_UP, SHIFT_DOWN
+};
 
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 {
@@ -55,6 +61,8 @@ struct WindowBody : public Gtk::VBox
     Glib::RefPtr<Gtk::ListStore> ref_searched_item_store;
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
     Glib::RefPtr<Gio::Settings> ref_settings;
+
+    SelectionOrder selection_order;
 
     ItemDetailsWindow item_details_window;
 

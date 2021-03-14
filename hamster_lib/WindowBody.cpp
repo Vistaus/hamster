@@ -18,7 +18,8 @@
 #include "WindowBody.h"
 
 WindowBody::WindowBody()
-    : item_list(1, false, Gtk::SELECTION_MULTIPLE) // Where '1' means: show 'item_display_value' column only!
+    : item_list(1, false, Gtk::SELECTION_MULTIPLE), // Where '1' means: show 'item_display_value' column only!
+      selection_order {SelectionOrder::SHIFT_DOWN}
 {
     ref_clipboard = Gtk::Clipboard::get();
     ref_clipboard->signal_owner_change().connect(sigc::mem_fun(*this, &WindowBody::on_clipboard_change));
@@ -158,8 +159,6 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         return false;
     }
 
-    const auto ref_selection = item_list.get_selection();
-
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
     // In this widget 'Enter' means: row edit mode
 
@@ -189,8 +188,14 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
+        auto selected_paths = path_list; // Copy selected paths
+        if (selection_order == SelectionOrder::SHIFT_UP)
+        {
+            std::reverse(selected_paths.begin(), selected_paths.end());
+        }
+
         Glib::ustring text_to_paste = "";
-        for (const auto& path : path_list)
+        for (const auto& path : selected_paths)
         {
             const auto row = *(ref_item_store->get_iter(path));
             const auto item_value = row.get_value(columns.item_value);
@@ -205,6 +210,27 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
 
         return true;
     }
+
+    // ROWS SELECTION HANDLING
+    if (item_list.get_selection()->get_selected_rows().size() == 1)
+    {
+        selection_order = SelectionOrder::SHIFT_DOWN;
+    }
+
+    // 'SHIFT + UP' KEYS PRESSED
+    if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
+        gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Up)
+    {
+        selection_order = SelectionOrder::SHIFT_UP;
+    }
+
+    // 'SHIFT + DOWN' KEYS PRESSED
+    if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
+        gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Down)
+    {
+        selection_order = SelectionOrder::SHIFT_DOWN;
+    }
+
     return false;
 }
 
@@ -214,8 +240,6 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     {
         return false;
     }
-
-    const auto& ref_selection = item_list.get_selection();
 
     // 'ESCAPE' OR 'TAB' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Escape || key_event->keyval == GDK_KEY_Tab || key_event->keyval == GDK_KEY_slash)
@@ -267,7 +291,6 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
         show_item_details_window(item_value);
         return true;
     }
-
 
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)

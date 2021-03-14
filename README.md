@@ -31,6 +31,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to prepare debian package
 * to paste selected items considering selecting direction
 * to handle memory leak
+* to remove \n if you copy whole line
 * ...
 
 ### Issues
