@@ -283,7 +283,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     {
         const auto path = item_list.get_selection()->get_selected_rows()[0];
         auto row = *(ref_item_store->get_iter(path));
-        if (ref_searched_item_store->children().size() > 0)
+        if (!ref_searched_item_store->children().empty())
         {
             row = *(ref_searched_item_store->get_iter(path));
         }
