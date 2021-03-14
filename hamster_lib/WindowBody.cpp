@@ -268,8 +268,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     {
         const auto path = item_list.get_selection()->get_selected_rows()[0];
         const auto row = *(item_list.get_model()->get_iter(path));
-        const auto item_value = row.get_value(columns.item_value);
-        show_item_details_window(item_value);
+        show_item_details_window(row.get_value(columns.item_value));
         return true;
     }
 
@@ -297,10 +296,8 @@ void WindowBody::transform_to_lowercase()
     for (const auto& path : item_list.get_selection()->get_selected_rows())
     {
         const auto row = *(item_list.get_model()->get_iter(path));
-        const auto item_disp_value = row.get_value(columns.item_display_value);
-        const auto item_value = row.get_value(columns.item_value);
-        row[columns.item_display_value] = item_disp_value.lowercase();
-        row[columns.item_value] = item_value.lowercase();
+        row[columns.item_display_value] = row.get_value(columns.item_display_value).lowercase();
+        row[columns.item_value] = row.get_value(columns.item_value).lowercase();
     }
 }
 
@@ -309,10 +306,8 @@ void WindowBody::transform_to_uppercase()
     for (const auto& path : item_list.get_selection()->get_selected_rows())
     {
         const auto row = *(item_list.get_model()->get_iter(path));
-        const auto item_disp_value = row.get_value(columns.item_display_value);
-        const auto item_value = row.get_value(columns.item_value);
-        row[columns.item_display_value] = item_disp_value.uppercase();
-        row[columns.item_value] = item_value.uppercase();
+        row[columns.item_display_value] = row.get_value(columns.item_display_value).uppercase();
+        row[columns.item_value] = row.get_value(columns.item_value).uppercase();
     }
 }
 
