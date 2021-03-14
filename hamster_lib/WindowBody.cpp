@@ -252,28 +252,14 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'ALT + L' KEYS PRESSED (transform to lowercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
     {
-        for (const auto& path : item_list.get_selection()->get_selected_rows())
-        {
-            const auto row = *(item_list.get_model()->get_iter(path));
-            const auto item_disp_value = row.get_value(columns.item_display_value);
-            const auto item_value = row.get_value(columns.item_value);
-            row[columns.item_display_value] = item_disp_value.lowercase();
-            row[columns.item_value] = item_value.lowercase();
-        }
+        transform_to_lowercase();
         return true;
     }
 
     // 'ALT + U' KEYS PRESSED (transform to uppercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_u)
     {
-        for (const auto& path : item_list.get_selection()->get_selected_rows())
-        {
-            const auto row = *(item_list.get_model()->get_iter(path));
-            const auto item_disp_value = row.get_value(columns.item_display_value);
-            const auto item_value = row.get_value(columns.item_value);
-            row[columns.item_display_value] = item_disp_value.uppercase();
-            row[columns.item_value] = item_value.uppercase();
-        }
+        transform_to_uppercase();
         return true;
     }
 
@@ -290,15 +276,44 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)
     {
-        for (const auto& path : item_list.get_selection()->get_selected_rows())
-        {
-            const auto row = *(ref_item_store->get_iter(path));
-            ref_item_store->erase(row);
-        }
+        delete_items();
         return true;
     }
 
     return false;
+}
+
+void WindowBody::delete_items()
+{
+    for (const auto& path : item_list.get_selection()->get_selected_rows())
+    {
+        const auto row = *(item_list.get_model()->get_iter(path));
+        Glib::RefPtr<Gtk::ListStore>::cast_dynamic(item_list.get_model())->erase(row);
+    }
+}
+
+void WindowBody::transform_to_lowercase()
+{
+    for (const auto& path : item_list.get_selection()->get_selected_rows())
+    {
+        const auto row = *(item_list.get_model()->get_iter(path));
+        const auto item_disp_value = row.get_value(columns.item_display_value);
+        const auto item_value = row.get_value(columns.item_value);
+        row[columns.item_display_value] = item_disp_value.lowercase();
+        row[columns.item_value] = item_value.lowercase();
+    }
+}
+
+void WindowBody::transform_to_uppercase()
+{
+    for (const auto& path : item_list.get_selection()->get_selected_rows())
+    {
+        const auto row = *(item_list.get_model()->get_iter(path));
+        const auto item_disp_value = row.get_value(columns.item_display_value);
+        const auto item_value = row.get_value(columns.item_value);
+        row[columns.item_display_value] = item_disp_value.uppercase();
+        row[columns.item_value] = item_value.uppercase();
+    }
 }
 
 bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)

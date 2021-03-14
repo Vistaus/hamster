@@ -76,6 +76,10 @@ struct WindowBody : public Gtk::VBox
     bool on_item_list_event(GdkEvent* gdk_event);
 
     void show_item_details_window(const Glib::ustring& text);
+
+    void transform_to_lowercase();
+    void transform_to_uppercase();
+    void delete_items();
 };
 
 #endif //HAMSTER_WINDOWBODY_H
