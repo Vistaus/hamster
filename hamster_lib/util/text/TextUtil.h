@@ -22,12 +22,14 @@
 
 struct TextUtil
 {
-    Glib::ustring join_lines(Glib::ustring &text, uint n_letters);
-    Glib::ustring trim_str(const Glib::ustring &text);
-    Glib::ustring sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end_text);
+    Glib::ustring join_lines(Glib::ustring& text, uint n_letters);
+    Glib::ustring trim_str(const Glib::ustring& text);
+    Glib::ustring sub_str(const Glib::ustring& text, uint n_letters, const Glib::ustring& end_text);
+    Glib::ustring calculate_display_value(Glib::ustring& text);
+
     std::string convert_to_newline_or_tab(std::string& text);
     std::string escape_nonalpha(const std::string& text);
-    bool has_only_spaces(const Glib::ustring &text);
+    bool has_only_spaces(const Glib::ustring& text);
 };
 
 #endif //HAMSTER_TEXTUTIL_H

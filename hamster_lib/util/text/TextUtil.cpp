@@ -93,3 +93,11 @@ std::string TextUtil::escape_nonalpha(const std::string& text)
     esc_str = std::regex_replace(esc_str, line_re, "\\|");
     return esc_str;
 }
+
+Glib::ustring TextUtil::calculate_display_value(Glib::ustring& text)
+{
+    text = join_lines(text, 48);
+    text = trim_str(text);
+    text = sub_str(text, 40, "...");
+    return text;
+}
