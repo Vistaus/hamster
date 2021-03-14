@@ -27,11 +27,11 @@ ItemDetailsWindow::ItemDetailsWindow()
 
     this->signal_key_press_event().connect(sigc::mem_fun(*this, &ItemDetailsWindow::on_key_press));
 
-	ref_text_buffer = Gtk::TextBuffer::create();
+    ref_text_buffer = Gtk::TextBuffer::create();
 
-	text_view.set_editable(false);
-	text_view.set_cursor_visible(false);
-	text_view.set_buffer(ref_text_buffer);
+    text_view.set_editable(false);
+    text_view.set_cursor_visible(false);
+    text_view.set_buffer(ref_text_buffer);
 
     scrolled_win.add(text_view);
 
@@ -46,9 +46,9 @@ ItemDetailsWindow::ItemDetailsWindow()
     add(v_box);
 }
 
-void ItemDetailsWindow::set_text(const Glib::ustring& text)
+void ItemDetailsWindow::set_text(const Glib::ustring& text) const
 {
-	ref_text_buffer->set_text(text);
+    ref_text_buffer->set_text(text);
 }
 
 bool ItemDetailsWindow::on_key_press(GdkEventKey* key_event)
@@ -64,4 +64,3 @@ bool ItemDetailsWindow::on_key_press(GdkEventKey* key_event)
     }
     return false;
 }
-

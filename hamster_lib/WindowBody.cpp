@@ -18,7 +18,7 @@
 #include "WindowBody.h"
 
 WindowBody::WindowBody()
-    : item_list(1, false, Gtk::SELECTION_MULTIPLE), // Where '1' means: show 'item_display_value' column only!
+    : item_list(1, false, Gtk::SELECTION_MULTIPLE), // Where '1' means: show one column only (column name: 'item_display_value')
       selection_order {SelectionOrder::SHIFT_DOWN}
 {
     ref_clipboard = Gtk::Clipboard::get();
@@ -102,6 +102,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         return;
     }
 
+    // Waiting for new copied text...
     auto text = ref_clipboard->wait_for_text();
 
     TextUtil tu {};
@@ -110,8 +111,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         return;
     }
 
-    const auto eliminate_space = ref_settings->get_boolean("eliminate-spaces");
-    if (eliminate_space)
+    if (ref_settings->get_boolean("eliminate-spaces"))
     {
         text = tu.trim_str(text);
     }
@@ -126,7 +126,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     }
 
     const auto row = *(ref_item_store->prepend());
-    row[columns.item_value] = text; // Save in memory original text value
+    row[columns.item_value] = text;                                     // Save in memory original text value
     row[columns.item_display_value] = tu.calculate_display_value(text); // Show short, one liner text value
 
     item_list.set_cursor(ref_item_store->get_path(row));
@@ -148,13 +148,12 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
 
 bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
 {
+    // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
+    // In this widget 'Enter' means: row edit mode
     if (gdk_event == nullptr)
     {
         return false;
     }
-
-    // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
-    // In this widget 'Enter' means: row edit mode
 
     const auto SHIFT_MASK = 17; // On modern PC
 
@@ -172,9 +171,6 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         search_entry.grab_focus();
         this->get_window()->iconify();
 
-        const auto path_list = item_list.get_selection()->get_selected_rows();
-        const auto paths_sz = path_list.size();
-
         auto prefix = (std::string) ref_settings->get_string("item-prefix");
         auto suffix = (std::string) ref_settings->get_string("item-suffix");
 
@@ -182,7 +178,9 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
-        auto selected_paths = path_list; // Calculate reversing on copied vector
+        const auto path_list = get_selected_rows();
+        auto selected_paths = path_list; // Reverse a copied vector
+
         if (selection_order == SelectionOrder::SHIFT_UP)
         {
             std::reverse(selected_paths.begin(), selected_paths.end());
@@ -191,22 +189,21 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         Glib::ustring text_to_paste = "";
         for (const auto& path : selected_paths)
         {
-            const auto row = *(item_list.get_model()->get_iter(path));
+            const auto row = get_row(path);
             const auto item_value = row.get_value(columns.item_value);
-            text_to_paste += paths_sz == 1 ? item_value : prefix + item_value + suffix;
+            text_to_paste += path_list.size() == 1 ? item_value : prefix + item_value + suffix;
         }
 
-        ref_clipboard->set_text(text_to_paste);
+        ref_clipboard->set_text(text_to_paste); // Send text to clipboard...
 
-        const auto delay_pasting = (short) ref_settings->get_double("delay-pasting");
-        std::this_thread::sleep_for(std::chrono::milliseconds(delay_pasting));
+        std::this_thread::sleep_for(std::chrono::milliseconds((short) ref_settings->get_double("delay-pasting")));
         send_ctrl_v_key_event();
 
         return true;
     }
 
     // ROWS SELECTION HANDLING
-    if (item_list.get_selection()->get_selected_rows().size() == 1)
+    if (get_selected_rows().size() == 1)
     {
         selection_order = SelectionOrder::SHIFT_DOWN;
     }
@@ -261,9 +258,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'ALT + D' KEYS PRESSED (show item details window)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_d)
     {
-        const auto path = item_list.get_selection()->get_selected_rows()[0];
-        const auto row = *(item_list.get_model()->get_iter(path));
-        show_item_details_window(row.get_value(columns.item_value));
+        show_item_details_window(get_row(get_selected_rows()[0]).get_value(columns.item_value));
         return true;
     }
 
@@ -279,18 +274,17 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
 
 void WindowBody::delete_items()
 {
-    for (const auto& path : item_list.get_selection()->get_selected_rows())
+    for (const auto& path : get_selected_rows())
     {
-        const auto row = *(item_list.get_model()->get_iter(path));
-        Glib::RefPtr<Gtk::ListStore>::cast_dynamic(item_list.get_model())->erase(row);
+        Glib::RefPtr<Gtk::ListStore>::cast_dynamic(item_list.get_model())->erase(get_row(path));
     }
 }
 
 void WindowBody::transform_to_lowercase()
 {
-    for (const auto& path : item_list.get_selection()->get_selected_rows())
+    for (const auto& path : get_selected_rows())
     {
-        const auto row = *(item_list.get_model()->get_iter(path));
+        const auto row = get_row(path);
         row[columns.item_display_value] = row.get_value(columns.item_display_value).lowercase();
         row[columns.item_value] = row.get_value(columns.item_value).lowercase();
     }
@@ -298,9 +292,9 @@ void WindowBody::transform_to_lowercase()
 
 void WindowBody::transform_to_uppercase()
 {
-    for (const auto& path : item_list.get_selection()->get_selected_rows())
+    for (const auto& path : get_selected_rows())
     {
-        const auto row = *(item_list.get_model()->get_iter(path));
+        const auto row = get_row(path);
         row[columns.item_display_value] = row.get_value(columns.item_display_value).uppercase();
         row[columns.item_value] = row.get_value(columns.item_value).uppercase();
     }
@@ -331,20 +325,20 @@ bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
     return false;
 }
 
-void WindowBody::send_ctrl_v_key_event() const
+void WindowBody::send_ctrl_v_key_event()
 {
-    const auto disp = XOpenDisplay(nullptr);
-    const auto left_control_key = XKeysymToKeycode(disp, XK_Control_L);
-    const auto v_key = XKeysymToKeycode(disp, XK_v);
+    const auto display = XOpenDisplay(nullptr);
+    const auto left_control_key = XKeysymToKeycode(display, XK_Control_L);
+    const auto v_key = XKeysymToKeycode(display, XK_v);
 
-    XTestGrabControl(disp, True);
-    XTestFakeKeyEvent(disp, left_control_key, True, 0);
-    XTestFakeKeyEvent(disp, v_key, True, 0);  // True means key press
-    XTestFakeKeyEvent(disp, v_key, False, 0); // False means key release
-    XTestFakeKeyEvent(disp, left_control_key, False, 0);
+    XTestGrabControl(display, True);
+    XTestFakeKeyEvent(display, left_control_key, True, 0);
+    XTestFakeKeyEvent(display, v_key, True, 0);  // True means key press
+    XTestFakeKeyEvent(display, v_key, False, 0); // False means key release
+    XTestFakeKeyEvent(display, left_control_key, False, 0);
 
-    XSync(disp, False);
-    XTestGrabControl(disp, False);
+    XSync(display, False);
+    XTestGrabControl(display, False);
 }
 
 void WindowBody::show_item_details_window(const Glib::ustring& text)
@@ -352,4 +346,15 @@ void WindowBody::show_item_details_window(const Glib::ustring& text)
     item_details_window.set_text(text);
     item_details_window.show_all();
     item_details_window.present();
+}
+
+// HELPER METHODS
+std::vector<Gtk::TreeModel::Path> WindowBody::get_selected_rows()
+{
+    return item_list.get_selection()->get_selected_rows();
+}
+
+Gtk::TreeRow WindowBody::get_row(const Gtk::TreeModel::Path& path)
+{
+    return *(item_list.get_model()->get_iter(path));
 }

@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_MAINWINDOW_H
-#define HAMSTER_MAINWINDOW_H
+#ifndef HAMSTER_MAIN_WINDOW_H
+#define HAMSTER_MAIN_WINDOW_H
 
 #include <glibmm/i18n.h>
 #include <gtkmm-3.0/gtkmm.h>
@@ -53,4 +53,4 @@ struct MainWindow : public Gtk::Window
     static void write_to_file(); // testing thread...
 };
 
-#endif //HAMSTER_MAINWINDOW_H
+#endif //HAMSTER_MAIN_WINDOW_H

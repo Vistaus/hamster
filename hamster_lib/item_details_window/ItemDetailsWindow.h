@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_ITEMDETAILSWINDOW_H
-#define HAMSTER_ITEMDETAILSWINDOW_H
+#ifndef HAMSTER_ITEM_DETAILS_WINDOW_H
+#define HAMSTER_ITEM_DETAILS_WINDOW_H
 
 #include <glibmm/i18n.h>
 #include <gtkmm-3.0/gtkmm.h>
@@ -31,7 +31,7 @@ struct ItemDetailsWindow : public Gtk::Window
     Gtk::VBox v_box;
 
     bool on_key_press(GdkEventKey* key_event);
-    void set_text(const Glib::ustring& text);
+    void set_text(const Glib::ustring& text) const;
 };
 
-#endif //HAMSTER_ITEMDETAILSWINDOW_H
+#endif //HAMSTER_ITEM_DETAILS_WINDOW_H

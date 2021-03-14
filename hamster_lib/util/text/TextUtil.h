@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef HAMSTER_TEXTUTIL_H
-#define HAMSTER_TEXTUTIL_H
+#ifndef HAMSTER_TEXT_UTIL_H
+#define HAMSTER_TEXT_UTIL_H
 
 #include <regex>
 #include <gtkmm-3.0/gtkmm.h>
@@ -32,4 +32,4 @@ struct TextUtil
     bool has_only_spaces(const Glib::ustring& text);
 };
 
-#endif //HAMSTER_TEXTUTIL_H
+#endif //HAMSTER_TEXT_UTIL_H

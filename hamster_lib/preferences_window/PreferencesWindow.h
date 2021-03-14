@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_PREFERENCESWINDOW_H
-#define HAMSTER_PREFERENCESWINDOW_H
+#ifndef HAMSTER_PREFERENCES_WINDOW_H
+#define HAMSTER_PREFERENCES_WINDOW_H
 
 #include <glibmm/i18n.h>
 #include <gtkmm-3.0/gtkmm.h>
@@ -56,7 +56,7 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::Entry item_prefix;
     Gtk::Entry item_suffix;
 
-    bool on_key_press(GdkEventKey *key_event);
+    bool on_key_press(GdkEventKey* key_event);
     void on_run_automatically_click();
     void on_always_minimize_click();
     void on_delay_pasting_change();
@@ -67,4 +67,4 @@ struct PreferencesWindow : public Gtk::Window
     void on_item_suffix_change() const;
 };
 
-#endif //HAMSTER_PREFERENCESWINDOW_H
+#endif //HAMSTER_PREFERENCES_WINDOW_H

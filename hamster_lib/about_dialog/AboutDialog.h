@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_ABOUTDIALOG_H
-#define HAMSTER_ABOUTDIALOG_H
+#ifndef HAMSTER_ABOUT_DIALOG_H
+#define HAMSTER_ABOUT_DIALOG_H
 
 #include <gtkmm-3.0/gtkmm.h>
 #include <glibmm/i18n.h>
@@ -26,4 +26,4 @@ struct AboutDialog : public Gtk::AboutDialog
     AboutDialog();
 };
 
-#endif //HAMSTER_ABOUTDIALOG_H
+#endif //HAMSTER_ABOUT_DIALOG_H

@@ -90,7 +90,7 @@ void MainWindow::show_preferences_win()
 
 void MainWindow::write_to_file()
 {
-    g_print("n-mseconds writing to file...\n");
+    g_print("writing to file...\n");
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     g_print("file closed\n");
 }
@@ -108,10 +108,6 @@ void MainWindow::close_app()
         std::thread write_f(write_to_file);
         write_f.join();
     }
-    // const auto path = win_body.item_list.get_selection()->get_selected_rows()[0];
-    // const auto row = *(win_body.ref_item_store->get_iter(path));
-    // const auto item_value = row.get_value(win_body.columns.item_value);
-    // g_print("%s\n", item_value.c_str());
     g_print("Hamster says bye!\n");
     exit(0);
 }

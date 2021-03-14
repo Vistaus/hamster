@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_SHORTCUTSWINDOW_H
-#define HAMSTER_SHORTCUTSWINDOW_H
+#ifndef HAMSTER_SHORTCUTS_WINDOW_H
+#define HAMSTER_SHORTCUTS_WINDOW_H
 
 #include <gtkmm-3.0/gtkmm.h>
 #include <glibmm/i18n.h>
@@ -44,7 +44,7 @@ struct ShortcutsWindow : public Gtk::Window
 
     Gtk::VBox v_box;
 
-    bool on_key_press(GdkEventKey *key_event);
+    bool on_key_press(GdkEventKey* key_event);
 };
 
-#endif //HAMSTER_SHORTCUTSWINDOW_H
+#endif //HAMSTER_SHORTCUTS_WINDOW_H

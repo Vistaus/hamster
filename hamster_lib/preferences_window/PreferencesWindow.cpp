@@ -105,7 +105,6 @@ PreferencesWindow::PreferencesWindow()
     items_box.pack_start(item_list_size_scale);
     items_box.show_all();
 
-
     // ITEM PREFERENCES
     item_label.set_markup(_("<b>Text item</b>"));
     item_label.set_halign(Gtk::ALIGN_START);

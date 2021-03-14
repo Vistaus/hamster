@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_WINDOWBODY_H
-#define HAMSTER_WINDOWBODY_H
+#ifndef HAMSTER_WINDOW_BODY_H
+#define HAMSTER_WINDOW_BODY_H
 
 #include <glibmm/i18n.h>
 #include <gtkmm-3.0/gtkmm.h>
@@ -66,9 +66,9 @@ struct WindowBody : public Gtk::VBox
 
     ItemDetailsWindow item_details_window;
 
-    void on_clipboard_change(GdkEventOwnerChange* event);
-    void send_ctrl_v_key_event() const;
+    static void send_ctrl_v_key_event();
 
+    void on_clipboard_change(GdkEventOwnerChange* event);
     void on_search_change();
     bool on_search_entry_event(GdkEvent* gdk_event);
 
@@ -80,6 +80,10 @@ struct WindowBody : public Gtk::VBox
     void transform_to_lowercase();
     void transform_to_uppercase();
     void delete_items();
+
+    // HELPER METHODS
+    Gtk::TreeRow get_row(const Gtk::TreeModel::Path& path);
+    std::vector<Gtk::TreeModel::Path> get_selected_rows();
 };
 
-#endif //HAMSTER_WINDOWBODY_H
+#endif //HAMSTER_WINDOW_BODY_H

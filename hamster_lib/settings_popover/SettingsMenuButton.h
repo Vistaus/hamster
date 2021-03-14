@@ -15,8 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HAMSTER_SETTINGSMENUBUTTON_H
-#define HAMSTER_SETTINGSMENUBUTTON_H
+#ifndef HAMSTER_SETTINGS_MENU_BUTTON_H
+#define HAMSTER_SETTINGS_MENU_BUTTON_H
 
 #include <gtkmm-3.0/gtkmm.h>
 #include "SettingsPopover.h"
@@ -29,4 +29,4 @@ struct SettingsMenuButton : public Gtk::MenuButton
     SettingsPopover settings_popover;
 };
 
-#endif //HAMSTER_SETTINGSMENUBUTTON_H
+#endif //HAMSTER_SETTINGS_MENU_BUTTON_H

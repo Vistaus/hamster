@@ -35,7 +35,7 @@ static const std::regex cbra_l_re {"\\{"};
 static const std::regex cbra_r_re {"\\}"};
 static const std::regex line_re {"\\|"};
 
-Glib::ustring TextUtil::sub_str(const Glib::ustring &text, uint n_letters, const Glib::ustring &end)
+Glib::ustring TextUtil::sub_str(const Glib::ustring& text, uint n_letters, const Glib::ustring& end)
 {
     if (text.length() > n_letters)
     {
@@ -44,17 +44,17 @@ Glib::ustring TextUtil::sub_str(const Glib::ustring &text, uint n_letters, const
     return text;
 }
 
-bool TextUtil::has_only_spaces(const Glib::ustring &text)
+bool TextUtil::has_only_spaces(const Glib::ustring& text)
 {
     return text.find_first_not_of(" \t\n\v\f\r") == Glib::ustring::npos;
 }
 
-Glib::ustring TextUtil::join_lines(Glib::ustring &text, uint n_letters)
+Glib::ustring TextUtil::join_lines(Glib::ustring& text, uint n_letters)
 {
     return std::regex_replace(text.substr(0, n_letters).c_str(), whitespaces_re, " ");
 }
 
-Glib::ustring TextUtil::trim_str(const Glib::ustring &text)
+Glib::ustring TextUtil::trim_str(const Glib::ustring& text)
 {
     const auto whitespaces = " \t";
     const auto begin = text.find_first_not_of(whitespaces);
@@ -76,8 +76,8 @@ std::string TextUtil::convert_to_newline_or_tab(std::string& text)
 
 std::string TextUtil::escape_nonalpha(const std::string& text)
 {
-    std::string esc_str = "";
-    esc_str = std::regex_replace(text,    backslash_re, "\\\\");
+    std::string esc_str;
+    esc_str = std::regex_replace(text, backslash_re, "\\\\");
     esc_str = std::regex_replace(esc_str, star_re, "\\*");
     esc_str = std::regex_replace(esc_str, par_l_re, "\\(");
     esc_str = std::regex_replace(esc_str, par_r_re, "\\)");
