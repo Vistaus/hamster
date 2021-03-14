@@ -35,6 +35,11 @@ enum struct SelectionOrder
     SHIFT_UP, SHIFT_DOWN
 };
 
+enum struct StoreType
+{
+    PRIMARY, SECONDARY
+};
+
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 {
     Gtk::TreeModelColumn<Glib::ustring> item_display_value; // Modified clipboard text value showed in list view widget
@@ -57,12 +62,13 @@ struct WindowBody : public Gtk::VBox
 
     ItemModelColumns columns;
     Gtk::ListViewText item_list;
-    Glib::RefPtr<Gtk::ListStore> ref_item_store;
-    Glib::RefPtr<Gtk::ListStore> ref_searched_item_store;
+    Glib::RefPtr<Gtk::ListStore> ref_primary_item_store;   // All items goes here
+    Glib::RefPtr<Gtk::ListStore> ref_secondary_item_store; // Searched items goes here only
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
     Glib::RefPtr<Gio::Settings> ref_settings;
 
     SelectionOrder selection_order;
+    StoreType store_type;
 
     ItemDetailsWindow item_details_window;
 
@@ -84,6 +90,8 @@ struct WindowBody : public Gtk::VBox
     // HELPER METHODS
     Gtk::TreeRow get_row(const Gtk::TreeModel::Path& path);
     std::vector<Gtk::TreeModel::Path> get_selected_rows();
+
+    void sync_stores(void (WindowBody::* f)());
 };
 
 #endif //HAMSTER_WINDOW_BODY_H

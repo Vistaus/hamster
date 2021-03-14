@@ -19,7 +19,8 @@
 
 WindowBody::WindowBody()
     : item_list(1, false, Gtk::SELECTION_MULTIPLE), // Where '1' means: show one column only (column name: 'item_display_value')
-      selection_order {SelectionOrder::SHIFT_DOWN}
+      selection_order {SelectionOrder::SHIFT_DOWN},
+      store_type {StoreType::PRIMARY}
 {
     ref_clipboard = Gtk::Clipboard::get();
     ref_clipboard->signal_owner_change().connect(sigc::mem_fun(*this, &WindowBody::on_clipboard_change));
@@ -40,32 +41,33 @@ WindowBody::WindowBody()
     scrolled_win.set_size_request(-1, 640);
     scrolled_win.add(item_list);
 
-    ref_item_store = Gtk::ListStore::create(columns);
-    ref_searched_item_store = Gtk::ListStore::create(columns);
+    ref_primary_item_store = Gtk::ListStore::create(columns);
+    ref_secondary_item_store = Gtk::ListStore::create(columns);
 
-    item_list.set_model(ref_item_store);
+    item_list.set_model(ref_primary_item_store);
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
     item_list.set_search_entry(search_entry);
     item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_event));
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
 
-    const auto row0 = *(ref_item_store->append());
+    const auto row0 = *(ref_primary_item_store->append());
     row0[columns.item_value] = _("Welcome to Hamster !");
     row0[columns.item_display_value] = _("Welcome to Hamster !");
 
-    const auto row1 = *(ref_item_store->append());
+    const auto row1 = *(ref_primary_item_store->append());
     row1[columns.item_value] = _("Press <Alt+S> to open shortcuts window");
     row1[columns.item_display_value] = _("Press <Alt+S> to open shortcuts window");
 
-    const auto row2 = *(ref_item_store->append());
+    const auto row2 = *(ref_primary_item_store->append());
     row2[columns.item_value] = _("Press <Alt+P> to open preferences window");
     row2[columns.item_display_value] = _("Press <Alt+P> to open preferences window");
 }
 
 void WindowBody::on_search_change()
 {
-    ref_searched_item_store->clear();
+    ref_secondary_item_store->clear();
+    store_type = StoreType::PRIMARY;
     if (search_entry.get_text().length() >= 2)
     {
         TextUtil tu {};
@@ -78,20 +80,22 @@ void WindowBody::on_search_change()
         const auto pattern = std::regex {esc_str, std::regex_constants::icase};
         std::smatch sm {};
 
-        for (const auto& row : ref_item_store->children())
+        for (const auto& row : ref_primary_item_store->children())
         {
             if (std::regex_search(row.get_value(columns.item_value).raw(), sm, pattern))
             {
-                const auto s_row = *(ref_searched_item_store->append());
+                const auto s_row = *(ref_secondary_item_store->append());
                 s_row[columns.item_value] = row.get_value(columns.item_value);
                 s_row[columns.item_display_value] = row.get_value(columns.item_display_value);
             }
         }
-        item_list.set_model(ref_searched_item_store);
+        item_list.set_model(ref_secondary_item_store);
+        store_type = StoreType::SECONDARY;
     }
     else
     {
-        item_list.set_model(ref_item_store);
+        store_type = StoreType::PRIMARY;
+        item_list.set_model(ref_primary_item_store);
     }
 }
 
@@ -117,33 +121,33 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     }
 
     // Delete just copied text if already exits in item list...
-    for (const auto& row : ref_item_store->children())
+    for (const auto& row : ref_primary_item_store->children())
     {
         if (text.length() == row.get_value(columns.item_value).length() && text == row.get_value(columns.item_value))
         {
-            ref_item_store->erase(row);
+            ref_primary_item_store->erase(row);
         }
     }
 
-    const auto row = *(ref_item_store->prepend());
+    const auto row = *(ref_primary_item_store->prepend());
     row[columns.item_value] = text;                                     // Save in memory original text value
     row[columns.item_display_value] = tu.calculate_display_value(text); // Show short, one liner text value
 
-    item_list.set_cursor(ref_item_store->get_path(row));
-    item_list.scroll_to_row(ref_item_store->get_path(row));
+    item_list.set_cursor(ref_primary_item_store->get_path(row));
+    item_list.scroll_to_row(ref_primary_item_store->get_path(row));
 
     // Delete last text items if too many in the list...
     const auto list_size_setting = (int) ref_settings->get_double("item-list-size");
-    auto item_store_sz = (int) ref_item_store->children().size();
+    auto item_store_sz = (int) ref_primary_item_store->children().size();
     auto diff_sz = item_store_sz - list_size_setting;
     if (diff_sz > 0)
     {
         for (int i = 1; i <= diff_sz; ++i)
         {
-            ref_item_store->erase(ref_item_store->children()[item_store_sz - i]);
+            ref_primary_item_store->erase(ref_primary_item_store->children()[item_store_sz - i]);
         }
     }
-    g_print("stored items: %d\n", ref_item_store->children().size());
+    g_print("stored items: %d\n", ref_primary_item_store->children().size());
 }
 
 bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
@@ -244,14 +248,14 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'ALT + L' KEYS PRESSED (transform to lowercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
     {
-        transform_to_lowercase();
+        sync_stores(&WindowBody::transform_to_lowercase);
         return true;
     }
 
     // 'ALT + U' KEYS PRESSED (transform to uppercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_u)
     {
-        transform_to_uppercase();
+        sync_stores(&WindowBody::transform_to_uppercase);
         return true;
     }
 
@@ -265,11 +269,39 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)
     {
-        delete_items();
+        sync_stores(&WindowBody::delete_items);
         return true;
     }
 
     return false;
+}
+
+// Yes, I know definition of 'sync_stores' method looks scary.
+// TODO: add description
+void WindowBody::sync_stores(void (WindowBody::* f)())
+{
+    const auto path_list = get_selected_rows();
+    std::vector<Glib::ustring> selected_items;
+    for (const auto& path : path_list)
+    {
+        selected_items.emplace_back(get_row(path).get_value(columns.item_value));
+    }
+
+    (this->*f)(); // Execution of method put as argument...
+
+    if (store_type == StoreType::PRIMARY)
+    {
+        g_print("primary store in use...\n");
+    }
+    if (store_type == StoreType::SECONDARY)
+    {
+        g_print("secondary store in use...\n");
+        g_print("find this in primary:\n");
+        for (const auto& item : selected_items)
+        {
+            g_print("%s\n", item.c_str());
+        }
+    }
 }
 
 void WindowBody::delete_items()
