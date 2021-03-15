@@ -295,12 +295,10 @@ void WindowBody::sync_stores(void (WindowBody::* f)())
     }
     if (store_type == StoreType::SECONDARY)
     {
+        // for given text items
+        // select rows in ref_primary_item_store
+        // then run (this->*f)();
         g_print("secondary store in use...\n");
-        g_print("find this in primary:\n");
-        for (const auto& item : selected_items)
-        {
-            g_print("%s\n", item.c_str());
-        }
     }
 }
 

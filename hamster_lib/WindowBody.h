@@ -62,8 +62,8 @@ struct WindowBody : public Gtk::VBox
 
     ItemModelColumns columns;
     Gtk::ListViewText item_list;
-    Glib::RefPtr<Gtk::ListStore> ref_primary_item_store;   // All items goes here
-    Glib::RefPtr<Gtk::ListStore> ref_secondary_item_store; // Searched items goes here only
+    Glib::RefPtr<Gtk::ListStore> ref_primary_item_store;   // All items go here
+    Glib::RefPtr<Gtk::ListStore> ref_secondary_item_store; // Searched items go here only
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
     Glib::RefPtr<Gio::Settings> ref_settings;
 
