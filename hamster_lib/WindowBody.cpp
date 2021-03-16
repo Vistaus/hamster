@@ -137,9 +137,8 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     item_list.scroll_to_row(ref_primary_item_store->get_path(row));
 
     // Delete last text items if too many in the list...
-    const auto list_size_setting = (int) ref_settings->get_double("item-list-size");
     auto item_store_sz = (int) ref_primary_item_store->children().size();
-    auto diff_sz = item_store_sz - list_size_setting;
+    auto diff_sz = item_store_sz - (int) ref_settings->get_double("item-list-size");
     if (diff_sz > 0)
     {
         for (int i = 1; i <= diff_sz; ++i)
@@ -182,7 +181,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
-        const auto path_list = get_selected_rows();
+        const auto path_list = get_selected_paths();
         auto selected_paths = path_list; // Reverse a copied vector
 
         if (selection_order == SelectionOrder::SHIFT_UP)
@@ -207,7 +206,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     }
 
     // ROWS SELECTION HANDLING
-    if (get_selected_rows().size() == 1)
+    if (get_selected_paths().size() == 1)
     {
         selection_order = SelectionOrder::SHIFT_DOWN;
     }
@@ -245,74 +244,90 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
 
     const auto ALT_MASK = 24; // On modern PC
 
+    // 'ALT + D' KEYS PRESSED (show item details window)
+    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_d)
+    {
+        show_item_details_window(get_row(get_selected_paths()[0]).get_value(columns.item_value));
+        return true;
+    }
+
     // 'ALT + L' KEYS PRESSED (transform to lowercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
     {
-        sync_stores(&WindowBody::transform_to_lowercase);
+        if (store_type == StoreType::SECONDARY)
+        {
+            transform_to_lowercase(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
+        }
+        transform_to_lowercase(get_selected_paths());
         return true;
     }
 
     // 'ALT + U' KEYS PRESSED (transform to uppercase)
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_u)
     {
-        sync_stores(&WindowBody::transform_to_uppercase);
-        return true;
-    }
-
-    // 'ALT + D' KEYS PRESSED (show item details window)
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_d)
-    {
-        show_item_details_window(get_row(get_selected_rows()[0]).get_value(columns.item_value));
+        if (store_type == StoreType::SECONDARY)
+        {
+            transform_to_uppercase(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
+        }
+        transform_to_uppercase(get_selected_paths());
         return true;
     }
 
     // 'DELETE' KEY PRESSED
     if (key_event->keyval == GDK_KEY_Delete)
     {
-        sync_stores(&WindowBody::delete_items);
+        if (store_type == StoreType::SECONDARY)
+        {
+            delete_items(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
+        }
+        delete_items(get_selected_paths());
         return true;
     }
 
     return false;
 }
 
-// Yes, I know definition of 'sync_stores' method looks scary.
-// TODO: add description
-void WindowBody::sync_stores(void (WindowBody::* f)())
+std::vector<Gtk::TreeRow> WindowBody::find_primary_store_rows(std::vector<Gtk::TreePath>&& secondary_store_paths)
 {
-    const auto path_list = get_selected_rows();
-    std::vector<Glib::ustring> selected_items;
-    for (const auto& path : path_list)
-    {
-        selected_items.emplace_back(get_row(path).get_value(columns.item_value));
-    }
+    std::vector<Gtk::TreeRow> rows_to_update {};
+    rows_to_update.reserve(secondary_store_paths.size());
 
-    (this->*f)(); // Execution of method put as argument...
-
-    if (store_type == StoreType::PRIMARY)
+    for (const auto& path : secondary_store_paths)
     {
-        g_print("primary store in use...\n");
+        const auto s_row = get_row(path);
+        for (const auto& row : ref_primary_item_store->children())
+        {
+            const auto s_rv = s_row.get_value(columns.item_value);
+            const auto rv = row.get_value(columns.item_value);
+            if (s_rv.length() == rv.length() && s_rv == rv)
+            {
+                rows_to_update.emplace_back(row);
+                break;
+            }
+        }
     }
-    if (store_type == StoreType::SECONDARY)
-    {
-        // for given text items
-        // select rows in ref_primary_item_store
-        // then run (this->*f)();
-        g_print("secondary store in use...\n");
-    }
+    return rows_to_update;
 }
 
-void WindowBody::delete_items()
+void WindowBody::delete_items(std::vector<Gtk::TreePath>&& paths)
 {
-    for (const auto& path : get_selected_rows())
+    for (const auto& path : paths)
     {
         Glib::RefPtr<Gtk::ListStore>::cast_dynamic(item_list.get_model())->erase(get_row(path));
     }
 }
 
-void WindowBody::transform_to_lowercase()
+void WindowBody::delete_items(std::vector<Gtk::TreeRow>&& rows) const
 {
-    for (const auto& path : get_selected_rows())
+    for (const auto& row : rows)
+    {
+        Glib::RefPtr<Gtk::ListStore>::cast_dynamic(ref_primary_item_store)->erase(row);
+    }
+}
+
+void WindowBody::transform_to_lowercase(std::vector<Gtk::TreePath>&& paths)
+{
+    for (const auto& path : paths)
     {
         const auto row = get_row(path);
         row[columns.item_display_value] = row.get_value(columns.item_display_value).lowercase();
@@ -320,11 +335,29 @@ void WindowBody::transform_to_lowercase()
     }
 }
 
-void WindowBody::transform_to_uppercase()
+void WindowBody::transform_to_lowercase(std::vector<Gtk::TreeRow>&& rows) const
 {
-    for (const auto& path : get_selected_rows())
+    for (const auto& row : rows)
+    {
+        row[columns.item_display_value] = row.get_value(columns.item_display_value).lowercase();
+        row[columns.item_value] = row.get_value(columns.item_value).lowercase();
+    }
+}
+
+void WindowBody::transform_to_uppercase(std::vector<Gtk::TreePath>&& paths)
+{
+    for (const auto& path : paths)
     {
         const auto row = get_row(path);
+        row[columns.item_display_value] = row.get_value(columns.item_display_value).uppercase();
+        row[columns.item_value] = row.get_value(columns.item_value).uppercase();
+    }
+}
+
+void WindowBody::transform_to_uppercase(std::vector<Gtk::TreeRow>&& rows) const
+{
+    for (const auto& row : rows)
+    {
         row[columns.item_display_value] = row.get_value(columns.item_display_value).uppercase();
         row[columns.item_value] = row.get_value(columns.item_value).uppercase();
     }
@@ -379,7 +412,7 @@ void WindowBody::show_item_details_window(const Glib::ustring& text)
 }
 
 // HELPER METHODS
-std::vector<Gtk::TreeModel::Path> WindowBody::get_selected_rows()
+std::vector<Gtk::TreeModel::Path> WindowBody::get_selected_paths()
 {
     return item_list.get_selection()->get_selected_rows();
 }

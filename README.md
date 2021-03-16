@@ -21,19 +21,15 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 
 ### Todo (last stuff)
 
-* to save list on quit
 * to generate translations
 * to show small window on shift+enter hit (prefix/suffix)
-* to show item lenght on the bottom of window
+* to show item length on the bottom of window
 * to show item size on the bottom of window
 * to warn if capslock is on
 * to export items to json file and import when app starts
 * to prepare debian package
-* to paste selected items considering selecting direction
-* to handle memory leak
-* to synchronize list_store with searched_list_store
+* to handle memory leak (ask on stackoverflow)
 * to remove \n if you copy whole line
-* ...
 
 ### Issues
 
