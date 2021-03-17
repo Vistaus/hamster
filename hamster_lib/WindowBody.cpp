@@ -121,13 +121,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     }
 
     // Delete just copied text if already exits in item list...
-    for (const auto& row : ref_primary_item_store->children())
-    {
-        if (text.length() == row.get_value(columns.item_value).length() && text == row.get_value(columns.item_value))
-        {
-            ref_primary_item_store->erase(row);
-        }
-    }
+    delete_items(ref_primary_item_store->children(), text);
 
     const auto row = *(ref_primary_item_store->prepend());
     row[columns.item_value] = text;                                     // Save in memory original text value
@@ -287,28 +281,6 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     return false;
 }
 
-std::vector<Gtk::TreeRow> WindowBody::find_primary_store_rows(std::vector<Gtk::TreePath>&& secondary_store_paths)
-{
-    std::vector<Gtk::TreeRow> rows_to_update {};
-    rows_to_update.reserve(secondary_store_paths.size());
-
-    for (const auto& path : secondary_store_paths)
-    {
-        const auto s_row = get_row(path);
-        for (const auto& row : ref_primary_item_store->children())
-        {
-            const auto s_rv = s_row.get_value(columns.item_value);
-            const auto rv = row.get_value(columns.item_value);
-            if (s_rv.length() == rv.length() && s_rv == rv)
-            {
-                rows_to_update.emplace_back(row);
-                break;
-            }
-        }
-    }
-    return rows_to_update;
-}
-
 void WindowBody::delete_items(std::vector<Gtk::TreePath>&& paths)
 {
     for (const auto& path : paths)
@@ -321,7 +293,18 @@ void WindowBody::delete_items(std::vector<Gtk::TreeRow>&& rows) const
 {
     for (const auto& row : rows)
     {
-        Glib::RefPtr<Gtk::ListStore>::cast_dynamic(ref_primary_item_store)->erase(row);
+        ref_primary_item_store->erase(row);
+    }
+}
+
+void WindowBody::delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const
+{
+    for (const auto& row : rows)
+    {
+        if (text.length() == row.get_value(columns.item_value).length() && text == row.get_value(columns.item_value))
+        {
+            ref_primary_item_store->erase(row);
+        }
     }
 }
 
@@ -420,4 +403,26 @@ std::vector<Gtk::TreeModel::Path> WindowBody::get_selected_paths()
 Gtk::TreeRow WindowBody::get_row(const Gtk::TreeModel::Path& path)
 {
     return *(item_list.get_model()->get_iter(path));
+}
+
+std::vector<Gtk::TreeRow> WindowBody::find_primary_store_rows(std::vector<Gtk::TreePath>&& secondary_store_paths)
+{
+    std::vector<Gtk::TreeRow> rows_to_update {};
+    rows_to_update.reserve(secondary_store_paths.size());
+
+    for (const auto& path : secondary_store_paths)
+    {
+        const auto s_row = get_row(path);
+        for (const auto& row : ref_primary_item_store->children())
+        {
+            const auto s_rv = s_row.get_value(columns.item_value);
+            const auto rv = row.get_value(columns.item_value);
+            if (s_rv.length() == rv.length() && s_rv == rv)
+            {
+                rows_to_update.emplace_back(row);
+                break;
+            }
+        }
+    }
+    return rows_to_update;
 }
