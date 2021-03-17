@@ -96,6 +96,7 @@ struct WindowBody : public Gtk::VBox
     void delete_items(std::vector<Gtk::TreePath>&& paths);
     void delete_items(std::vector<Gtk::TreeRow>&& rows) const;
     void delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const;
+    void delete_last_items(int store_sz, int max_list_size) const;
 };
 
 #endif //HAMSTER_WINDOW_BODY_H

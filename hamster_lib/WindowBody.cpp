@@ -120,7 +120,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         text = tu.trim_str(text);
     }
 
-    // Delete just copied text if already exits in item list...
+    // Delete just copied text if already exits in item list... (does not allow to have duplicated items in the list)
     delete_items(ref_primary_item_store->children(), text);
 
     const auto row = *(ref_primary_item_store->prepend());
@@ -130,16 +130,9 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     item_list.set_cursor(ref_primary_item_store->get_path(row));
     item_list.scroll_to_row(ref_primary_item_store->get_path(row));
 
-    // Delete last text items if too many in the list...
-    auto item_store_sz = (int) ref_primary_item_store->children().size();
-    auto diff_sz = item_store_sz - (int) ref_settings->get_double("item-list-size");
-    if (diff_sz > 0)
-    {
-        for (int i = 1; i <= diff_sz; ++i)
-        {
-            ref_primary_item_store->erase(ref_primary_item_store->children()[item_store_sz - i]);
-        }
-    }
+    // Delete if too many...
+    delete_last_items((int) ref_primary_item_store->children().size(), (int) ref_settings->get_double("item-list-size"));
+
     g_print("stored items: %d\n", ref_primary_item_store->children().size());
 }
 
@@ -304,6 +297,18 @@ void WindowBody::delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring&
         if (text.length() == row.get_value(columns.item_value).length() && text == row.get_value(columns.item_value))
         {
             ref_primary_item_store->erase(row);
+        }
+    }
+}
+
+void WindowBody::delete_last_items(int store_sz, int max_list_size) const
+{
+    auto diff_sz = store_sz - max_list_size;
+    if (diff_sz > 0)
+    {
+        for (int i = 1; i <= diff_sz; ++i)
+        {
+            ref_primary_item_store->erase(ref_primary_item_store->children()[store_sz - i]);
         }
     }
 }
