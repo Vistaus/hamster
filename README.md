@@ -24,7 +24,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to generate translations
 * to show small window on shift+enter hit (prefix/suffix)
 * to show item length on the bottom of window
-* to warn if capslock is on
 * to export items to json file and import when app starts
 * to prepare debian package
 * to handle memory leak (ask on stackoverflow)
