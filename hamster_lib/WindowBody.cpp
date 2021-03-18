@@ -303,7 +303,7 @@ void WindowBody::delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring&
 
 void WindowBody::delete_last_items(int store_sz, int max_list_size) const
 {
-    auto diff_sz = store_sz - max_list_size;
+    const auto diff_sz = store_sz - max_list_size;
     if (diff_sz > 0)
     {
         for (int i = 1; i <= diff_sz; ++i)
