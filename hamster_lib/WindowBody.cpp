@@ -34,9 +34,16 @@ WindowBody::WindowBody()
     search_entry.set_margin_bottom(4);
     search_entry.set_margin_left(4);
 
+    status_bar.set_margin_top(0);
+    status_bar.set_margin_right(0);
+    status_bar.set_margin_left(0);
+    status_bar.set_margin_bottom(0);
+    status_bar.set_border_width(0);
+
     pack_start(search_entry);
     pack_start(separator);
     pack_start(scrolled_win);
+    pack_start(status_bar);
 
     scrolled_win.set_size_request(-1, 640);
     scrolled_win.add(item_list);
@@ -220,6 +227,18 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     if (key_event == nullptr)
     {
         return false;
+    }
+
+    status_bar.remove_all_messages();
+
+    const auto ALT_PLUS_LETTER_MASK = 10; // When capslock pressed
+    if (key_event->keyval == GDK_KEY_Caps_Lock || key_event->state == ALT_PLUS_LETTER_MASK)
+    {
+        status_bar.push(_("Warning: CAPSLOCK"));
+    }
+    if (key_event->keyval == GDK_KEY_Caps_Lock && key_event->state == GDK_LOCK_MASK)
+    {
+        status_bar.pop();
     }
 
     // 'ESCAPE' OR 'TAB' move to search entry
