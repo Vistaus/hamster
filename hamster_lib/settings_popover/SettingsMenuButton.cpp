@@ -23,4 +23,3 @@ SettingsMenuButton::SettingsMenuButton()
     set_image(btn_icon);
     set_popover(settings_popover);
 }
-
