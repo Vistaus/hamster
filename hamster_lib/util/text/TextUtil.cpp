@@ -56,7 +56,7 @@ Glib::ustring TextUtil::join_lines(Glib::ustring& text, uint n_letters)
 
 Glib::ustring TextUtil::trim_str(const Glib::ustring& text)
 {
-    const auto whitespaces = " \t";
+    const auto whitespaces = " \t\n";
     const auto begin = text.find_first_not_of(whitespaces);
     if (begin == std::string::npos)
     {
