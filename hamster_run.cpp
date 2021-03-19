@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     auto app = Gtk::Application::create("com.github.slawtul.hamster");
 
     MainWindow win{};
-    win.show_all();
+    win.show();
 
     return app->run(win, argc, argv);
 }

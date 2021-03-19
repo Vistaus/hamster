@@ -33,20 +33,31 @@ WindowBody::WindowBody()
     search_entry.set_margin_right(4);
     search_entry.set_margin_bottom(4);
     search_entry.set_margin_left(4);
+    search_entry.show();
+    se_separator.show();
 
-    status_bar.set_margin_top(0);
-    status_bar.set_margin_right(0);
-    status_bar.set_margin_left(0);
-    status_bar.set_margin_bottom(0);
-    status_bar.set_border_width(0);
+    warning_icon.set_from_icon_name("dialog-warning-symbolic", Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR);
+    warning_icon.set_halign(Gtk::ALIGN_END);
+    warning_icon.set_margin_right(4);
+
+    sb_message.set_text("");
+    sb_message.set_halign(Gtk::ALIGN_START);
+    sb_message.show();
+    status_bar.set_border_width(4);
+    status_bar.pack_start(warning_icon);
+    status_bar.pack_start(sb_message);
+    status_bar.show();
+    sb_separator.show();
 
     pack_start(search_entry);
-    pack_start(separator);
+    pack_start(se_separator);
     pack_start(scrolled_win);
+    pack_start(sb_separator);
     pack_start(status_bar);
 
     scrolled_win.set_size_request(-1, 640);
     scrolled_win.add(item_list);
+    scrolled_win.show();
 
     ref_primary_item_store = Gtk::ListStore::create(columns);
     ref_secondary_item_store = Gtk::ListStore::create(columns);
@@ -57,6 +68,7 @@ WindowBody::WindowBody()
     item_list.set_search_entry(search_entry);
     item_list.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_event));
     item_list.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_key_press));
+    item_list.show();
 
     const auto row0 = *(ref_primary_item_store->append());
     row0[columns.item_value] = _("Welcome to Hamster !");
@@ -69,6 +81,8 @@ WindowBody::WindowBody()
     const auto row2 = *(ref_primary_item_store->append());
     row2[columns.item_value] = _("Press <Alt+P> to open preferences window");
     row2[columns.item_display_value] = _("Press <Alt+P> to open preferences window");
+
+    show();
 }
 
 void WindowBody::on_search_change()
@@ -229,16 +243,17 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
         return false;
     }
 
-    status_bar.remove_all_messages();
-
     const auto ALT_PLUS_LETTER_MASK = 10; // When capslock pressed
     if (key_event->keyval == GDK_KEY_Caps_Lock || key_event->state == ALT_PLUS_LETTER_MASK)
     {
-        status_bar.push(_("Warning: CAPSLOCK"));
+        sb_message.set_text(_("Capslock"));
+        warning_icon.show();
+
     }
     if (key_event->keyval == GDK_KEY_Caps_Lock && key_event->state == GDK_LOCK_MASK)
     {
-        status_bar.pop();
+        sb_message.set_text("");
+        warning_icon.hide();
     }
 
     // 'ESCAPE' OR 'TAB' move to search entry
