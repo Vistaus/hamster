@@ -64,6 +64,16 @@ struct WindowBody : public Gtk::VBox
     Gtk::Label sb_message;
     Gtk::Image warning_icon;
 
+    Gtk::VBox prefix_suffix_form;
+    Gtk::HBox prefix_h_box;
+    Gtk::HBox suffix_h_box;
+    Gtk::Label prefix_label;
+    Gtk::Label suffix_label;
+    Gtk::Entry prefix_entry;
+    Gtk::Entry suffix_entry;
+    Gtk::Separator ps_separator;
+
+
     ItemModelColumns columns;
     Gtk::ListViewText item_list;
     Glib::RefPtr<Gtk::ListStore> ref_primary_item_store;   // All items go here
@@ -91,6 +101,8 @@ struct WindowBody : public Gtk::VBox
     bool on_item_list_key_press(GdkEventKey* key_event);
     bool on_item_list_event(GdkEvent* gdk_event);
     bool on_item_list_focus_in(GdkEventFocus* focus_event);
+
+    bool on_pref_suff_key_press(GdkEventKey* key_event);
 
     // ACTIONS
     void show_item_details_window(const Glib::ustring& text);

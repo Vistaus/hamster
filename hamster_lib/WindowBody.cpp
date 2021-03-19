@@ -39,19 +39,49 @@ WindowBody::WindowBody()
     warning_icon.set_from_icon_name("dialog-warning-symbolic", Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR);
     warning_icon.set_halign(Gtk::ALIGN_END);
     warning_icon.set_margin_right(4);
+    warning_icon.show();
 
-    sb_message.set_text("");
+    sb_message.set_text(_("Capslock"));
     sb_message.set_halign(Gtk::ALIGN_START);
     sb_message.show();
     status_bar.set_border_width(4);
     status_bar.pack_start(warning_icon);
     status_bar.pack_start(sb_message);
-    status_bar.show();
-    sb_separator.show();
+    status_bar.hide();
+    sb_separator.hide();
+
+    prefix_label.set_label(_("Prefix:"));
+    prefix_label.show();
+    prefix_entry.set_width_chars(30);
+    prefix_entry.set_max_length(128);
+    prefix_entry.show();
+    suffix_label.set_label(_("Suffix:"));
+    suffix_label.show();
+    suffix_entry.set_width_chars(30);
+    suffix_entry.set_max_length(128);
+    suffix_entry.show();
+
+    prefix_h_box.pack_start(prefix_label);
+    prefix_h_box.pack_start(prefix_entry);
+    prefix_h_box.set_margin_bottom(4);
+    prefix_h_box.show();
+
+    suffix_h_box.pack_start(suffix_label);
+    suffix_h_box.pack_start(suffix_entry);
+    suffix_h_box.show();
+
+    prefix_suffix_form.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_pref_suff_key_press));
+    prefix_suffix_form.pack_start(prefix_h_box);
+    prefix_suffix_form.pack_start(suffix_h_box);
+    prefix_suffix_form.set_border_width(4);
+    prefix_suffix_form.hide();
+    ps_separator.hide();
 
     pack_start(search_entry);
     pack_start(se_separator);
     pack_start(scrolled_win);
+    pack_start(ps_separator);
+    pack_start(prefix_suffix_form);
     pack_start(sb_separator);
     pack_start(status_bar);
 
@@ -189,6 +219,9 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         g_print("Shift + Enter keys pressed\n");
+        ps_separator.show();
+        prefix_suffix_form.show();
+        prefix_entry.grab_focus();
         return true;
     }
 
@@ -196,6 +229,8 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         search_entry.grab_focus();
+        ps_separator.hide();
+        prefix_suffix_form.hide();
         this->get_window()->iconify();
 
         auto prefix = (std::string) ref_settings->get_string("item-prefix");
@@ -252,6 +287,19 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     return false;
 }
 
+bool WindowBody::on_pref_suff_key_press(GdkEventKey* key_event)
+{
+    // 'ESCAPE' close widget
+    if (key_event->keyval == GDK_KEY_Escape)
+    {
+        ps_separator.hide();
+        prefix_suffix_form.hide();
+        item_list.grab_focus();
+        return true;
+    }
+    return false;
+}
+
 bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
 {
     if (key_event == nullptr)
@@ -262,14 +310,13 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
     const auto ALT_PLUS_LETTER_MASK = 10; // When capslock pressed
     if (key_event->keyval == GDK_KEY_Caps_Lock || key_event->state == ALT_PLUS_LETTER_MASK)
     {
-        sb_message.set_text(_("Capslock"));
-        warning_icon.show();
-
+        sb_separator.show();
+        status_bar.show();
     }
     if (key_event->keyval == GDK_KEY_Caps_Lock && key_event->state == GDK_LOCK_MASK)
     {
-        sb_message.set_text("");
-        warning_icon.hide();
+        sb_separator.hide();
+        status_bar.hide();
     }
 
     // 'ESCAPE' OR 'TAB' move to search entry
