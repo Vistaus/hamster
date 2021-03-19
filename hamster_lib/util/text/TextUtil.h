@@ -44,6 +44,7 @@ struct TextUtil
     Glib::ustring trim_str(const Glib::ustring& text);
     Glib::ustring sub_str(const Glib::ustring& text, uint n_letters, const Glib::ustring& end_text);
     Glib::ustring calculate_display_value(Glib::ustring& text);
+    std::string mask_str(const Glib::ustring& text);
 
     std::string convert_to_newline_or_tab(std::string& text);
     std::string escape_nonalpha(const std::string& text);

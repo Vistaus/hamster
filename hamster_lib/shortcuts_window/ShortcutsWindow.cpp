@@ -20,7 +20,7 @@
 ShortcutsWindow::ShortcutsWindow()
 {
     set_title(_("Shortcuts"));
-    set_default_size(526, 520);
+    set_default_size(526, 550);
     set_resizable(false);
     set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -79,6 +79,10 @@ ShortcutsWindow::ShortcutsWindow()
     uppercase_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     uppercase_shortcut.property_accelerator().set_value("<Alt>U");
 
+    starmask_shortcut.property_title().set_value(_("Mask with *********"));
+    starmask_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
+    starmask_shortcut.property_accelerator().set_value("<Alt>M");
+
     delete_item_shortcut.property_title().set_value(_("Delete item"));
     delete_item_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
     delete_item_shortcut.property_accelerator().set_value("Delete");
@@ -89,6 +93,7 @@ ShortcutsWindow::ShortcutsWindow()
     items_group.add(details_shortcut);
     items_group.add(lowercase_shortcut);
     items_group.add(uppercase_shortcut);
+    items_group.add(starmask_shortcut);
     items_group.add(delete_item_shortcut);
 
     items_group.property_title().set_value(_("Text items"));

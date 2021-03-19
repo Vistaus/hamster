@@ -92,6 +92,7 @@ struct WindowBody : public Gtk::VBox
     Gtk::TreeRow get_row(const Gtk::TreeModel::Path& path);
     std::vector<Gtk::TreeModel::Path> get_selected_paths();
     std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath>&& paths);
+    std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath>& paths);
 
     // EVENTS HANDLING
     void on_clipboard_change(GdkEventOwnerChange* event);
@@ -107,9 +108,11 @@ struct WindowBody : public Gtk::VBox
     // ACTIONS
     void show_item_details_window(const Glib::ustring& text);
     void transform_to_lowercase(std::vector<Gtk::TreePath>&& paths);
-    void transform_to_uppercase(std::vector<Gtk::TreePath>&& paths);
     void transform_to_lowercase(std::vector<Gtk::TreeRow>&& rows) const;
+    void transform_to_uppercase(std::vector<Gtk::TreePath>&& paths);
     void transform_to_uppercase(std::vector<Gtk::TreeRow>&& rows) const;
+    void mask_with_stars(std::vector<Gtk::TreePath>&& paths);
+    void mask_with_stars(std::vector<Gtk::TreeRow>&& rows) const;
     void delete_items(std::vector<Gtk::TreePath>&& paths);
     void delete_items(std::vector<Gtk::TreeRow>&& rows) const;
     void delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const;
