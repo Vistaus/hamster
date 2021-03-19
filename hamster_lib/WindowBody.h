@@ -90,6 +90,7 @@ struct WindowBody : public Gtk::VBox
 
     bool on_item_list_key_press(GdkEventKey* key_event);
     bool on_item_list_event(GdkEvent* gdk_event);
+    bool on_item_list_focus_in(GdkEventFocus* focus_event);
 
     // ACTIONS
     void show_item_details_window(const Glib::ustring& text);
