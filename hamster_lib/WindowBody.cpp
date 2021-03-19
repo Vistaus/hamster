@@ -29,10 +29,10 @@ WindowBody::WindowBody()
 
     search_entry.signal_search_changed().connect(sigc::mem_fun(*this, &WindowBody::on_search_change));
     search_entry.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_search_entry_event));
-    search_entry.set_margin_top(4);
-    search_entry.set_margin_right(4);
-    search_entry.set_margin_bottom(4);
-    search_entry.set_margin_left(4);
+    search_entry.set_margin_top(3);
+    search_entry.set_margin_right(3);
+    search_entry.set_margin_bottom(3);
+    search_entry.set_margin_left(3);
     search_entry.show();
     se_separator.show();
 
