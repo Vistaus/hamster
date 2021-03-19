@@ -37,7 +37,7 @@ MainWindow::MainWindow()
 
     header_bar.set_show_close_button(true);
     header_bar.set_title(_("🐹 Hamster"));
-    header_bar.set_subtitle(_("Clipboard manager"));
+    header_bar.set_has_subtitle(false);
     menu_btn.show();
     header_bar.pack_end(menu_btn);
     header_bar.show();
