@@ -26,7 +26,7 @@ MainWindow::MainWindow()
     ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
     auto const x = ref_settings->get_int("window-x");
     auto const y = ref_settings->get_int("window-y");
-    auto const always_minimize = ref_settings->get_boolean("always-minimize");
+    auto const always_minimize = ref_settings->get_boolean("run-minimize");
 
     (x == -1 && y == -1) ? set_position(Gtk::WIN_POS_CENTER) : move(x, y);
 
