@@ -45,7 +45,7 @@ MainWindow::MainWindow()
 
     add(win_body);
 
-    this->signal_key_press_event().connect(sigc::mem_fun(*this, &MainWindow::on_main_window_key_press));
+    this->signal_event().connect(sigc::mem_fun(*this, &MainWindow::on_main_window_event));
 
     // ABOUT DIALOG
     about_dialog.set_transient_for(*this);
@@ -114,34 +114,29 @@ void MainWindow::close_app()
     exit(0);
 }
 
-bool MainWindow::on_main_window_key_press(GdkEventKey *key_event)
+bool MainWindow::on_main_window_event(GdkEvent* gdk_event)
 {
-    if (key_event == nullptr)
+    if (gdk_event == nullptr)
     {
         return false;
     }
 
-    const auto ALT_MASK = 24; // On modern PC
-
-    g_print("key %d \n", key_event->keyval);
-    g_print("sta %d \n", key_event->state);
-
-    // 'ALT + P' show properties window
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_p)
+    // 'CTRL + P' show properties window
+    if (gdk_event->key.state >= GDK_CONTROL_MASK && (gdk_event->key.keyval == GDK_KEY_p || gdk_event->key.keyval == GDK_KEY_P))
     {
         show_preferences_win();
         return true;
     }
 
-    // 'ALT + S' show shortcuts window
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_s)
+    // 'CTRL + S' show shortcuts window
+    if (gdk_event->key.state >= GDK_CONTROL_MASK && (gdk_event->key.keyval == GDK_KEY_s || gdk_event->key.keyval == GDK_KEY_S))
     {
         show_shortcuts_win();
         return true;
     }
 
-    // 'ALT + Q' quit application
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_q)
+    // 'CTRL + Q' quit application
+    if (gdk_event->key.state >= GDK_CONTROL_MASK && (gdk_event->key.keyval == GDK_KEY_q || gdk_event->key.keyval == GDK_KEY_Q))
     {
         close_app();
         return true;
