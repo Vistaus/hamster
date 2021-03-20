@@ -114,7 +114,7 @@ void MainWindow::close_app()
     exit(0);
 }
 
-bool MainWindow::on_main_window_event(GdkEvent* gdk_event)
+bool MainWindow::on_main_window_event(GdkEvent *gdk_event)
 {
     if (gdk_event == nullptr)
     {
@@ -122,21 +122,24 @@ bool MainWindow::on_main_window_event(GdkEvent* gdk_event)
     }
 
     // 'CTRL + P' show properties window
-    if (gdk_event->key.state >= GDK_CONTROL_MASK && (gdk_event->key.keyval == GDK_KEY_p || gdk_event->key.keyval == GDK_KEY_P))
+    if (gdk_event->key.state >= GDK_CONTROL_MASK && gdk_event->key.state != GDK_MOD2_MASK && gdk_event->key.state != 18 &&
+        (gdk_event->key.keyval == GDK_KEY_p || gdk_event->key.keyval == GDK_KEY_P))
     {
         show_preferences_win();
         return true;
     }
 
     // 'CTRL + S' show shortcuts window
-    if (gdk_event->key.state >= GDK_CONTROL_MASK && (gdk_event->key.keyval == GDK_KEY_s || gdk_event->key.keyval == GDK_KEY_S))
+    if (gdk_event->key.state >= GDK_CONTROL_MASK && gdk_event->key.state != GDK_MOD2_MASK && gdk_event->key.state != 18 &&
+        (gdk_event->key.keyval == GDK_KEY_s || gdk_event->key.keyval == GDK_KEY_S))
     {
         show_shortcuts_win();
         return true;
     }
 
     // 'CTRL + Q' quit application
-    if (gdk_event->key.state >= GDK_CONTROL_MASK && (gdk_event->key.keyval == GDK_KEY_q || gdk_event->key.keyval == GDK_KEY_Q))
+    if (gdk_event->key.state >= GDK_CONTROL_MASK && gdk_event->key.state != GDK_MOD2_MASK && gdk_event->key.state != 18 &&
+        (gdk_event->key.keyval == GDK_KEY_q || gdk_event->key.keyval == GDK_KEY_Q))
     {
         close_app();
         return true;
