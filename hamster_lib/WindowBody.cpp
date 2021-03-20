@@ -56,7 +56,7 @@ WindowBody::WindowBody()
     suffix_h_box.pack_start(suffix_entry);
     suffix_h_box.show();
 
-    prefix_suffix_form.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_pref_suff_key_press));
+    prefix_suffix_form.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_prefix_suffix_form_key_press));
     prefix_suffix_form.pack_start(prefix_h_box);
     prefix_suffix_form.pack_start(suffix_h_box);
     prefix_suffix_form.set_border_width(4);
@@ -164,7 +164,6 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     row[columns.item_display_value] = tu.calculate_display_value(text); // Show short, one liner text value
 
     item_list.set_cursor(ref_primary_item_store->get_path(row));
-    //item_list.scroll_to_row(ref_primary_item_store->get_path(row));
 
     // Delete if too many...
     delete_last_items((int) ref_primary_item_store->children().size(), (int) ref_settings->get_double("item-list-size"));
@@ -272,7 +271,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     return false;
 }
 
-bool WindowBody::on_pref_suff_key_press(GdkEventKey* key_event)
+bool WindowBody::on_prefix_suffix_form_key_press(GdkEventKey* key_event)
 {
     // 'ESCAPE' close widget
     if (key_event->keyval == GDK_KEY_Escape)
@@ -299,50 +298,6 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
         return true;
     }
 
-    // 'ALT + D' show item details window
-    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
-        (key_event->keyval == GDK_KEY_d || key_event->keyval == GDK_KEY_D))
-    {
-        show_item_details_window(get_row(get_selected_paths()[0]).get_value(columns.item_value));
-        return true;
-    }
-
-    // 'ALT + L' transform to lowercase
-    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
-        (key_event->keyval == GDK_KEY_l || key_event->keyval == GDK_KEY_L))
-    {
-        if (store_type == StoreType::SECONDARY)
-        {
-            transform_to_lowercase(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
-        }
-        transform_to_lowercase(get_selected_paths());
-        return true;
-    }
-
-    // 'ALT + U' transform to uppercase
-    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
-        (key_event->keyval == GDK_KEY_u || key_event->keyval == GDK_KEY_U))
-    {
-        if (store_type == StoreType::SECONDARY)
-        {
-            transform_to_uppercase(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
-        }
-        transform_to_uppercase(get_selected_paths());
-        return true;
-    }
-
-    // 'ALT + M' mask with *********
-    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
-        (key_event->keyval == GDK_KEY_m || key_event->keyval == GDK_KEY_M))
-    {
-        if (store_type == StoreType::SECONDARY)
-        {
-            mask_with_stars(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
-        }
-        mask_with_stars(get_selected_paths());
-        return true;
-    }
-
     // 'DELETE' item
     if (key_event->keyval == GDK_KEY_Delete)
     {
@@ -352,6 +307,50 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
         }
         delete_items(get_selected_paths());
         return true;
+    }
+
+    const auto state = key_event->state;
+    if (state == 8 || state == 10 || state == 26)
+    {
+        // 'ALT + D' show item details window
+        if (key_event->keyval == GDK_KEY_d || key_event->keyval == GDK_KEY_D)
+        {
+            show_item_details_window(get_row(get_selected_paths()[0]).get_value(columns.item_value));
+            return true;
+        }
+
+        // 'ALT + L' transform to lowercase
+        if (key_event->keyval == GDK_KEY_l || key_event->keyval == GDK_KEY_L)
+        {
+            if (store_type == StoreType::SECONDARY)
+            {
+                transform_to_lowercase(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
+            }
+            transform_to_lowercase(get_selected_paths());
+            return true;
+        }
+
+        // 'ALT + U' transform to uppercase
+        if (key_event->keyval == GDK_KEY_u || key_event->keyval == GDK_KEY_U)
+        {
+            if (store_type == StoreType::SECONDARY)
+            {
+                transform_to_uppercase(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
+            }
+            transform_to_uppercase(get_selected_paths());
+            return true;
+        }
+
+        // 'ALT + M' mask with *********
+        if (key_event->keyval == GDK_KEY_m || key_event->keyval == GDK_KEY_M)
+        {
+            if (store_type == StoreType::SECONDARY)
+            {
+                mask_with_stars(find_primary_store_rows(get_selected_paths())); // secondary store selected paths
+            }
+            mask_with_stars(get_selected_paths());
+            return true;
+        }
     }
 
     return false;
