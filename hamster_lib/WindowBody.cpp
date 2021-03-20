@@ -164,7 +164,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
     row[columns.item_display_value] = tu.calculate_display_value(text); // Show short, one liner text value
 
     item_list.set_cursor(ref_primary_item_store->get_path(row));
-    item_list.scroll_to_row(ref_primary_item_store->get_path(row));
+    //item_list.scroll_to_row(ref_primary_item_store->get_path(row));
 
     // Delete if too many...
     delete_last_items((int)ref_primary_item_store->children().size(), (int)ref_settings->get_double("item-list-size"));
