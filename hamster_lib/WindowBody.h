@@ -59,10 +59,6 @@ struct WindowBody : public Gtk::VBox
     Gtk::SearchEntry search_entry;
     Gtk::Separator se_separator;
     Gtk::ScrolledWindow scrolled_win;
-    Gtk::HBox status_bar;
-    Gtk::Separator sb_separator;
-    Gtk::Label sb_message;
-    Gtk::Image warning_icon;
 
     Gtk::VBox prefix_suffix_form;
     Gtk::HBox prefix_h_box;

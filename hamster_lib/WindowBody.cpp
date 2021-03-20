@@ -36,20 +36,6 @@ WindowBody::WindowBody()
     search_entry.show();
     se_separator.show();
 
-    warning_icon.set_from_icon_name("dialog-warning-symbolic", Gtk::BuiltinIconSize::ICON_SIZE_SMALL_TOOLBAR);
-    warning_icon.set_halign(Gtk::ALIGN_END);
-    warning_icon.set_margin_right(4);
-    warning_icon.show();
-
-    sb_message.set_text(_("Capslock"));
-    sb_message.set_halign(Gtk::ALIGN_START);
-    sb_message.show();
-    status_bar.set_border_width(4);
-    status_bar.pack_start(warning_icon);
-    status_bar.pack_start(sb_message);
-    status_bar.hide();
-    sb_separator.hide();
-
     prefix_label.set_label(_("Prefix:"));
     prefix_label.show();
     prefix_entry.set_width_chars(30);
@@ -82,8 +68,6 @@ WindowBody::WindowBody()
     pack_start(scrolled_win);
     pack_start(ps_separator);
     pack_start(prefix_suffix_form);
-    pack_start(sb_separator);
-    pack_start(status_bar);
 
     scrolled_win.set_size_request(-1, 640);
     scrolled_win.add(item_list);
@@ -196,9 +180,10 @@ bool WindowBody::on_item_list_focus_in(GdkEventFocus *focus_event)
     }
 
     // Select first row if no selected rows
-    if (get_selected_paths().empty())
+    const auto ref_item_store = item_list.get_model();
+    if (!ref_item_store->children().empty() && get_selected_paths().empty())
     {
-        item_list.set_cursor(ref_primary_item_store->get_path(ref_primary_item_store->children()[0]));
+        item_list.set_cursor(ref_item_store->get_path(ref_item_store->children()[0]));
     }
     return true;
 }
@@ -212,7 +197,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         return false;
     }
 
-    const auto SHIFT_MASK = 17; // On modern PC
+    const auto SHIFT_MASK = 17;
 
     // 'SHIFT + ENTER' paste but before show prefix and suffix entry fields
     if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
@@ -307,24 +292,6 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
         return false;
     }
 
-    g_print("key: %d\n", key_event->keyval);
-    g_print("sta: %d\n", key_event->state);
-
-    if ((key_event->keyval == GDK_KEY_Caps_Lock && (key_event->state == 0 || key_event->state == 16)) ||
-        key_event->state == 10 || key_event->state == 26)
-    {
-        sb_separator.show();
-        status_bar.show();
-        return true;
-    }
-
-    if ((key_event->keyval == GDK_KEY_Caps_Lock && (key_event->state == 2 || key_event->state == 18)) ||
-        key_event->state == 0 || key_event->state == 24)
-    {
-        sb_separator.hide();
-        status_bar.hide();
-    }
-
     // 'ESCAPE' OR 'TAB' move to search entry
     if (key_event->keyval == GDK_KEY_Escape || key_event->keyval == GDK_KEY_Tab || key_event->keyval == GDK_KEY_slash)
     {
@@ -332,17 +299,15 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
         return true;
     }
 
-    const auto ALT_MASK = 24; // On modern PC
-
     // 'ALT + D' show item details window
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_d)
+    if (key_event->keyval == GDK_KEY_d || key_event->keyval == GDK_KEY_D)
     {
         show_item_details_window(get_row(get_selected_paths()[0]).get_value(columns.item_value));
         return true;
     }
 
     // 'ALT + L' transform to lowercase
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_l)
+    if (key_event->keyval == GDK_KEY_l || key_event->keyval == GDK_KEY_L)
     {
         if (store_type == StoreType::SECONDARY)
         {
@@ -353,7 +318,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     }
 
     // 'ALT + U' transform to uppercase
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_u)
+    if (key_event->keyval == GDK_KEY_u || key_event->keyval == GDK_KEY_U)
     {
         if (store_type == StoreType::SECONDARY)
         {
@@ -364,7 +329,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     }
 
     // 'ALT + M' mask with *********
-    if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_m)
+    if (key_event->keyval == GDK_KEY_m || key_event->keyval == GDK_KEY_M)
     {
         if (store_type == StoreType::SECONDARY)
         {
