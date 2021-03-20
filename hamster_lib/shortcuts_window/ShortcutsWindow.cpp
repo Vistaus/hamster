@@ -69,19 +69,19 @@ ShortcutsWindow::ShortcutsWindow()
 
     details_shortcut.property_title().set_value(_("Show item details"));
     details_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    details_shortcut.property_accelerator().set_value("D");
+    details_shortcut.property_accelerator().set_value("<Alt>D");
 
     lowercase_shortcut.property_title().set_value(_("Change to lowercase"));
     lowercase_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    lowercase_shortcut.property_accelerator().set_value("L");
+    lowercase_shortcut.property_accelerator().set_value("<Alt>L");
 
     uppercase_shortcut.property_title().set_value(_("Change to uppercase"));
     uppercase_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    uppercase_shortcut.property_accelerator().set_value("U");
+    uppercase_shortcut.property_accelerator().set_value("<Alt>U");
 
     starmask_shortcut.property_title().set_value(_("Mask with *********"));
     starmask_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    starmask_shortcut.property_accelerator().set_value("M");
+    starmask_shortcut.property_accelerator().set_value("<Alt>M");
 
     delete_item_shortcut.property_title().set_value(_("Delete item"));
     delete_item_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);

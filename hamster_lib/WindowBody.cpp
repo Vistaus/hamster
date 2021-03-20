@@ -300,14 +300,16 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     }
 
     // 'ALT + D' show item details window
-    if (key_event->keyval == GDK_KEY_d || key_event->keyval == GDK_KEY_D)
+    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
+        (key_event->keyval == GDK_KEY_d || key_event->keyval == GDK_KEY_D))
     {
         show_item_details_window(get_row(get_selected_paths()[0]).get_value(columns.item_value));
         return true;
     }
 
     // 'ALT + L' transform to lowercase
-    if (key_event->keyval == GDK_KEY_l || key_event->keyval == GDK_KEY_L)
+    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
+        (key_event->keyval == GDK_KEY_l || key_event->keyval == GDK_KEY_L))
     {
         if (store_type == StoreType::SECONDARY)
         {
@@ -318,7 +320,8 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     }
 
     // 'ALT + U' transform to uppercase
-    if (key_event->keyval == GDK_KEY_u || key_event->keyval == GDK_KEY_U)
+    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
+        (key_event->keyval == GDK_KEY_u || key_event->keyval == GDK_KEY_U))
     {
         if (store_type == StoreType::SECONDARY)
         {
@@ -329,7 +332,8 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     }
 
     // 'ALT + M' mask with *********
-    if (key_event->keyval == GDK_KEY_m || key_event->keyval == GDK_KEY_M)
+    if (key_event->state >= GDK_MOD1_MASK && key_event->state != GDK_MOD2_MASK && key_event->state != 18 &&
+        (key_event->keyval == GDK_KEY_m || key_event->keyval == GDK_KEY_M))
     {
         if (store_type == StoreType::SECONDARY)
         {
