@@ -307,13 +307,19 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
         return false;
     }
 
-    const auto ALT_PLUS_LETTER_MASK = 10; // When capslock pressed
-    if (key_event->keyval == GDK_KEY_Caps_Lock || key_event->state == ALT_PLUS_LETTER_MASK)
+    g_print("key: %d\n", key_event->keyval);
+    g_print("sta: %d\n", key_event->state);
+
+    if ((key_event->keyval == GDK_KEY_Caps_Lock && (key_event->state == 0 || key_event->state == 16)) ||
+        key_event->state == 10 || key_event->state == 26)
     {
         sb_separator.show();
         status_bar.show();
+        return true;
     }
-    if (key_event->keyval == GDK_KEY_Caps_Lock && key_event->state == GDK_LOCK_MASK)
+
+    if ((key_event->keyval == GDK_KEY_Caps_Lock && (key_event->state == 2 || key_event->state == 18)) ||
+        key_event->state == 0 || key_event->state == 24)
     {
         sb_separator.hide();
         status_bar.hide();
