@@ -20,7 +20,7 @@
 PreferencesWindow::PreferencesWindow()
 {
     set_title(_("Preferences"));
-    set_default_size(480, 520);
+    set_default_size(-1, -1);
     set_resizable(false);
     set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -114,7 +114,7 @@ PreferencesWindow::PreferencesWindow()
     item_prefix.set_margin_bottom(6);
     item_prefix.set_margin_left(24);
     item_prefix.property_text().set_value(ref_settings->get_string("item-prefix"));
-    item_prefix.set_width_chars(40);
+    item_prefix.set_width_chars(32);
     item_prefix.set_max_length(128);
     item_prefix.signal_changed().connect(sigc::mem_fun(*this, &PreferencesWindow::on_item_prefix_change));
 
@@ -127,7 +127,7 @@ PreferencesWindow::PreferencesWindow()
     prefix_box.show_all();
 
     item_suffix.property_text().set_value(ref_settings->get_string("item-suffix"));
-    item_suffix.set_width_chars(40);
+    item_suffix.set_width_chars(32);
     item_suffix.set_max_length(128);
     item_suffix.signal_changed().connect(sigc::mem_fun(*this, &PreferencesWindow::on_item_suffix_change));
     item_suffix.set_margin_left(24);

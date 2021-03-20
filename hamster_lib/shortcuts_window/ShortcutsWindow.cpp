@@ -20,7 +20,7 @@
 ShortcutsWindow::ShortcutsWindow()
 {
     set_title(_("Shortcuts"));
-    set_default_size(526, 550);
+    set_default_size(-1, -1);
     set_resizable(false);
     set_decorated(true);
     set_position(Gtk::WindowPosition::WIN_POS_CENTER_ON_PARENT);
@@ -32,19 +32,19 @@ ShortcutsWindow::ShortcutsWindow()
     // APPLICATION SHORTCUTS
     show_app_shortcut.property_title().set_value(_("Show application window"));
     show_app_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    show_app_shortcut.property_accelerator().set_value("<Ctrl><Alt>V");
+    show_app_shortcut.property_accelerator().set_value("<Control><Alt>V");
 
     show_settings_shortcut.property_title().set_value(_("Open preferences window"));
     show_settings_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    show_settings_shortcut.property_accelerator().set_value("<Alt>P");
+    show_settings_shortcut.property_accelerator().set_value("<Control>P");
 
     show_key_bindings_shortcut.property_title().set_value(_("Open shortcuts window"));
     show_key_bindings_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    show_key_bindings_shortcut.property_accelerator().set_value("<Alt>S");
+    show_key_bindings_shortcut.property_accelerator().set_value("<Control>S");
 
     quit_app_shortcut.property_title().set_value(_("Quit application"));
     quit_app_shortcut.property_shortcut_type().set_value(Gtk::SHORTCUT_ACCELERATOR);
-    quit_app_shortcut.property_accelerator().set_value("<Alt>Q");
+    quit_app_shortcut.property_accelerator().set_value("<Control>Q");
 
     app_group.add(show_app_shortcut);
     app_group.add(show_settings_shortcut);
