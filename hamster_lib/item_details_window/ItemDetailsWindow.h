@@ -30,8 +30,8 @@ struct ItemDetailsWindow : public Gtk::Window
     Glib::RefPtr<Gtk::TextBuffer> ref_text_buffer;
     Gtk::VBox v_box;
 
-    bool on_key_press(GdkEventKey* key_event);
-    void set_text(const Glib::ustring& text) const;
+    bool on_key_press(GdkEventKey *key_event);
+    void set_text(const Glib::ustring &text) const;
 };
 
 #endif //HAMSTER_ITEM_DETAILS_WINDOW_H

@@ -114,14 +114,14 @@ void MainWindow::close_app()
     exit(0);
 }
 
-bool MainWindow::on_main_window_key_press(GdkEventKey* key_event)
+bool MainWindow::on_main_window_key_press(GdkEventKey *key_event)
 {
     if (key_event == nullptr)
     {
         return false;
     }
 
-    const auto ALT_MASK = 24;  // On modern PC
+    const auto ALT_MASK = 24; // On modern PC
 
     // 'ALT + P' show properties window
     if ((key_event->state == ALT_MASK || key_event->state == GDK_MOD1_MASK) && key_event->keyval == GDK_KEY_p)
@@ -147,7 +147,7 @@ bool MainWindow::on_main_window_key_press(GdkEventKey* key_event)
     return false;
 }
 
-bool MainWindow::on_delete_event(GdkEventAny* any_event)
+bool MainWindow::on_delete_event(GdkEventAny *any_event)
 {
     if (any_event == nullptr)
     {

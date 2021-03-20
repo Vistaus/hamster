@@ -32,18 +32,20 @@
 
 enum struct SelectionOrder
 {
-    SHIFT_UP, SHIFT_DOWN
+    SHIFT_UP,
+    SHIFT_DOWN
 };
 
 enum struct StoreType
 {
-    PRIMARY, SECONDARY
+    PRIMARY,
+    SECONDARY
 };
 
 struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 {
     Gtk::TreeModelColumn<Glib::ustring> item_display_value; // Modified clipboard text value showed in list view widget
-    Gtk::TreeModelColumn<Glib::ustring> item_value; // Original clipboard text value
+    Gtk::TreeModelColumn<Glib::ustring> item_value;         // Original clipboard text value
 
     ItemModelColumns()
     {
@@ -69,7 +71,6 @@ struct WindowBody : public Gtk::VBox
     Gtk::Entry suffix_entry;
     Gtk::Separator ps_separator;
 
-
     ItemModelColumns columns;
     Gtk::ListViewText item_list;
     Glib::RefPtr<Gtk::ListStore> ref_primary_item_store;   // All items go here
@@ -85,33 +86,33 @@ struct WindowBody : public Gtk::VBox
     static void send_ctrl_v_key_event();
 
     // HELPER METHODS
-    Gtk::TreeRow get_row(const Gtk::TreeModel::Path& path);
+    Gtk::TreeRow get_row(const Gtk::TreeModel::Path &path);
     std::vector<Gtk::TreeModel::Path> get_selected_paths();
-    std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath>&& paths);
-    std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath>& paths);
+    std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath> &&paths);
+    std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath> &paths);
 
     // EVENTS HANDLING
-    void on_clipboard_change(GdkEventOwnerChange* event);
+    void on_clipboard_change(GdkEventOwnerChange *event);
     void on_search_change();
-    bool on_search_entry_event(GdkEvent* gdk_event);
+    bool on_search_entry_event(GdkEvent *gdk_event);
 
-    bool on_item_list_key_press(GdkEventKey* key_event);
-    bool on_item_list_event(GdkEvent* gdk_event);
-    bool on_item_list_focus_in(GdkEventFocus* focus_event);
+    bool on_item_list_key_press(GdkEventKey *key_event);
+    bool on_item_list_event(GdkEvent *gdk_event);
+    bool on_item_list_focus_in(GdkEventFocus *focus_event);
 
-    bool on_pref_suff_key_press(GdkEventKey* key_event);
+    bool on_pref_suff_key_press(GdkEventKey *key_event);
 
     // ACTIONS
-    void show_item_details_window(const Glib::ustring& text);
-    void transform_to_lowercase(std::vector<Gtk::TreePath>&& paths);
-    void transform_to_lowercase(std::vector<Gtk::TreeRow>&& rows) const;
-    void transform_to_uppercase(std::vector<Gtk::TreePath>&& paths);
-    void transform_to_uppercase(std::vector<Gtk::TreeRow>&& rows) const;
-    void mask_with_stars(std::vector<Gtk::TreePath>&& paths);
-    void mask_with_stars(std::vector<Gtk::TreeRow>&& rows) const;
-    void delete_items(std::vector<Gtk::TreePath>&& paths);
-    void delete_items(std::vector<Gtk::TreeRow>&& rows) const;
-    void delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const;
+    void show_item_details_window(const Glib::ustring &text);
+    void transform_to_lowercase(std::vector<Gtk::TreePath> &&paths);
+    void transform_to_lowercase(std::vector<Gtk::TreeRow> &&rows) const;
+    void transform_to_uppercase(std::vector<Gtk::TreePath> &&paths);
+    void transform_to_uppercase(std::vector<Gtk::TreeRow> &&rows) const;
+    void mask_with_stars(std::vector<Gtk::TreePath> &&paths);
+    void mask_with_stars(std::vector<Gtk::TreeRow> &&rows) const;
+    void delete_items(std::vector<Gtk::TreePath> &&paths);
+    void delete_items(std::vector<Gtk::TreeRow> &&rows) const;
+    void delete_items(Gtk::TreeNodeChildren &&rows, const Glib::ustring &text) const;
     void delete_last_items(int store_sz, int max_list_size) const;
 };
 
