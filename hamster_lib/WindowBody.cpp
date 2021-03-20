@@ -19,8 +19,8 @@
 
 WindowBody::WindowBody()
     : item_list(1, false, Gtk::SELECTION_MULTIPLE), // Where '1' means: show one column only (column name: 'item_display_value')
-      selection_order{SelectionOrder::SHIFT_DOWN},
-      store_type{StoreType::PRIMARY}
+      selection_order {SelectionOrder::SHIFT_DOWN},
+      store_type {StoreType::PRIMARY}
 {
     ref_clipboard = Gtk::Clipboard::get();
     ref_clipboard->signal_owner_change().connect(sigc::mem_fun(*this, &WindowBody::on_clipboard_change));
@@ -106,17 +106,17 @@ void WindowBody::on_search_change()
     store_type = StoreType::PRIMARY;
     if (search_entry.get_text().length() >= 2)
     {
-        TextUtil tu{};
-        auto search_str = (std::string)search_entry.get_text();
+        TextUtil tu {};
+        auto search_str = (std::string) search_entry.get_text();
 
         // Escape non-alpha chars because we want treat them as regular chars
         // Eg. user wants to use '.' as dot not as 'any' regexp char
         // Eg. user wants to use '*' as star not as 'zero or more' regexp character, etc...
         auto esc_str = tu.escape_nonalpha(search_str);
-        const auto pattern = std::regex{esc_str, std::regex_constants::icase};
-        std::smatch sm{};
+        const auto pattern = std::regex {esc_str, std::regex_constants::icase};
+        std::smatch sm {};
 
-        for (const auto &row : ref_primary_item_store->children())
+        for (const auto& row : ref_primary_item_store->children())
         {
             if (std::regex_search(row.get_value(columns.item_value).raw(), sm, pattern))
             {
@@ -135,7 +135,7 @@ void WindowBody::on_search_change()
     }
 }
 
-void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
+void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
 {
     if (event == nullptr)
     {
@@ -145,7 +145,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
     // Waiting for new copied text...
     auto text = ref_clipboard->wait_for_text();
 
-    TextUtil tu{};
+    TextUtil tu {};
     if (tu.has_only_spaces(text))
     {
         return;
@@ -167,12 +167,12 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
     //item_list.scroll_to_row(ref_primary_item_store->get_path(row));
 
     // Delete if too many...
-    delete_last_items((int)ref_primary_item_store->children().size(), (int)ref_settings->get_double("item-list-size"));
+    delete_last_items((int) ref_primary_item_store->children().size(), (int) ref_settings->get_double("item-list-size"));
 
     g_print("stored items: %d\n", ref_primary_item_store->children().size());
 }
 
-bool WindowBody::on_item_list_focus_in(GdkEventFocus *focus_event)
+bool WindowBody::on_item_list_focus_in(GdkEventFocus* focus_event)
 {
     if (focus_event == nullptr)
     {
@@ -188,7 +188,7 @@ bool WindowBody::on_item_list_focus_in(GdkEventFocus *focus_event)
     return true;
 }
 
-bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
+bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
 {
     // Events with 'Enter' key cannot be fetched with 'signal_key_press_event' in ListTextView widget
     // In this widget 'Enter' means: row edit mode
@@ -218,10 +218,10 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         prefix_suffix_form.hide();
         this->get_window()->iconify();
 
-        auto prefix = (std::string)ref_settings->get_string("item-prefix");
-        auto suffix = (std::string)ref_settings->get_string("item-suffix");
+        auto prefix = (std::string) ref_settings->get_string("item-prefix");
+        auto suffix = (std::string) ref_settings->get_string("item-suffix");
 
-        TextUtil tu{};
+        TextUtil tu {};
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
@@ -234,7 +234,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         }
 
         Glib::ustring text_to_paste = "";
-        for (const auto &path : selected_paths)
+        for (const auto& path : selected_paths)
         {
             const auto row = get_row(path);
             const auto item_value = row.get_value(columns.item_value);
@@ -243,7 +243,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
 
         ref_clipboard->set_text(text_to_paste); // Send text to clipboard...
 
-        std::this_thread::sleep_for(std::chrono::milliseconds((short)ref_settings->get_double("delay-pasting")));
+        std::this_thread::sleep_for(std::chrono::milliseconds((short) ref_settings->get_double("delay-pasting")));
         send_ctrl_v_key_event();
 
         return true;
@@ -272,7 +272,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     return false;
 }
 
-bool WindowBody::on_pref_suff_key_press(GdkEventKey *key_event)
+bool WindowBody::on_pref_suff_key_press(GdkEventKey* key_event)
 {
     // 'ESCAPE' close widget
     if (key_event->keyval == GDK_KEY_Escape)
@@ -285,7 +285,7 @@ bool WindowBody::on_pref_suff_key_press(GdkEventKey *key_event)
     return false;
 }
 
-bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
+bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
 {
     if (key_event == nullptr)
     {
@@ -357,25 +357,25 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     return false;
 }
 
-void WindowBody::delete_items(std::vector<Gtk::TreePath> &&paths)
+void WindowBody::delete_items(std::vector<Gtk::TreePath>&& paths)
 {
-    for (const auto &path : paths)
+    for (const auto& path : paths)
     {
         Glib::RefPtr<Gtk::ListStore>::cast_dynamic(item_list.get_model())->erase(get_row(path));
     }
 }
 
-void WindowBody::delete_items(std::vector<Gtk::TreeRow> &&rows) const
+void WindowBody::delete_items(std::vector<Gtk::TreeRow>&& rows) const
 {
-    for (const auto &row : rows)
+    for (const auto& row : rows)
     {
         ref_primary_item_store->erase(row);
     }
 }
 
-void WindowBody::delete_items(Gtk::TreeNodeChildren &&rows, const Glib::ustring &text) const
+void WindowBody::delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const
 {
-    for (const auto &row : rows)
+    for (const auto& row : rows)
     {
         if (text.length() == row.get_value(columns.item_value).length() && text == row.get_value(columns.item_value))
         {
@@ -396,50 +396,50 @@ void WindowBody::delete_last_items(int store_sz, int max_list_size) const
     }
 }
 
-void WindowBody::transform_to_lowercase(std::vector<Gtk::TreePath> &&paths)
+void WindowBody::transform_to_lowercase(std::vector<Gtk::TreePath>&& paths)
 {
     transform_to_lowercase(convert_to_rows(paths));
 }
 
-void WindowBody::transform_to_lowercase(std::vector<Gtk::TreeRow> &&rows) const
+void WindowBody::transform_to_lowercase(std::vector<Gtk::TreeRow>&& rows) const
 {
-    for (const auto &row : rows)
+    for (const auto& row : rows)
     {
         row[columns.item_display_value] = row.get_value(columns.item_display_value).lowercase();
         row[columns.item_value] = row.get_value(columns.item_value).lowercase();
     }
 }
 
-void WindowBody::transform_to_uppercase(std::vector<Gtk::TreePath> &&paths)
+void WindowBody::transform_to_uppercase(std::vector<Gtk::TreePath>&& paths)
 {
     transform_to_uppercase(convert_to_rows(paths));
 }
 
-void WindowBody::transform_to_uppercase(std::vector<Gtk::TreeRow> &&rows) const
+void WindowBody::transform_to_uppercase(std::vector<Gtk::TreeRow>&& rows) const
 {
-    for (const auto &row : rows)
+    for (const auto& row : rows)
     {
         row[columns.item_display_value] = row.get_value(columns.item_display_value).uppercase();
         row[columns.item_value] = row.get_value(columns.item_value).uppercase();
     }
 }
 
-void WindowBody::mask_with_stars(std::vector<Gtk::TreePath> &&paths)
+void WindowBody::mask_with_stars(std::vector<Gtk::TreePath>&& paths)
 {
     mask_with_stars(convert_to_rows(paths));
 }
 
-void WindowBody::mask_with_stars(std::vector<Gtk::TreeRow> &&rows) const
+void WindowBody::mask_with_stars(std::vector<Gtk::TreeRow>&& rows) const
 {
-    TextUtil tu{};
-    for (const auto &row : rows)
+    TextUtil tu {};
+    for (const auto& row : rows)
     {
         row[columns.item_display_value] = tu.mask_str(row.get_value(columns.item_display_value));
         row[columns.item_value] = row.get_value(columns.item_value);
     }
 }
 
-bool WindowBody::on_search_entry_event(GdkEvent *gdk_event)
+bool WindowBody::on_search_entry_event(GdkEvent* gdk_event)
 {
     if (gdk_event == nullptr)
     {
@@ -480,7 +480,7 @@ void WindowBody::send_ctrl_v_key_event()
     XTestGrabControl(display, False);
 }
 
-void WindowBody::show_item_details_window(const Glib::ustring &text)
+void WindowBody::show_item_details_window(const Glib::ustring& text)
 {
     item_details_window.set_text(text);
     item_details_window.show_all();
@@ -493,31 +493,31 @@ std::vector<Gtk::TreeModel::Path> WindowBody::get_selected_paths()
     return item_list.get_selection()->get_selected_rows();
 }
 
-Gtk::TreeRow WindowBody::get_row(const Gtk::TreeModel::Path &path)
+Gtk::TreeRow WindowBody::get_row(const Gtk::TreeModel::Path& path)
 {
     return *(item_list.get_model()->get_iter(path));
 }
 
-std::vector<Gtk::TreeRow> WindowBody::convert_to_rows(std::vector<Gtk::TreePath> &paths)
+std::vector<Gtk::TreeRow> WindowBody::convert_to_rows(std::vector<Gtk::TreePath>& paths)
 {
     std::vector<Gtk::TreeRow> rows;
     rows.reserve(paths.size());
-    for (const auto &path : paths)
+    for (const auto& path : paths)
     {
         rows.emplace_back(get_row(path));
     }
     return rows;
 }
 
-std::vector<Gtk::TreeRow> WindowBody::find_primary_store_rows(std::vector<Gtk::TreePath> &&secondary_store_paths)
+std::vector<Gtk::TreeRow> WindowBody::find_primary_store_rows(std::vector<Gtk::TreePath>&& secondary_store_paths)
 {
-    std::vector<Gtk::TreeRow> rows_to_update{};
+    std::vector<Gtk::TreeRow> rows_to_update {};
     rows_to_update.reserve(secondary_store_paths.size());
 
-    for (const auto &path : secondary_store_paths)
+    for (const auto& path : secondary_store_paths)
     {
         const auto s_row = get_row(path);
-        for (const auto &row : ref_primary_item_store->children())
+        for (const auto& row : ref_primary_item_store->children())
         {
             const auto s_rv = s_row.get_value(columns.item_value);
             const auto rv = row.get_value(columns.item_value);

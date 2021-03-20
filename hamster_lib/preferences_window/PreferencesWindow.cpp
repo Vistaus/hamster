@@ -160,7 +160,7 @@ PreferencesWindow::PreferencesWindow()
     add(v_box);
 }
 
-bool PreferencesWindow::on_key_press(GdkEventKey *key_event)
+bool PreferencesWindow::on_key_press(GdkEventKey* key_event)
 {
     if (key_event == nullptr)
     {

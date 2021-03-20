@@ -47,7 +47,7 @@ struct MainWindow : public Gtk::Window
     void hide_about_dialog(int response_id);
     void close_app();
 
-    bool on_delete_event(GdkEventAny *any_event) override;
+    bool on_delete_event(GdkEventAny* any_event) override;
     bool on_main_window_event(GdkEvent* gdk_event);
 
     static void write_to_file(); // testing thread...

@@ -54,7 +54,7 @@ struct PreferencesWindow : public Gtk::Window
     Gtk::Entry item_prefix;
     Gtk::Entry item_suffix;
 
-    bool on_key_press(GdkEventKey *key_event);
+    bool on_key_press(GdkEventKey* key_event);
     void on_run_automatically_click();
     void on_run_minimize_click();
     void on_delay_pasting_change();
