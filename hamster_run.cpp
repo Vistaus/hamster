@@ -18,7 +18,7 @@
 #include <MainWindow.h>
 #include <WindowBody.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     auto app = Gtk::Application::create("com.github.slawtul.hamster");
 
