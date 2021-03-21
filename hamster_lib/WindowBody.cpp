@@ -100,6 +100,19 @@ WindowBody::WindowBody()
     show();
 }
 
+bool WindowBody::move_item(Gtk::TreeNodeChildren &&rows, const Glib::ustring &text) const
+{
+    for (const auto &row : rows)
+    {
+        if (text.length() == row.get_value(columns.item_value).length() && text == row.get_value(columns.item_value))
+        {
+            ref_primary_item_store->move(row, rows[0]);
+            return true;
+        }
+    }
+    return false;
+}
+
 void WindowBody::delete_items(std::vector<Gtk::TreePath> &&paths)
 {
     for (const auto &path : paths)
@@ -238,13 +251,15 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
         text = tu.trim_str(text);
     }
 
-    // Delete just copied text if already exits in item list... (does not allow to have duplicated items in the list)
-    delete_items(ref_primary_item_store->children(), text);
+    // Move just copied text if already exits in item list and do nothing...
+    if (move_item(ref_primary_item_store->children(), text))
+    {
+        return;
+    }
 
     const auto row = *(ref_primary_item_store->prepend());
     row[columns.item_value] = text;                                     // Save in memory original text value
     row[columns.item_display_value] = tu.calculate_display_value(text); // Show short, one liner text value
-
     item_list.set_cursor(ref_primary_item_store->get_path(row));
 
     // Delete if too many...
