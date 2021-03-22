@@ -27,6 +27,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to prepare debian package
 * to star password text items
 * to handle memory leak (ask on stackoverflow)
+* to implement 'log' method with IF DEBUG statement
 
 ### Issues
 

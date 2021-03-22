@@ -251,7 +251,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
         text = tu.trim_str(text);
     }
 
-    // Move just copied text if already exits in item list and do nothing...
+    // Move just copied text if already exits in item list and do nothing else...
     if (move_item(ref_primary_item_store->children(), text))
     {
         return;
