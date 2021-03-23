@@ -25,7 +25,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to export items to json file and import when app starts
 * to prepare debian package
 * to handle memory leak (ask on stackoverflow)
-* to implement 'log' method with IF DEBUG statement
 
 ### Issues
 
