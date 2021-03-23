@@ -265,7 +265,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
     // Delete if too many...
     delete_last_items((int)ref_primary_item_store->children().size(), (int)ref_settings->get_double("item-list-size"));
 
-    g_print("stored items: %d\n", ref_primary_item_store->children().size());
+    LogUtil::log_if_debug("Stored items: %d\n", ref_primary_item_store->children().size());
 }
 
 bool WindowBody::on_item_list_focus_in(GdkEventFocus *focus_event)
