@@ -26,11 +26,10 @@ MainWindow::MainWindow()
     ref_settings = Gio::Settings::create("com.github.slawtul.hamster");
     auto const x = ref_settings->get_int("window-x");
     auto const y = ref_settings->get_int("window-y");
-    auto const always_minimize = ref_settings->get_boolean("run-minimize");
 
     (x == -1 && y == -1) ? set_position(Gtk::WIN_POS_CENTER) : move(x, y);
 
-    if (always_minimize)
+    if (ref_settings->get_boolean("run-minimize"))
     {
         this->iconify();
     }
@@ -104,13 +103,13 @@ void MainWindow::close_app()
     ref_settings->set_int("window-x", win_x);
     ref_settings->set_int("window-y", win_y);
 
-    const auto save_list = ref_settings->get_boolean("save-list");
-    if (save_list)
+    if (ref_settings->get_boolean("save-list"))
     {
         std::thread write_f(write_to_file);
         write_f.join();
     }
-    g_print("Hamster says bye!\n");
+
+    LogUtil::log_if_debug("Hamster says bye!\n");
     exit(0);
 }
 
@@ -121,8 +120,7 @@ bool MainWindow::on_main_window_event(GdkEvent *gdk_event)
         return false;
     }
 
-    const auto state = gdk_event->key.state;
-    if (state == 4 || state == 6 || state == 20 || state == 22)
+    if (const auto state = gdk_event->key.state; state == 4 || state == 6 || state == 20 || state == 22)
     {
         // 'CTRL + P' show properties window
         if (gdk_event->key.keyval == GDK_KEY_p || gdk_event->key.keyval == GDK_KEY_P)

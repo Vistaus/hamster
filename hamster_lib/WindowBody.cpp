@@ -142,8 +142,7 @@ void WindowBody::delete_items(Gtk::TreeNodeChildren &&rows, const Glib::ustring 
 
 void WindowBody::delete_last_items(int store_sz, int max_list_size) const
 {
-    const auto diff_sz = store_sz - max_list_size;
-    if (diff_sz > 0)
+    if (const auto diff_sz = store_sz - max_list_size; diff_sz > 0)
     {
         for (int i = 1; i <= diff_sz; ++i)
         {
@@ -276,8 +275,7 @@ bool WindowBody::on_item_list_focus_in(GdkEventFocus *focus_event)
     }
 
     // Select first row if no selected rows
-    const auto ref_item_store = item_list.get_model();
-    if (!ref_item_store->children().empty() && get_selected_paths().empty())
+    if (const auto ref_item_store = item_list.get_model(); !ref_item_store->children().empty() && get_selected_paths().empty())
     {
         item_list.set_cursor(ref_item_store->get_path(ref_item_store->children()[0]));
     }
@@ -293,11 +291,8 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         return false;
     }
 
-    const auto SHIFT_MASK = 17;
-
     // 'SHIFT + ENTER' paste but before show prefix and suffix entry fields
-    if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
-        gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
+    if (gdk_event->key.state == GDK_SHIFT_MASK && gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
     {
         g_print("Shift + Enter keys pressed\n");
         ps_separator.show();
@@ -352,15 +347,13 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     }
 
     // 'SHIFT + UP' select up
-    if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
-        gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Up)
+    if (gdk_event->key.state == GDK_SHIFT_MASK && gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Up)
     {
         selection_order = SelectionOrder::SHIFT_UP;
     }
 
     // 'SHIFT + DOWN' select down
-    if ((gdk_event->key.state == SHIFT_MASK || gdk_event->key.state == GDK_SHIFT_MASK) &&
-        gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Down)
+    if (gdk_event->key.state == GDK_SHIFT_MASK && gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Down)
     {
         selection_order = SelectionOrder::SHIFT_DOWN;
     }
@@ -406,8 +399,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
         return true;
     }
 
-    const auto state = key_event->state;
-    if (state == 8 || state == 10 || state == 24 || state == 26)
+    if (const auto state = key_event->state; state == 8 || state == 10 || state == 24 || state == 26)
     {
         // 'ALT + D' show item details window
         if (key_event->keyval == GDK_KEY_d || key_event->keyval == GDK_KEY_D)
@@ -516,6 +508,7 @@ std::vector<Gtk::TreeRow> WindowBody::convert_to_rows(std::vector<Gtk::TreePath>
 {
     std::vector<Gtk::TreeRow> rows;
     rows.reserve(paths.size());
+
     for (const auto &path : paths)
     {
         rows.emplace_back(get_row(path));

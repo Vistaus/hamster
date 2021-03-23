@@ -57,10 +57,12 @@ bool ItemDetailsWindow::on_key_press(GdkEventKey *key_event)
     {
         return false;
     }
+
     if (key_event->keyval == GDK_KEY_Escape)
     {
         hide();
         return true;
     }
+
     return false;
 }

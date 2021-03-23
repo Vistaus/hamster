@@ -27,6 +27,7 @@
 #include "preferences_window/PreferencesWindow.h"
 #include "settings_popover/SettingsMenuButton.h"
 #include "shortcuts_window/ShortcutsWindow.h"
+#include "util/log/LogUtil.h"
 
 struct MainWindow : public Gtk::Window
 {

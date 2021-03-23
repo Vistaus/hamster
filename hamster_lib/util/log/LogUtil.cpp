@@ -16,14 +16,14 @@
  */
 #include "LogUtil.h"
 
-void LogUtil::log_if_debug(const std::string &log_text)
+void LogUtil::log_if_debug([[maybe_unused]] const std::string &log_text)
 {
 #ifdef DEBUG
     g_print("%s", log_text.c_str());
 #endif
 }
 
-void LogUtil::log_if_debug(const std::string &log_text, size_t num)
+void LogUtil::log_if_debug([[maybe_unused]] const std::string &log_text, [[maybe_unused]] size_t num)
 {
 #ifdef DEBUG
     g_print(log_text.c_str(), num);
