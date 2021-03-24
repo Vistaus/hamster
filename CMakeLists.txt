@@ -18,7 +18,7 @@ add_executable(hamster hamster_run.cpp)
 add_subdirectory(ui)
 add_subdirectory(util)
 
-target_link_libraries(hamster ui util ${GTKMM_LIBRARIES} ${X11_LIBRARIES}  -lX11 -lXtst -lXext -pthread)
+target_link_libraries(hamster ui util ${GTKMM_LIBRARIES} ${X11_LIBRARIES} -lX11 -lXtst -lXext -pthread)
 
 # TEST
 # add_subdirectory(test)
