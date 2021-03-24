@@ -24,7 +24,6 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to generate translations
 * to export items to json file and import when app starts
 * to prepare debian package
-* to change project structure
 * to handle memory leak (ask on stackoverflow)
 
 ### Issues
