@@ -26,7 +26,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 * to prepare debian package
 * to handle memory leak (ask on stackoverflow)
 
-### Issues
+### Known issues
 
 #### 1. Pinned screenshot from Flameshot app
 
@@ -38,3 +38,5 @@ You cannot paste text if you made a screenshot and pinned to desktop
 sudo cp data/com.github.slawtul.hamster.gschema.xml /usr/share/glib-2.0/schemas/
 sudo /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```
+
+#### 3. About mask password
