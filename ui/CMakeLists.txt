@@ -16,7 +16,7 @@ add_library(
     src/ui/popover/SettingsMenuButton.cpp
     src/ui/dialog/AboutDialog.h
     src/ui/dialog/AboutDialog.cpp
-
 )
+
 include_directories(../util/src)
 target_include_directories(ui PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
