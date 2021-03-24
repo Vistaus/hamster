@@ -4,7 +4,7 @@ Clipboard manager for Debian-based distributions - for elementary OS mostly
 
 ## Development
 
-Before running app on you local machine, make sure you have *libgtkmm* lib installed
+Before running app on you local machine, make sure you have *libgtkmm* lib installed and g++ (min. 10.1.0)
 
 ```bash
 sudo apt install g++ cmake libgtkmm-3.0-dev libgtkmm-3.0-doc
@@ -30,7 +30,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
 
 #### 1. Pinned screenshot from Flameshot app
 
-You cannot paste text if you made a screenshot and pinned to desktop
+You cannot paste text if you took a screenshot and pinned to desktop
 
 #### 2. Gsettings schema not installed
 
@@ -40,3 +40,4 @@ sudo /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```
 
 #### 3. About mask password
+//todo
