@@ -27,9 +27,9 @@
 #include <regex>
 #include <chrono>
 #include <thread>
-#include "util/text/TextUtil.h"
-#include "util/log/LogUtil.h"
-#include "item_details_window/ItemDetailsWindow.h"
+#include <util/text/TextUtil.h>
+#include <util/log/LogUtil.h>
+#include "ItemDetailsWindow.h"
 
 enum struct SelectionOrder
 {

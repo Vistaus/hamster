@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(hamster)
+project(hamster VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-Wall -Wextra -Wpedantic)
@@ -13,11 +13,14 @@ find_package(X11 REQUIRED)
 link_directories(${X11_LIBRARIES})
 include_directories(${X11_INCLUDE_DIR})
 
-# hamster program
 add_executable(hamster hamster_run.cpp)
-include_directories(hamster_lib)
-add_subdirectory(hamster_lib)
-target_link_libraries(hamster hamster_lib ${GTKMM_LIBRARIES} ${X11_LIBRARIES} -lX11 -lXtst -lXext -pthread)
 
-# tests
-# add_subdirectory(tests)
+add_subdirectory(ui)
+add_subdirectory(util)
+
+target_link_libraries(hamster ui util ${GTKMM_LIBRARIES} ${X11_LIBRARIES}  -lX11 -lXtst -lXext -pthread)
+
+# TEST
+# add_subdirectory(test)
+
+

@@ -1,2 +1,0 @@
-add_executable(tests_run hamster_tests.cpp)
-target_link_libraries(tests_run hamster_lib)

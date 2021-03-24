@@ -22,12 +22,13 @@
 #include <gtkmm-3.0/gtkmm.h>
 #include <thread>
 
-#include "WindowBody.h"
-#include "about_dialog/AboutDialog.h"
-#include "preferences_window/PreferencesWindow.h"
-#include "settings_popover/SettingsMenuButton.h"
-#include "shortcuts_window/ShortcutsWindow.h"
 #include "util/log/LogUtil.h"
+#include "WindowBody.h"
+#include "PreferencesWindow.h"
+#include "ShortcutsWindow.h"
+#include "../dialog/AboutDialog.h"
+#include "../popover/SettingsPopover.h"
+#include "../popover/SettingsMenuButton.h"
 
 struct MainWindow : public Gtk::Window
 {
