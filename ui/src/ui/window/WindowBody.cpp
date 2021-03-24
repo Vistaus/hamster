@@ -291,8 +291,12 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         return false;
     }
 
+    const auto key = gdk_event->key.keyval;
+    const auto type = gdk_event->type;
+    const auto state = gdk_event->key.state;
+
     // 'SHIFT + ENTER' paste but before show prefix and suffix entry fields
-    if (gdk_event->key.state == GDK_SHIFT_MASK && gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
+    if (state == GDK_SHIFT_MASK && type == GDK_KEY_PRESS && key == GDK_KEY_Return)
     {
         g_print("Shift + Enter keys pressed\n");
         ps_separator.show();
@@ -302,7 +306,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     }
 
     // 'ENTER' paste
-    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Return)
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Return)
     {
         search_entry.grab_focus();
         ps_separator.hide();
@@ -347,13 +351,13 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     }
 
     // 'SHIFT + UP' select up
-    if (gdk_event->key.state == GDK_SHIFT_MASK && gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Up)
+    if (state == GDK_SHIFT_MASK && type == GDK_KEY_PRESS && key == GDK_KEY_Up)
     {
         selection_order = SelectionOrder::SHIFT_UP;
     }
 
     // 'SHIFT + DOWN' select down
-    if (gdk_event->key.state == GDK_SHIFT_MASK && gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Down)
+    if (state == GDK_SHIFT_MASK && type == GDK_KEY_PRESS && key == GDK_KEY_Down)
     {
         selection_order = SelectionOrder::SHIFT_DOWN;
     }
@@ -381,15 +385,17 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
         return false;
     }
 
+    const auto key = key_event->keyval;
+
     // 'ESCAPE' OR 'TAB' move to search entry
-    if (key_event->keyval == GDK_KEY_Escape || key_event->keyval == GDK_KEY_Tab || key_event->keyval == GDK_KEY_slash)
+    if (key == GDK_KEY_Escape || key == GDK_KEY_Tab || key == GDK_KEY_slash)
     {
         search_entry.grab_focus();
         return true;
     }
 
     // 'DELETE' item
-    if (key_event->keyval == GDK_KEY_Delete)
+    if (key == GDK_KEY_Delete)
     {
         if (store_type == StoreType::SECONDARY)
         {
@@ -402,14 +408,14 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
     if (const auto state = key_event->state; state == 8 || state == 10 || state == 24 || state == 26)
     {
         // 'ALT + D' show item details window
-        if (key_event->keyval == GDK_KEY_d || key_event->keyval == GDK_KEY_D)
+        if (key == GDK_KEY_d || key == GDK_KEY_D)
         {
             show_item_details_window(get_row(get_selected_paths()[0]).get_value(columns.item_value));
             return true;
         }
 
         // 'ALT + L' transform to lowercase
-        if (key_event->keyval == GDK_KEY_l || key_event->keyval == GDK_KEY_L)
+        if (key == GDK_KEY_l || key == GDK_KEY_L)
         {
             if (store_type == StoreType::SECONDARY)
             {
@@ -420,7 +426,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
         }
 
         // 'ALT + U' transform to uppercase
-        if (key_event->keyval == GDK_KEY_u || key_event->keyval == GDK_KEY_U)
+        if (key == GDK_KEY_u || key == GDK_KEY_U)
         {
             if (store_type == StoreType::SECONDARY)
             {
@@ -431,7 +437,7 @@ bool WindowBody::on_item_list_key_press(GdkEventKey *key_event)
         }
 
         // 'ALT + M' mask with *********
-        if (key_event->keyval == GDK_KEY_m || key_event->keyval == GDK_KEY_M)
+        if (key == GDK_KEY_m || key == GDK_KEY_M)
         {
             if (store_type == StoreType::SECONDARY)
             {
@@ -452,15 +458,18 @@ bool WindowBody::on_search_entry_event(GdkEvent *gdk_event)
         return false;
     }
 
+    const auto type = gdk_event->type;
+    const auto key = gdk_event->key.keyval;
+
     // 'DOWN' move to list
-    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Down)
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Down)
     {
         item_list.grab_focus();
         return true;
     }
 
     // 'ESC' clear search entry or minimize application
-    if (gdk_event->type == GDK_KEY_PRESS && gdk_event->key.keyval == GDK_KEY_Escape)
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Escape)
     {
         search_entry.get_text_length() == 0 ? this->get_window()->iconify() : search_entry.set_text("");
         search_entry.grab_focus();

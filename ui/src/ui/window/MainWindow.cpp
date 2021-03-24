@@ -122,22 +122,24 @@ bool MainWindow::on_main_window_event(GdkEvent *gdk_event)
 
     if (const auto state = gdk_event->key.state; state == 4 || state == 6 || state == 20 || state == 22)
     {
+        const auto key = gdk_event->key.keyval;
+
         // 'CTRL + P' show properties window
-        if (gdk_event->key.keyval == GDK_KEY_p || gdk_event->key.keyval == GDK_KEY_P)
+        if (key == GDK_KEY_p || key == GDK_KEY_P)
         {
             show_preferences_win();
             return true;
         }
 
         // 'CTRL + S' show shortcuts window
-        if (gdk_event->key.keyval == GDK_KEY_s || gdk_event->key.keyval == GDK_KEY_S)
+        if (key == GDK_KEY_s || key == GDK_KEY_S)
         {
             show_shortcuts_win();
             return true;
         }
 
         // 'CTRL + Q' quit application
-        if (gdk_event->key.keyval == GDK_KEY_q || gdk_event->key.keyval == GDK_KEY_Q)
+        if (key == GDK_KEY_q || key == GDK_KEY_Q)
         {
             close_app();
             return true;
