@@ -91,6 +91,7 @@ struct WindowBody : public Gtk::VBox
     std::vector<Gtk::TreeModel::Path> get_selected_paths();
     std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath> &&paths);
     std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath> &paths);
+    void past_items(const std::string &prefix, const std::string &suffix);
 
     // EVENTS HANDLING
     void on_clipboard_change(GdkEventOwnerChange *event);
@@ -101,7 +102,7 @@ struct WindowBody : public Gtk::VBox
     bool on_item_list_event(GdkEvent *gdk_event);
     bool on_item_list_focus_in(GdkEventFocus *focus_event);
 
-    bool on_prefix_suffix_form_key_press(GdkEventKey *key_event);
+    bool on_prefix_suffix_form_event(GdkEvent *gdk_event);
 
     // ACTIONS
     void show_item_details_window(const Glib::ustring &text);

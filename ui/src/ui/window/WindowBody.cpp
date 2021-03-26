@@ -56,7 +56,7 @@ WindowBody::WindowBody()
     suffix_h_box.pack_start(suffix_entry);
     suffix_h_box.show();
 
-    prefix_suffix_form.signal_key_press_event().connect(sigc::mem_fun(*this, &WindowBody::on_prefix_suffix_form_key_press));
+    prefix_suffix_form.signal_event().connect(sigc::mem_fun(*this, &WindowBody::on_prefix_suffix_form_event));
     prefix_suffix_form.pack_start(prefix_h_box);
     prefix_suffix_form.pack_start(suffix_h_box);
     prefix_suffix_form.set_border_width(4);
@@ -296,7 +296,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     const auto state = gdk_event->key.state;
 
     // 'SHIFT + ENTER' paste but before show prefix and suffix entry fields
-    if (state == GDK_SHIFT_MASK && type == GDK_KEY_PRESS && key == GDK_KEY_Return)
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Return && (state == 1 || state == 3 || state == 17 || state == 19))
     {
         g_print("Shift + Enter keys pressed\n");
         ps_separator.show();
@@ -305,7 +305,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         return true;
     }
 
-    // 'ENTER' paste
+    // 'ENTER' paste items
     if (type == GDK_KEY_PRESS && key == GDK_KEY_Return)
     {
         search_entry.grab_focus();
@@ -320,26 +320,7 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
-        const auto path_list = get_selected_paths();
-        auto selected_paths = path_list; // Reverse a copied vector
-
-        if (selection_order == SelectionOrder::SHIFT_UP)
-        {
-            std::reverse(selected_paths.begin(), selected_paths.end());
-        }
-
-        Glib::ustring text_to_paste = "";
-        for (const auto &path : selected_paths)
-        {
-            const auto row = get_row(path);
-            const auto item_value = row.get_value(columns.item_value);
-            text_to_paste += path_list.size() == 1 ? item_value : prefix + item_value + suffix;
-        }
-
-        ref_clipboard->set_text(text_to_paste); // Send text to clipboard...
-
-        std::this_thread::sleep_for(std::chrono::milliseconds((short)ref_settings->get_double("delay-pasting")));
-        send_ctrl_v_key_event();
+        past_items(prefix, suffix);
 
         return true;
     }
@@ -365,16 +346,40 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
     return false;
 }
 
-bool WindowBody::on_prefix_suffix_form_key_press(GdkEventKey *key_event)
+bool WindowBody::on_prefix_suffix_form_event(GdkEvent *gdk_event)
 {
+    const auto key = gdk_event->key.keyval;
+    const auto type = gdk_event->type;
+    const auto state = gdk_event->key.state;
+
     // 'ESCAPE' close widget
-    if (key_event->keyval == GDK_KEY_Escape)
+    if (type == GDK_KEY_RELEASE && key == GDK_KEY_Escape)
     {
         ps_separator.hide();
         prefix_suffix_form.hide();
         item_list.grab_focus();
         return true;
     }
+
+    if (state == 0 && type == GDK_KEY_RELEASE && key == GDK_KEY_Return)
+    {
+        search_entry.grab_focus();
+        ps_separator.hide();
+        prefix_suffix_form.hide();
+        this->get_window()->iconify();
+
+        auto prefix = (std::string)prefix_entry.get_text();
+        auto suffix = (std::string)suffix_entry.get_text();
+
+        TextUtil tu{};
+        prefix = tu.convert_to_newline_or_tab(prefix);
+        suffix = tu.convert_to_newline_or_tab(suffix);
+
+        past_items(prefix, suffix);
+
+        return true;
+    }
+
     return false;
 }
 
@@ -500,6 +505,30 @@ void WindowBody::show_item_details_window(const Glib::ustring &text)
     item_details_window.set_text(text);
     item_details_window.show_all();
     item_details_window.present();
+}
+
+void WindowBody::past_items(const std::string &prefix, const std::string &suffix)
+{
+    const auto path_list = get_selected_paths();
+    auto selected_paths = path_list; // Reverse a copied vector
+
+    if (selection_order == SelectionOrder::SHIFT_UP)
+    {
+        std::reverse(selected_paths.begin(), selected_paths.end());
+    }
+
+    Glib::ustring text_to_paste = "";
+    for (const auto &path : selected_paths)
+    {
+        const auto row = get_row(path);
+        const auto item_value = row.get_value(columns.item_value);
+        text_to_paste += path_list.size() == 1 ? item_value : prefix + item_value + suffix;
+    }
+
+    ref_clipboard->set_text(text_to_paste); // Send text to clipboard...
+
+    std::this_thread::sleep_for(std::chrono::milliseconds((short)ref_settings->get_double("delay-pasting")));
+    send_ctrl_v_key_event();
 }
 
 // HELPER METHODS
