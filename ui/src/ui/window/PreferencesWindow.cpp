@@ -77,7 +77,7 @@ PreferencesWindow::PreferencesWindow()
     eliminate_spaces_check.set_active(ref_settings->get_boolean("eliminate-spaces"));
     eliminate_spaces_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_eliminate_spaces_click));
 
-    save_list_check.set_label(_("Save list on quit"));
+    save_list_check.set_label(_("Save list to file"));
     save_list_check.set_active(ref_settings->get_boolean("save-list"));
     save_list_check.signal_toggled().connect(sigc::mem_fun(*this, &PreferencesWindow::on_save_list_click));
 
