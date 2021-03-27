@@ -4,6 +4,7 @@ add_library(
     src/util/text/TextUtil.cpp
     src/util/log/LogUtil.h
     src/util/log/LogUtil.cpp
+    src/util/json/json.hpp
 )
 
 target_include_directories(util PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
