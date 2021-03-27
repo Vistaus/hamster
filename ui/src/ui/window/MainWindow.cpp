@@ -89,25 +89,14 @@ void MainWindow::show_preferences_win()
     preferences_window.present();
 }
 
-void MainWindow::write_to_file()
-{
-    g_print("writing to file...\n");
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    g_print("file closed\n");
-}
-
 void MainWindow::close_app()
 {
     int win_x, win_y;
     this->get_position(win_x, win_y);
+
+    // Save app current position
     ref_settings->set_int("window-x", win_x);
     ref_settings->set_int("window-y", win_y);
-
-    if (ref_settings->get_boolean("save-list"))
-    {
-        std::thread write_f(write_to_file);
-        write_f.join();
-    }
 
     LogUtil::log_if_debug("Hamster says bye!\n");
     exit(0);

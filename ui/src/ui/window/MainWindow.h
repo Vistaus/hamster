@@ -51,8 +51,6 @@ struct MainWindow : public Gtk::Window
 
     bool on_delete_event(GdkEventAny *any_event) override;
     bool on_main_window_event(GdkEvent *gdk_event);
-
-    static void write_to_file(); // testing thread...
 };
 
 #endif //HAMSTER_MAIN_WINDOW_H
