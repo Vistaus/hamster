@@ -27,6 +27,9 @@
 #include <regex>
 #include <chrono>
 #include <thread>
+#include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <util/text/TextUtil.h>
 #include <util/log/LogUtil.h>
 #include "ItemDetailsWindow.h"
@@ -97,6 +100,10 @@ struct WindowBody : public Gtk::VBox
     void on_clipboard_change(GdkEventOwnerChange *event);
     void on_search_change();
     bool on_search_entry_event(GdkEvent *gdk_event);
+
+    void on_row_inserted(const Gtk::TreeModel::Path &path, const Gtk::TreeModel::iterator &iter);
+    void on_row_deleted(const Gtk::TreeModel::Path &path);
+    void on_rows_reordered(const Gtk::TreeModel::Path &path, const Gtk::TreeModel::iterator &iter, int *new_order);
 
     bool on_item_list_key_press(GdkEventKey *key_event);
     bool on_item_list_event(GdkEvent *gdk_event);

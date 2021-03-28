@@ -76,6 +76,11 @@ WindowBody::WindowBody()
     ref_primary_item_store = Gtk::ListStore::create(columns);
     ref_secondary_item_store = Gtk::ListStore::create(columns);
 
+    auto ref_tree_model = (Glib::RefPtr<Gtk::TreeModel>)ref_primary_item_store;
+    ref_tree_model->signal_row_inserted().connect(sigc::mem_fun(*this, &WindowBody::on_row_inserted));
+    ref_tree_model->signal_row_deleted().connect(sigc::mem_fun(*this, &WindowBody::on_row_deleted));
+    ref_tree_model->signal_rows_reordered().connect(sigc::mem_fun(*this, &WindowBody::on_rows_reordered));
+
     item_list.set_model(ref_primary_item_store);
     item_list.set_headers_visible(false);
     item_list.set_enable_search(false);
@@ -267,6 +272,33 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
     LogUtil::log_if_debug("Stored items: %d\n", ref_primary_item_store->children().size());
 }
 
+void WindowBody::on_row_inserted([[maybe_unused]] const Gtk::TreeModel::Path &path, [[maybe_unused]] const Gtk::TreeModel::iterator &iter)
+{
+    const auto user_config_dir = std::string(getenv("HOME")) + "/.config/hamster";
+    const auto json_file = user_config_dir + "/items.json";
+
+    std::filesystem::create_directory(user_config_dir);
+    std::filesystem::remove(json_file);
+
+    std::fstream fs{};
+    fs.open(json_file, std::ios::in | std::ios::out | std::ios::app);
+
+    fs << "{\"File opened and ready to write...\"}";
+    fs.close();
+
+    g_print("row inserted\n");
+}
+
+void WindowBody::on_row_deleted([[maybe_unused]] const Gtk::TreeModel::Path &path)
+{
+    g_print("row deleted\n");
+}
+
+void WindowBody::on_rows_reordered([[maybe_unused]] const Gtk::TreeModel::Path &path, [[maybe_unused]] const Gtk::TreeModel::iterator &iter, [[maybe_unused]] int *new_order)
+{
+    g_print("rows reordered\n");
+}
+
 bool WindowBody::on_item_list_focus_in(GdkEventFocus *focus_event)
 {
     if (focus_event == nullptr)
@@ -348,6 +380,11 @@ bool WindowBody::on_item_list_event(GdkEvent *gdk_event)
 
 bool WindowBody::on_prefix_suffix_form_event(GdkEvent *gdk_event)
 {
+    if (gdk_event == nullptr)
+    {
+        return false;
+    }
+
     const auto key = gdk_event->key.keyval;
     const auto type = gdk_event->type;
     const auto state = gdk_event->key.state;
