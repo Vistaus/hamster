@@ -5,6 +5,12 @@ add_library(
     src/util/log/LogUtil.h
     src/util/log/LogUtil.cpp
     src/util/json/json.hpp
+    src/util/ui/UIUtil.h
+    src/util/ui/UIUtil.cpp
+    src/util/item/ItemUtil.h
+    src/util/item/ItemUtil.cpp
+    src/util/file/FileUtil.h
+    src/util/file/FileUtil.cpp
 )
 
 target_include_directories(util PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")

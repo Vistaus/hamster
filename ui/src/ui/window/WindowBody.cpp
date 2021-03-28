@@ -274,29 +274,21 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange *event)
 
 void WindowBody::on_row_inserted([[maybe_unused]] const Gtk::TreeModel::Path &path, [[maybe_unused]] const Gtk::TreeModel::iterator &iter)
 {
-    const auto user_config_dir = std::string(getenv("HOME")) + "/.config/hamster";
-    const auto json_file = user_config_dir + "/items.json";
-
-    std::filesystem::create_directory(user_config_dir);
-    std::filesystem::remove(json_file);
-
-    std::fstream fs{};
-    fs.open(json_file, std::ios::in | std::ios::out | std::ios::app);
-
-    fs << "{\"File opened and ready to write...\"}";
-    fs.close();
-
-    g_print("row inserted\n");
+    FileUtil fu{};
+    fu.write_items_to_file(ref_primary_item_store);
 }
 
 void WindowBody::on_row_deleted([[maybe_unused]] const Gtk::TreeModel::Path &path)
 {
-    g_print("row deleted\n");
+    FileUtil fu{};
+    fu.write_items_to_file(ref_primary_item_store);
 }
 
-void WindowBody::on_rows_reordered([[maybe_unused]] const Gtk::TreeModel::Path &path, [[maybe_unused]] const Gtk::TreeModel::iterator &iter, [[maybe_unused]] int *new_order)
+void WindowBody::on_rows_reordered([[maybe_unused]] const Gtk::TreeModel::Path &path, [[maybe_unused]] const Gtk::TreeModel::iterator &iter,
+                                   [[maybe_unused]] int *new_order)
 {
-    g_print("rows reordered\n");
+    FileUtil fu{};
+    fu.write_items_to_file(ref_primary_item_store);
 }
 
 bool WindowBody::on_item_list_focus_in(GdkEventFocus *focus_event)

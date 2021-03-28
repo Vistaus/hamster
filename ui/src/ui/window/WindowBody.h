@@ -27,11 +27,10 @@
 #include <regex>
 #include <chrono>
 #include <thread>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
 #include <util/text/TextUtil.h>
 #include <util/log/LogUtil.h>
+#include <util/ui/UIUtil.h>
+#include <util/file/FileUtil.h>
 #include "ItemDetailsWindow.h"
 
 enum struct SelectionOrder
@@ -44,18 +43,6 @@ enum struct StoreType
 {
     PRIMARY,
     SECONDARY
-};
-
-struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
-{
-    Gtk::TreeModelColumn<Glib::ustring> item_display_value; // Modified clipboard text value showed in list view widget
-    Gtk::TreeModelColumn<Glib::ustring> item_value;         // Original clipboard text value
-
-    ItemModelColumns()
-    {
-        add(item_display_value);
-        add(item_value);
-    }
 };
 
 struct WindowBody : public Gtk::VBox
