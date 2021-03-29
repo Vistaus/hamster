@@ -90,6 +90,17 @@ WindowBody::WindowBody()
     item_list.signal_focus_in_event().connect(sigc::mem_fun(*this, &WindowBody::on_item_list_focus_in));
     item_list.show();
 
+    if (ref_settings->get_boolean("app-first-run"))
+    {
+        append_welcome_items();
+        ref_settings->set_boolean("app-first-run", false);
+    }
+
+    show();
+}
+
+bool WindowBody::append_welcome_items() const
+{
     const auto row0 = *(ref_primary_item_store->append());
     row0[columns.item_value] = _("Welcome to Hamster !");
     row0[columns.item_display_value] = _("Welcome to Hamster !");
@@ -101,8 +112,6 @@ WindowBody::WindowBody()
     const auto row2 = *(ref_primary_item_store->append());
     row2[columns.item_value] = _("Press <Alt+P> to open preferences window");
     row2[columns.item_display_value] = _("Press <Alt+P> to open preferences window");
-
-    show();
 }
 
 bool WindowBody::move_item(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const

@@ -76,13 +76,6 @@ struct WindowBody : public Gtk::VBox
 
     static void send_ctrl_v_key_event();
 
-    // HELPER METHODS
-    Gtk::TreeRow get_row(const Gtk::TreeModel::Path& path);
-    std::vector<Gtk::TreeModel::Path> get_selected_paths();
-    std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath>&& paths);
-    std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath>& paths);
-    void past_items(const std::string& prefix, const std::string& suffix);
-
     // EVENTS HANDLING
     void on_clipboard_change(GdkEventOwnerChange* event);
     void on_search_change();
@@ -111,6 +104,14 @@ struct WindowBody : public Gtk::VBox
     void delete_items(std::vector<Gtk::TreeRow>&& rows) const;
     void delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const;
     void delete_last_items(int store_sz, int max_list_size) const;
+
+    // HELPER METHODS
+    Gtk::TreeRow get_row(const Gtk::TreeModel::Path& path);
+    std::vector<Gtk::TreeModel::Path> get_selected_paths();
+    std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath>&& paths);
+    std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath>& paths);
+    void past_items(const std::string& prefix, const std::string& suffix);
+    bool append_welcome_items() const;
 };
 
 #endif //HAMSTER_WINDOW_BODY_H
