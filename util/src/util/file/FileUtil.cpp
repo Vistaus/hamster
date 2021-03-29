@@ -34,13 +34,13 @@ void FileUtil::write_items_to_file(Glib::RefPtr<Gtk::ListStore> store)
     std::filesystem::create_directory(config_dir());
     std::filesystem::remove(json_file); // Write items to new file always
 
-    std::fstream fs{};
+    std::fstream fs {};
     fs.open(json_file, std::ios::in | std::ios::out | std::ios::app);
 
-    ItemUtil iu{};
+    ItemUtil iu {};
     const auto items = iu.items_ready_to_json(store->children());
 
-    json j{};
+    json j {};
     j["items"] = items;
 
     fs << j;

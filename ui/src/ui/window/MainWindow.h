@@ -49,8 +49,8 @@ struct MainWindow : public Gtk::Window
     void hide_about_dialog(int response_id);
     void close_app();
 
-    bool on_delete_event(GdkEventAny *any_event) override;
-    bool on_main_window_event(GdkEvent *gdk_event);
+    bool on_delete_event(GdkEventAny* any_event) override;
+    bool on_main_window_event(GdkEvent* gdk_event);
 };
 
 #endif //HAMSTER_MAIN_WINDOW_H

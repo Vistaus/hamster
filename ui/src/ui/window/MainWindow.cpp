@@ -102,7 +102,7 @@ void MainWindow::close_app()
     exit(0);
 }
 
-bool MainWindow::on_main_window_event(GdkEvent *gdk_event)
+bool MainWindow::on_main_window_event(GdkEvent* gdk_event)
 {
     if (gdk_event == nullptr)
     {
@@ -138,7 +138,7 @@ bool MainWindow::on_main_window_event(GdkEvent *gdk_event)
     return false;
 }
 
-bool MainWindow::on_delete_event(GdkEventAny *any_event)
+bool MainWindow::on_delete_event(GdkEventAny* any_event)
 {
     if (any_event == nullptr)
     {

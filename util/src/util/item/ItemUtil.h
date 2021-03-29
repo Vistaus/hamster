@@ -22,7 +22,7 @@
 
 struct ItemUtil
 {
-    std::vector<std::map<std::string, std::string>> items_ready_to_json(const Gtk::TreeModel::Children &rows);
+    std::vector<std::map<std::string, std::string>> items_ready_to_json(const Gtk::TreeModel::Children& rows);
 };
 
 #endif // HAMSTER_ITEM_UTIL_H

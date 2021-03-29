@@ -16,11 +16,11 @@
  */
 #include "ItemUtil.h"
 
-std::vector<std::map<std::string, std::string>> ItemUtil::items_ready_to_json(const Gtk::TreeModel::Children &rows)
+std::vector<std::map<std::string, std::string>> ItemUtil::items_ready_to_json(const Gtk::TreeModel::Children& rows)
 {
     ItemModelColumns columns;
-    std::vector<std::map<std::string, std::string>> container{};
-    for (const auto &row : rows)
+    std::vector<std::map<std::string, std::string>> container {};
+    for (const auto& row : rows)
     {
         const auto display_value = row.get_value(columns.item_display_value);
         const auto value = row.get_value(columns.item_value);
@@ -28,7 +28,8 @@ std::vector<std::map<std::string, std::string>> ItemUtil::items_ready_to_json(co
         {
             continue;
         }
-        std::map<std::string, std::string> item{{"display_value", display_value}, {"value", value}};
+        std::map<std::string, std::string> item {{"display_value", display_value},
+                                                 {"value",         value}};
         container.emplace_back(item);
     }
     return container;

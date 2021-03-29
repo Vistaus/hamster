@@ -45,7 +45,7 @@ struct ShortcutsWindow : public Gtk::Window
 
     Gtk::VBox v_box;
 
-    bool on_key_press(GdkEventKey *key_event);
+    bool on_key_press(GdkEventKey* key_event);
 };
 
 #endif //HAMSTER_SHORTCUTS_WINDOW_H
