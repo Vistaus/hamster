@@ -197,6 +197,11 @@ void PreferencesWindow::on_eliminate_spaces_click()
 void PreferencesWindow::on_save_list_click()
 {
     ref_settings->set_boolean("save-list", save_list_check.get_active());
+    if (!save_list_check.get_active())
+    {
+        FileUtil fu {};
+        std::filesystem::remove(fu.items_json_file());
+    }
 }
 
 void PreferencesWindow::on_item_list_size_change()

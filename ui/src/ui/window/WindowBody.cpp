@@ -269,26 +269,36 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     // Delete if too many...
     delete_last_items((int) ref_primary_item_store->children().size(), (int) ref_settings->get_double("item-list-size"));
 
-    LogUtil::log_if_debug("Stored items: %d\n", ref_primary_item_store->children().size());
+    LogUtil lu {};
+    lu.log_if_debug("Stored items: %d\n", ref_primary_item_store->children().size());
 }
 
 void WindowBody::on_row_inserted([[maybe_unused]] const Gtk::TreeModel::Path& path, [[maybe_unused]] const Gtk::TreeModel::iterator& iter) const
 {
-    FileUtil fu {};
-    fu.write_items_to_file(ref_primary_item_store);
+    if (ref_settings->get_boolean("save-list"))
+    {
+        FileUtil fu {};
+        fu.write_items_to_file(ref_primary_item_store);
+    }
 }
 
 void WindowBody::on_row_deleted([[maybe_unused]] const Gtk::TreeModel::Path& path) const
 {
-    FileUtil fu {};
-    fu.write_items_to_file(ref_primary_item_store);
+    if (ref_settings->get_boolean("save-list"))
+    {
+        FileUtil fu {};
+        fu.write_items_to_file(ref_primary_item_store);
+    }
 }
 
 void WindowBody::on_rows_reordered([[maybe_unused]] const Gtk::TreeModel::Path& path, [[maybe_unused]] const Gtk::TreeModel::iterator& iter,
                                    [[maybe_unused]] int* new_order) const
 {
-    FileUtil fu {};
-    fu.write_items_to_file(ref_primary_item_store);
+    if (ref_settings->get_boolean("save-list"))
+    {
+        FileUtil fu {};
+        fu.write_items_to_file(ref_primary_item_store);
+    }
 }
 
 bool WindowBody::on_item_list_focus_in(GdkEventFocus* focus_event)

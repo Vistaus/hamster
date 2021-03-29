@@ -98,7 +98,15 @@ void MainWindow::close_app()
     ref_settings->set_int("window-x", win_x);
     ref_settings->set_int("window-y", win_y);
 
-    LogUtil::log_if_debug("Hamster says bye!\n");
+    // Write items to file
+    if (ref_settings->get_boolean("save-list"))
+    {
+        FileUtil fu {};
+        fu.write_items_to_file(win_body.ref_primary_item_store);
+    }
+
+    LogUtil lu {};
+    lu.log_if_debug("Hamster says bye!\n");
     exit(0);
 }
 

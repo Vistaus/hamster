@@ -22,7 +22,8 @@
 #include <gtkmm-3.0/gtkmm.h>
 #include <thread>
 
-#include "util/log/LogUtil.h"
+#include <util/log/LogUtil.h>
+#include <util/file/FileUtil.h>
 #include "WindowBody.h"
 #include "PreferencesWindow.h"
 #include "ShortcutsWindow.h"
