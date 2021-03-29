@@ -366,6 +366,29 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     const auto type = gdk_event->type;
     const auto state = gdk_event->key.state;
 
+    LogUtil lu {};
+
+    // ROWS SELECTION HANDLING
+    if (get_selected_paths().size() == 1)
+    {
+        selection_order = SelectionOrder::SHIFT_DOWN;
+        lu.log_if_debug("\nSelection order down");
+    }
+
+    // 'SHIFT + UP' select up
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Up && (state == 1 || state == 3 || state == 17 || state == 19))
+    {
+        selection_order = SelectionOrder::SHIFT_UP;
+        lu.log_if_debug("\nSelection order up");
+    }
+
+    // 'SHIFT + DOWN' select down
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Down && (state == 1 || state == 3 || state == 17 || state == 19))
+    {
+        selection_order = SelectionOrder::SHIFT_DOWN;
+        lu.log_if_debug("\nSelection order down");
+    }
+
     // 'SHIFT + ENTER' paste but before show prefix and suffix entry fields
     if (type == GDK_KEY_PRESS && key == GDK_KEY_Return && (state == 1 || state == 3 || state == 17 || state == 19))
     {
@@ -394,24 +417,6 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         past_items(prefix, suffix);
 
         return true;
-    }
-
-    // ROWS SELECTION HANDLING
-    if (get_selected_paths().size() == 1)
-    {
-        selection_order = SelectionOrder::SHIFT_DOWN;
-    }
-
-    // 'SHIFT + UP' select up
-    if (state == GDK_SHIFT_MASK && type == GDK_KEY_PRESS && key == GDK_KEY_Up)
-    {
-        selection_order = SelectionOrder::SHIFT_UP;
-    }
-
-    // 'SHIFT + DOWN' select down
-    if (state == GDK_SHIFT_MASK && type == GDK_KEY_PRESS && key == GDK_KEY_Down)
-    {
-        selection_order = SelectionOrder::SHIFT_DOWN;
     }
 
     return false;
