@@ -95,11 +95,30 @@ WindowBody::WindowBody()
         append_welcome_items();
         ref_settings->set_boolean("app-first-run", false);
     }
+    else if (ref_settings->get_boolean("save-list"))
+    {
+        FileUtil fu {};
+        LogUtil lu {};
+        if (std::filesystem::exists(fu.items_json_file()) && !std::filesystem::is_directory(fu.items_json_file()))
+        {
+            lu.log_if_debug("\nItems json file found: " + fu.items_json_file());
+
+            ItemUtil iu {};
+            const auto items_vec = iu.json_items_to_vec(fu.read_items_from_file());
+
+            UIUtil ui_util {};
+            ui_util.append_to_store(ref_primary_item_store, items_vec);
+        }
+        else
+        {
+            lu.log_if_debug("\nItems json file NOT found: " + fu.items_json_file());
+        }
+    }
 
     show();
 }
 
-bool WindowBody::append_welcome_items() const
+void WindowBody::append_welcome_items() const
 {
     const auto row0 = *(ref_primary_item_store->append());
     row0[columns.item_value] = _("Welcome to Hamster !");
@@ -264,7 +283,7 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
         text = tu.trim_str(text);
     }
 
-    // Move just copied text if already exits in item list and do nothing else...
+    // If copied test already exists move it to the top and do nothing else...
     if (move_item(ref_primary_item_store->children(), text))
     {
         return;
@@ -279,15 +298,18 @@ void WindowBody::on_clipboard_change(GdkEventOwnerChange* event)
     delete_last_items((int) ref_primary_item_store->children().size(), (int) ref_settings->get_double("item-list-size"));
 
     LogUtil lu {};
-    lu.log_if_debug("Stored items: %d\n", ref_primary_item_store->children().size());
+    lu.log_if_debug("\nStored items: %d", ref_primary_item_store->children().size());
 }
 
 void WindowBody::on_row_inserted([[maybe_unused]] const Gtk::TreeModel::Path& path, [[maybe_unused]] const Gtk::TreeModel::iterator& iter) const
 {
     if (ref_settings->get_boolean("save-list"))
     {
+        ItemUtil iu {};
+        const auto items_vec = iu.items_to_vec(ref_primary_item_store->children());
+
         FileUtil fu {};
-        fu.write_items_to_file(ref_primary_item_store);
+        fu.write_items_to_file(items_vec);
     }
 }
 
@@ -295,8 +317,11 @@ void WindowBody::on_row_deleted([[maybe_unused]] const Gtk::TreeModel::Path& pat
 {
     if (ref_settings->get_boolean("save-list"))
     {
+        ItemUtil iu {};
+        const auto items_vec = iu.items_to_vec(ref_primary_item_store->children());
+
         FileUtil fu {};
-        fu.write_items_to_file(ref_primary_item_store);
+        fu.write_items_to_file(items_vec);
     }
 }
 
@@ -305,8 +330,11 @@ void WindowBody::on_rows_reordered([[maybe_unused]] const Gtk::TreeModel::Path& 
 {
     if (ref_settings->get_boolean("save-list"))
     {
+        ItemUtil iu {};
+        const auto items_vec = iu.items_to_vec(ref_primary_item_store->children());
+
         FileUtil fu {};
-        fu.write_items_to_file(ref_primary_item_store);
+        fu.write_items_to_file(items_vec);
     }
 }
 
@@ -409,6 +437,7 @@ bool WindowBody::on_prefix_suffix_form_event(GdkEvent* gdk_event)
         return true;
     }
 
+    // 'ENTER' paste items
     if (state == 0 && type == GDK_KEY_RELEASE && key == GDK_KEY_Return)
     {
         search_entry.grab_focus();

@@ -18,11 +18,13 @@
 #define HAMSTER_ITEM_UTIL_H
 
 #include <gtkmm-3.0/gtkmm.h>
+#include "util/json/json.hpp"
 #include "util/ui/UIUtil.h"
 
 struct ItemUtil
 {
-    std::vector<std::map<std::string, std::string>> items_ready_to_json(const Gtk::TreeModel::Children& rows);
+    std::vector<std::map<std::string, std::string>> items_to_vec(const Gtk::TreeModel::Children& rows);
+    std::vector<std::map<std::string, std::string>> json_items_to_vec(const nlohmann::basic_json<>& j);
 };
 
 #endif // HAMSTER_ITEM_UTIL_H

@@ -33,6 +33,8 @@ struct ItemModelColumns : public Gtk::TreeModel::ColumnRecord
 
 struct UIUtil
 {
+    ItemModelColumns columns {};
+    void append_to_store(Glib::RefPtr<Gtk::ListStore>& store, const std::vector<std::map<std::string, std::string>>& items) const;
 };
 
 #endif // HAMSTER_UI_UTIL_H

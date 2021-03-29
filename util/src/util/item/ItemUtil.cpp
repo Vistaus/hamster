@@ -16,10 +16,13 @@
  */
 #include "ItemUtil.h"
 
-std::vector<std::map<std::string, std::string>> ItemUtil::items_ready_to_json(const Gtk::TreeModel::Children& rows)
+using json = nlohmann::json;
+
+std::vector<std::map<std::string, std::string>> ItemUtil::items_to_vec(const Gtk::TreeModel::Children& rows)
 {
-    ItemModelColumns columns;
-    std::vector<std::map<std::string, std::string>> container {};
+    ItemModelColumns columns {};
+
+    std::vector<std::map<std::string, std::string>> vec {};
     for (const auto& row : rows)
     {
         const auto display_value = row.get_value(columns.item_display_value);
@@ -30,7 +33,17 @@ std::vector<std::map<std::string, std::string>> ItemUtil::items_ready_to_json(co
         }
         std::map<std::string, std::string> item {{"display_value", display_value},
                                                  {"value",         value}};
-        container.emplace_back(item);
+        vec.emplace_back(item);
     }
-    return container;
+    return vec;
+}
+
+std::vector<std::map<std::string, std::string>> ItemUtil::json_items_to_vec(const json& j)
+{
+    std::vector<std::map<std::string, std::string>> vec {};
+    for (const auto& item : j["items"])
+    {
+        vec.emplace_back(item);
+    }
+    return vec;
 }

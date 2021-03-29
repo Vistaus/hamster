@@ -28,17 +28,14 @@ std::string FileUtil::items_json_file()
     return config_dir() + "/items.json";
 }
 
-void FileUtil::write_items_to_file(Glib::RefPtr<Gtk::ListStore> store)
+void FileUtil::write_items_to_file(std::vector<std::map<std::string, std::string>> items)
 {
     const auto json_file = items_json_file();
     std::filesystem::create_directory(config_dir());
-    std::filesystem::remove(json_file); // Write items to new file always
+    std::filesystem::remove(json_file); // Always write items to new file
 
     std::fstream fs {};
     fs.open(json_file, std::ios::in | std::ios::out | std::ios::app);
-
-    ItemUtil iu {};
-    const auto items = iu.items_ready_to_json(store->children());
 
     json j {};
     j["items"] = items;
@@ -47,6 +44,15 @@ void FileUtil::write_items_to_file(Glib::RefPtr<Gtk::ListStore> store)
     fs.close();
 }
 
-void FileUtil::read_items_from_file()
+json FileUtil::read_items_from_file()
 {
+    const auto json_file = items_json_file();
+
+    std::ifstream ifs(json_file);
+    json j {};
+    ifs >> j;
+
+    ifs.close();
+
+    return j;
 }

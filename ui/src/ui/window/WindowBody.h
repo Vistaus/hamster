@@ -31,6 +31,7 @@
 #include <util/log/LogUtil.h>
 #include <util/ui/UIUtil.h>
 #include <util/file/FileUtil.h>
+#include <util/item/ItemUtil.h>
 #include "ItemDetailsWindow.h"
 
 enum struct SelectionOrder
@@ -111,7 +112,7 @@ struct WindowBody : public Gtk::VBox
     std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath>&& paths);
     std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath>& paths);
     void past_items(const std::string& prefix, const std::string& suffix);
-    bool append_welcome_items() const;
+    void append_welcome_items() const;
 };
 
 #endif //HAMSTER_WINDOW_BODY_H

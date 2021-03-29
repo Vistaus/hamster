@@ -15,3 +15,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #include "UIUtil.h"
+
+void UIUtil::append_to_store(Glib::RefPtr<Gtk::ListStore>& store, const std::vector<std::map<std::string, std::string>>& items) const
+{
+    for (const auto& item : items)
+    {
+        std::string display_value {};
+        std::string value {};
+        for (const auto &[key_, value_] : item)
+        {
+            if (key_ == "display_value")
+            {
+                display_value = value_;
+            }
+            if (key_ == "value")
+            {
+                value = value_;
+            }
+        }
+
+        if (value.length() == 0)
+        {
+            continue;
+        }
+
+        const auto row = *(store->append());
+        row[columns.item_value] = value;
+        row[columns.item_display_value] = display_value;
+    }
+
+}

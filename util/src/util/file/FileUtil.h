@@ -21,15 +21,14 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
-#include <util/item/ItemUtil.h>
 #include <util/json/json.hpp>
 
 struct FileUtil
 {
     std::string config_dir();
     std::string items_json_file();
-    void write_items_to_file(Glib::RefPtr<Gtk::ListStore> store);
-    void read_items_from_file();
+    void write_items_to_file(std::vector<std::map<std::string, std::string>> items);
+    nlohmann::json read_items_from_file();
 };
 
 #endif // HAMSTER_FILE_UTIL_H

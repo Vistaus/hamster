@@ -101,12 +101,15 @@ void MainWindow::close_app()
     // Write items to file
     if (ref_settings->get_boolean("save-list"))
     {
+        ItemUtil iu {};
+        const auto items_vec = iu.items_to_vec(win_body.ref_primary_item_store->children());
+
         FileUtil fu {};
-        fu.write_items_to_file(win_body.ref_primary_item_store);
+        fu.write_items_to_file(items_vec);
     }
 
     LogUtil lu {};
-    lu.log_if_debug("Hamster says bye!\n");
+    lu.log_if_debug("\nHamster says bye!\n");
     exit(0);
 }
 
