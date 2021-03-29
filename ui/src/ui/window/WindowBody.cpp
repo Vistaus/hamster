@@ -368,6 +368,8 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
 
     LogUtil lu {};
 
+    const auto is_SHIFT_pressed = (state == 1 || state == 3 || state == 17 || state == 19);
+
     // ROWS SELECTION HANDLING
     if (get_selected_paths().size() == 1)
     {
@@ -376,21 +378,21 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     }
 
     // 'SHIFT + UP' select up
-    if (type == GDK_KEY_PRESS && key == GDK_KEY_Up && (state == 1 || state == 3 || state == 17 || state == 19))
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Up && is_SHIFT_pressed)
     {
         selection_order = SelectionOrder::SHIFT_UP;
         lu.log_if_debug("\nSelection order up");
     }
 
     // 'SHIFT + DOWN' select down
-    if (type == GDK_KEY_PRESS && key == GDK_KEY_Down && (state == 1 || state == 3 || state == 17 || state == 19))
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Down && is_SHIFT_pressed)
     {
         selection_order = SelectionOrder::SHIFT_DOWN;
         lu.log_if_debug("\nSelection order down");
     }
 
     // 'SHIFT + ENTER' paste but before show prefix and suffix entry fields
-    if (type == GDK_KEY_PRESS && key == GDK_KEY_Return && (state == 1 || state == 3 || state == 17 || state == 19))
+    if (type == GDK_KEY_PRESS && key == GDK_KEY_Return && is_SHIFT_pressed)
     {
         g_print("Shift + Enter keys pressed\n");
         ps_separator.show();
