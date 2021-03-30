@@ -37,7 +37,8 @@
 enum struct SelectionOrder
 {
     SHIFT_UP,
-    SHIFT_DOWN
+    SHIFT_DOWN,
+    NO_SELECTION
 };
 
 enum struct StoreType
@@ -70,6 +71,7 @@ struct WindowBody : public Gtk::VBox
     Glib::RefPtr<Gtk::Clipboard> ref_clipboard;
     Glib::RefPtr<Gio::Settings> ref_settings;
 
+    int selection_counter;
     SelectionOrder selection_order;
     StoreType store_type;
 

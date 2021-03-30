@@ -115,6 +115,8 @@ WindowBody::WindowBody()
         }
     }
 
+    selection_counter = 0;
+
     show();
 }
 
@@ -373,28 +375,32 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
     // ROWS SELECTION HANDLING
     if (get_selected_paths().size() == 1)
     {
-        selection_order = SelectionOrder::SHIFT_DOWN;
-        lu.log_if_debug("\nSelection order down");
+        selection_counter = 0;
+        selection_order = SelectionOrder::NO_SELECTION;
     }
 
     // 'SHIFT + UP' select up
     if (type == GDK_KEY_PRESS && key == GDK_KEY_Up && is_SHIFT_pressed)
     {
-        selection_order = SelectionOrder::SHIFT_UP;
         lu.log_if_debug("\nSelection order up");
+        selection_order = SelectionOrder::SHIFT_UP;
+        ++selection_counter;
     }
 
     // 'SHIFT + DOWN' select down
     if (type == GDK_KEY_PRESS && key == GDK_KEY_Down && is_SHIFT_pressed)
     {
-        selection_order = SelectionOrder::SHIFT_DOWN;
         lu.log_if_debug("\nSelection order down");
+        selection_order = SelectionOrder::SHIFT_DOWN;
+        --selection_counter;
     }
+
+    selection_order = selection_counter < 0 ? SelectionOrder::SHIFT_DOWN : SelectionOrder::SHIFT_UP;
 
     // 'SHIFT + ENTER' paste but before show prefix and suffix entry fields
     if (type == GDK_KEY_PRESS && key == GDK_KEY_Return && is_SHIFT_pressed)
     {
-        g_print("Shift + Enter keys pressed\n");
+        lu.log_if_debug("\nOpen prefix/suffix form");
         ps_separator.show();
         prefix_suffix_form.show();
         prefix_entry.grab_focus();
@@ -445,7 +451,7 @@ bool WindowBody::on_prefix_suffix_form_event(GdkEvent* gdk_event)
     }
 
     // 'ENTER' paste items
-    if (state == 0 && type == GDK_KEY_RELEASE && key == GDK_KEY_Return)
+    if (type == GDK_KEY_RELEASE && key == GDK_KEY_Return && (state == 0 || state == 2 || state == 16 || state == 18))
     {
         search_entry.grab_focus();
         ps_separator.hide();
