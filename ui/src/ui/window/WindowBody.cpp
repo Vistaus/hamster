@@ -101,7 +101,7 @@ WindowBody::WindowBody()
         LogUtil lu {};
         if (std::filesystem::exists(fu.items_json_file()) && !std::filesystem::is_directory(fu.items_json_file()))
         {
-            lu.log_if_debug("\nItems json file found: " + fu.items_json_file());
+            lu.log_if_debug("\nFile found: " + fu.items_json_file());
 
             ItemUtil iu {};
             const auto items_vec = iu.json_items_to_vec(fu.read_items_from_file());
@@ -111,7 +111,7 @@ WindowBody::WindowBody()
         }
         else
         {
-            lu.log_if_debug("\nItems json file NOT found: " + fu.items_json_file());
+            lu.log_if_debug("\nFile NOT found: " + fu.items_json_file());
         }
     }
 
