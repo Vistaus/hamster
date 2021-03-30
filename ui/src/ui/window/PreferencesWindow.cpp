@@ -106,7 +106,7 @@ PreferencesWindow::PreferencesWindow()
     items_box.show_all();
 
     // ITEM PREFERENCES
-    item_label.set_markup(_("<b>Text item</b>"));
+    item_label.set_markup(_("<b>Paste selected items with:</b>"));
     item_label.set_halign(Gtk::ALIGN_START);
     item_label.set_margin_top(24);
     item_label.set_margin_bottom(12);
