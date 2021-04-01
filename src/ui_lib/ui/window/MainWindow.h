@@ -24,18 +24,18 @@
 
 #include <util/log/LogUtil.h>
 #include <util/file/FileUtil.h>
-#include "WindowBody.h"
-#include "PreferencesWindow.h"
-#include "ShortcutsWindow.h"
-#include "../dialog/AboutDialog.h"
-#include "../popover/SettingsPopover.h"
-#include "../popover/SettingsMenuButton.h"
+#include <ui/window/WindowBody.h>
+#include <ui/window/PreferencesWindow.h>
+#include <ui/window/ShortcutsWindow.h>
+#include <ui/dialog/AboutDialog.h>
+#include <ui/popover/SettingsPopover.h>
+#include <ui/popover/SettingsMenuButton.h>
 
 struct MainWindow : public Gtk::Window
 {
     MainWindow();
 
-    Glib::RefPtr<Gio::Settings> ref_settings;
+    Glib::RefPtr <Gio::Settings> ref_settings;
 
     Gtk::HeaderBar header_bar;
     SettingsMenuButton menu_btn;

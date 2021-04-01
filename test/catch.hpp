@@ -10222,7 +10222,7 @@ public:
         m_ref = std::make_shared<BoundLambda<LambdaT>>(lambda);
     }
 
-    // The exe name is not parsed out of the normal tokens, but is handled specially
+    // The bin name is not parsed out of the normal tokens, but is handled specially
     auto parse(std::string const &, TokenStream const &tokens) const -> InternalParseResult override
     {
         return InternalParseResult::ok(ParseState(ParseResultType::NoMatch, tokens));
@@ -19595,4 +19595,3 @@ using Catch::Detail::Approx;
 // end catch_reenable_warnings.h
 // end catch.hpp
 #endif // TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
-

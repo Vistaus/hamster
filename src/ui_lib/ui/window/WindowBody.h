@@ -32,7 +32,7 @@
 #include <util/ui/UIUtil.h>
 #include <util/file/FileUtil.h>
 #include <util/item/ItemUtil.h>
-#include "ItemDetailsWindow.h"
+#include <ui/window/ItemDetailsWindow.h>
 
 enum struct SelectionOrder
 {
