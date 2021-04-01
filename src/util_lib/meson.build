@@ -12,6 +12,6 @@ util = library('util', dependencies : [gtkmm_dep],
 )
 
 util_dep = declare_dependency(
-    dependencies: [gtkmm_dep],
     include_directories : include_directories('.'),
-    link_with : util)
+    link_with : util
+)

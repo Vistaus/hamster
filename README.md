@@ -15,8 +15,8 @@ sudo apt install g++ cmake libgtkmm-3.0-dev libgtkmm-3.0-doc
 ```bash
 cd hamster
 mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release && make -j 8 && ./hamster
+meson build
+ninja -C build
 ```
 
 ### Todo (last stuff)

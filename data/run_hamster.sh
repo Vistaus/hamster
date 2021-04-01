@@ -6,6 +6,6 @@ if [ $? -eq 0 ]; then
     wmctrl -a "🐹 Hamster"
     exit 1
 else
-    ~/repos/hamster/build/hamster
+    ~/repos/hamster/build/src/bin/hamster
     exit 0
 fi
