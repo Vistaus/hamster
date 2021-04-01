@@ -1,4 +1,9 @@
 /*
+ *  _____ _____ _____ _____ _____ _____ _____
+ * |  |  |  _  |     |   __|_   _|   __| __  |
+ * |     |     | | | |__   | | | |   __|    -|
+ * |__|__|__|__|_|_|_|_____| |_| |_____|__|__|
+ *
  * Copyright (c) 2021 Slawek Tuleja
  *
  * This program is free software: you can redistribute it and/or modify
