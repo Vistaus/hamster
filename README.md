@@ -35,7 +35,7 @@ You cannot paste text if you took a screenshot and pinned to desktop
 #### 2. Gsettings schema not installed
 
 ```bash
-sudo cp data/com.github.slawtul.hamster.gschema.xml /usr/share/glib-2.0/schemas/
+sudo cp data/gschema.xml /usr/share/glib-2.0/schemas/
 sudo /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
 ```
 

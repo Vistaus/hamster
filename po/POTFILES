@@ -1,0 +1,7 @@
+src/ui_lib/ui/dialog/AboutDialog.cpp
+src/ui_lib/ui/popover/SettingsPopover.cpp
+src/ui_lib/ui/window/MainWindow.cpp
+src/ui_lib/ui/window/WindowBody.cpp
+src/ui_lib/ui/window/ItemDetailsWindow.cpp
+src/ui_lib/ui/window/PreferencesWindow.cpp
+src/ui_lib/ui/window/ShortcutsWindow.cpp

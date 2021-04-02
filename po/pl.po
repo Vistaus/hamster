@@ -1,0 +1,175 @@
+# Polish translations for com.github.slawtul.hamster package.
+# Copyright (C) 2021 THE com.github.slawtul.hamster'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.slawtul.hamster package.
+# Automatically generated, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.slawtul.hamster\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-03 00:11+0200\n"
+"PO-Revision-Date: 2021-04-03 00:11+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: src/ui_lib/ui/dialog/AboutDialog.cpp:22
+msgid "Hamster"
+msgstr "Chomik"
+
+#: src/ui_lib/ui/dialog/AboutDialog.cpp:23
+msgid "Clipboard manager"
+msgstr "Menedżer schowka"
+
+#: src/ui_lib/ui/popover/SettingsPopover.cpp:22
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:22
+msgid "Preferences"
+msgstr "Ustawienia"
+
+#: src/ui_lib/ui/popover/SettingsPopover.cpp:23
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:22
+msgid "Shortcuts"
+msgstr "Skróty klawiszowe"
+
+#: src/ui_lib/ui/popover/SettingsPopover.cpp:24
+msgid "About"
+msgstr "O aplikacji"
+
+#: src/ui_lib/ui/popover/SettingsPopover.cpp:25
+msgid "Quit"
+msgstr "Wyjście"
+
+#: src/ui_lib/ui/window/MainWindow.cpp:38
+msgid "🐹 Hamster"
+msgstr "🐹 Chomik"
+
+#: src/ui_lib/ui/window/WindowBody.cpp:39
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:121
+msgid "Prefix:"
+msgstr "Prefiks:"
+
+#: src/ui_lib/ui/window/WindowBody.cpp:44
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:122
+msgid "Suffix:"
+msgstr "Sufiks:"
+
+#: src/ui_lib/ui/window/WindowBody.cpp:126
+#: src/ui_lib/ui/window/WindowBody.cpp:127
+msgid "Welcome to Hamster !"
+msgstr "Witaj w aplikacji Chomik !"
+
+#: src/ui_lib/ui/window/WindowBody.cpp:130
+#: src/ui_lib/ui/window/WindowBody.cpp:131
+msgid "Press <Alt+S> to open shortcuts window"
+msgstr "Wciśnij <Alt+S> aby otworzyć okienko ze skrótami klawiszowymi"
+
+#: src/ui_lib/ui/window/WindowBody.cpp:134
+#: src/ui_lib/ui/window/WindowBody.cpp:135
+msgid "Press <Alt+P> to open preferences window"
+msgstr "Wciśnij <Alt+P> aby otworzyć okienko z ustawieniami"
+
+#: src/ui_lib/ui/window/ItemDetailsWindow.cpp:22
+msgid "Item details"
+msgstr "Szczegóły elementu"
+
+#. APPLICATION PREFERENCES
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:32
+msgid "<b>Application</b>"
+msgstr "<b>Aplikacja</b>"
+
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:38
+msgid "Run automatically on system startup"
+msgstr "Uruchom automatycznie podczas startu systemu"
+
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:42
+msgid "Run minimize"
+msgstr "Uruchom w postaci zminimalizowanej"
+
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:46
+msgid "Delay pasting [ms]"
+msgstr "Opóźnij wklejanie [ms]"
+
+#. ITEMS PREFERENCES
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:70
+msgid "<b>Text items</b>"
+msgstr "<b>Elementy tekstowe</b>"
+
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:76
+msgid "Eliminate leading and trailing spaces"
+msgstr "Usuń zbędne znaki przed i po elemencie"
+
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:80
+msgid "Save list to file"
+msgstr "Zapisz listę elementów do pliku"
+
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:84
+msgid "Item list size"
+msgstr "Wielkość listy elementów"
+
+#. ITEM PREFERENCES
+#: src/ui_lib/ui/window/PreferencesWindow.cpp:109
+msgid "<b>Paste selected items with:</b>"
+msgstr "<b>Wklej zaznaczone elementy z:</b>"
+
+#. APPLICATION SHORTCUTS
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:33
+msgid "Show application window"
+msgstr "Pokaż okienko aplikacji"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:37
+msgid "Open preferences window"
+msgstr "Otwórz okienko ustawień"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:41
+msgid "Open shortcuts window"
+msgstr "Otwórz okienko ze skrótami klawiszowymi"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:45
+msgid "Quit application"
+msgstr "Wyjdź z aplikacji"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:54
+msgid "Application"
+msgstr "Aplikacja"
+
+#. TEXT ITEMS SHORTCUTS
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:58
+msgid "Paste item"
+msgstr "Wklej element"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:62
+msgid "Select items"
+msgstr "Zaznacz elementy"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:66
+msgid "Set item prefix and suffix before pasting"
+msgstr "Ustaw prefiks i sufiks przed wklejaniem"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:70
+msgid "Show item details"
+msgstr "Pokaż szczegóły elementu"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:74
+msgid "Change to lowercase"
+msgstr "Zmień na małe litery"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:78
+msgid "Change to uppercase"
+msgstr "Zmień na duże litery"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:82
+msgid "Mask with *********"
+msgstr "Ukryj z *********"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:86
+msgid "Delete item"
+msgstr "Usuń element"
+
+#: src/ui_lib/ui/window/ShortcutsWindow.cpp:99
+msgid "Text items"
+msgstr "Elementy tekstowe"
