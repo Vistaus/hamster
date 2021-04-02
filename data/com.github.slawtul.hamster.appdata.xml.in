@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2021 Slawek Tuleja <slawek.tuleja@gmail.com> -->
 <component type="desktop-application">
     <id>com.github.slawtul.hamster</id>
     <metadata_license>CC0-1.0</metadata_license>
@@ -7,12 +6,14 @@
     <name>Hamster</name>
     <summary>Clipboard manager</summary>
     <description>
-        <p></p>
+        <p>All copied text in one place</p>
+        <p>Key features:</p>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Paste multiple items at once</li>
+            <li>Save items to a file</li>
+            <li>Paste selected items with prefix and suffix</li>
+            <li>Transform an item to uppercase or lowercase</li>
+            <li>Mask an item with *******</li>
         </ul>
     </description>
     <provides>
@@ -26,17 +27,17 @@
     <developer_name>Slawek Tuleja</developer_name>
     <url type="homepage">https://github.com/slawtul/hamster</url>
     <url type="bugtracker">https://github.com/slawtul/hamster/issues</url>
+    <url type="help">https://github.com/slawtul/hamster/issues</url>
     <custom>
-        <value key="x-appcenter-color-primary">rgb(234, 255, 198)</value>
-        <value key="x-appcenter-color-primary-text">rgb(23, 107, 0)</value>
+        <value key="x-appcenter-color-primary">#fefaf1</value>
+        <value key="x-appcenter-color-primary-text">#3d230a</value>
+        <value key="x-appcenter-suggested-price">5</value>
     </custom>
     <releases>
-      <release version="1.0.0" date="2021-04-01">
-        <description>
-          <ul>
-            <li></li>
-          </ul>
-        </description>
+      <release version="1.0.0" date="2021-04-10">
+      <description>
+        <p>Initial release 🎉️</p>
+      </description>
       </release>
     </releases>
 </component>
