@@ -113,7 +113,7 @@ struct WindowBody : public Gtk::VBox
     std::vector<Gtk::TreeModel::Path> get_selected_paths();
     std::vector<Gtk::TreeRow> find_primary_store_rows(std::vector<Gtk::TreePath>&& paths);
     std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath>& paths);
-    void past_items(const std::string& prefix, const std::string& suffix, bool decorate_one_item);
+    void past_items(const std::string& prefix, const std::string& suffix, bool decorate_any_item);
     void append_welcome_items() const;
 };
 

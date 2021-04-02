@@ -597,7 +597,7 @@ void WindowBody::show_item_details_window(const Glib::ustring& text)
     item_details_window.present();
 }
 
-void WindowBody::past_items(const std::string& prefix, const std::string& suffix, bool decorate_one_item)
+void WindowBody::past_items(const std::string& prefix, const std::string& suffix, bool decorate_any_item)
 {
     const auto path_list = get_selected_paths();
     auto selected_paths = path_list; // Reverse a copied vector
@@ -613,7 +613,7 @@ void WindowBody::past_items(const std::string& prefix, const std::string& suffix
         const auto row = get_row(path);
         const auto item_value = row.get_value(columns.item_value);
 
-        if (decorate_one_item)
+        if (decorate_any_item)
         {
             text_to_paste += prefix + item_value + suffix;
         }
