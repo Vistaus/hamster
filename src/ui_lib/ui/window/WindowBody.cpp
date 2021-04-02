@@ -422,7 +422,7 @@ bool WindowBody::on_item_list_event(GdkEvent* gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
-        past_items(prefix, suffix);
+        past_items(prefix, suffix, false); // 'false' - do not add prefix and suffix when one item selected only
 
         return true;
     }
@@ -465,7 +465,7 @@ bool WindowBody::on_prefix_suffix_form_event(GdkEvent* gdk_event)
         prefix = tu.convert_to_newline_or_tab(prefix);
         suffix = tu.convert_to_newline_or_tab(suffix);
 
-        past_items(prefix, suffix);
+        past_items(prefix, suffix, true); // 'true' - add prefix and suffix even one item selected
 
         return true;
     }
@@ -597,7 +597,7 @@ void WindowBody::show_item_details_window(const Glib::ustring& text)
     item_details_window.present();
 }
 
-void WindowBody::past_items(const std::string& prefix, const std::string& suffix)
+void WindowBody::past_items(const std::string& prefix, const std::string& suffix, bool decorate_one_item)
 {
     const auto path_list = get_selected_paths();
     auto selected_paths = path_list; // Reverse a copied vector
@@ -612,7 +612,15 @@ void WindowBody::past_items(const std::string& prefix, const std::string& suffix
     {
         const auto row = get_row(path);
         const auto item_value = row.get_value(columns.item_value);
-        text_to_paste += path_list.size() == 1 ? item_value : prefix + item_value + suffix;
+
+        if (decorate_one_item)
+        {
+            text_to_paste += prefix + item_value + suffix;
+        }
+        else
+        {
+            text_to_paste += path_list.size() == 1 ? item_value : prefix + item_value + suffix;
+        }
     }
 
     ref_clipboard->set_text(text_to_paste); // Send text to clipboard...
