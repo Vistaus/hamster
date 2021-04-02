@@ -7,5 +7,5 @@ TryExec=com.github.slawtul.hamster
 Exec=com.github.slawtul.hamster
 Icon=com.github.slawtul.hamster
 Terminal=false
-Categories=Utility;
+Categories=Utility;GTK;
 Keywords=Hamster;Clipboard;Clipboard Manager;
