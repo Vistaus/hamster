@@ -1,6 +1,6 @@
 gtkmm_dep = dependency('gtkmm-3.0')
 
-util = library('util', dependencies : [gtkmm_dep],
+util = static_library('util', dependencies : [gtkmm_dep],
     sources : [
         'util/json/json.hpp',
         'util/file/FileUtil.h', 'util/file/FileUtil.cpp',

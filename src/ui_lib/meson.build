@@ -3,7 +3,7 @@ x11_dep    = dependency('x11')
 xtst_dep   = dependency('xtst')
 xext_dep   = dependency('xext')
 
-ui = library('ui', dependencies : [gtkmm_dep, x11_dep, xtst_dep, xext_dep, util_dep],
+ui = static_library('ui', dependencies : [gtkmm_dep, x11_dep, xtst_dep, xext_dep, util_dep],
     sources : [
         'ui/window/MainWindow.h', 'ui/window/MainWindow.cpp',
         'ui/window/WindowBody.h', 'ui/window/WindowBody.cpp',
