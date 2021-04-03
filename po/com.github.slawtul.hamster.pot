@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.slawtul.hamster\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-03 00:11+0200\n"
+"POT-Creation-Date: 2021-04-03 22:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/ui_lib/ui/window/MainWindow.cpp:38
+#: src/ui_lib/ui/window/MainWindow.cpp:45
 msgid "🐹 Hamster"
 msgstr ""
 
@@ -57,19 +57,24 @@ msgstr ""
 msgid "Suffix:"
 msgstr ""
 
-#: src/ui_lib/ui/window/WindowBody.cpp:126
-#: src/ui_lib/ui/window/WindowBody.cpp:127
+#: src/ui_lib/ui/window/WindowBody.cpp:150
+#: src/ui_lib/ui/window/WindowBody.cpp:151
 msgid "Welcome to Hamster !"
 msgstr ""
 
-#: src/ui_lib/ui/window/WindowBody.cpp:130
-#: src/ui_lib/ui/window/WindowBody.cpp:131
-msgid "Press <Alt+S> to open shortcuts window"
+#: src/ui_lib/ui/window/WindowBody.cpp:158
+#: src/ui_lib/ui/window/WindowBody.cpp:159
+msgid "Press <Ctrl+S> to open shortcuts window"
 msgstr ""
 
-#: src/ui_lib/ui/window/WindowBody.cpp:134
-#: src/ui_lib/ui/window/WindowBody.cpp:135
-msgid "Press <Alt+P> to open preferences window"
+#: src/ui_lib/ui/window/WindowBody.cpp:162
+#: src/ui_lib/ui/window/WindowBody.cpp:163
+msgid "Press <Ctrl+P> to open preferences window"
+msgstr ""
+
+#: src/ui_lib/ui/window/WindowBody.cpp:170
+#: src/ui_lib/ui/window/WindowBody.cpp:171
+msgid "Show app with system shortcut <Alt+V>"
 msgstr ""
 
 #: src/ui_lib/ui/window/ItemDetailsWindow.cpp:22

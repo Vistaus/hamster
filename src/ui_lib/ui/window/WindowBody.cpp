@@ -93,6 +93,8 @@ WindowBody::WindowBody()
     if (ref_settings->get_boolean("app-first-run"))
     {
         append_welcome_items();
+        create_app_shortcut();
+
         ref_settings->set_boolean("app-first-run", false);
     }
     else if (ref_settings->get_boolean("save-list"))
@@ -120,6 +122,27 @@ WindowBody::WindowBody()
     show();
 }
 
+void WindowBody::create_app_shortcut() const
+{
+    auto media_keys = Gio::Settings::create("org.gnome.settings-daemon.plugins.media-keys");
+    auto r = media_keys->get_string_array("custom-keybindings");
+    for (const auto &item : r)
+    {
+        g_print("%s\n", item.c_str());
+    }
+    // if (r.size == 0)
+    //{
+      //custom = 0
+    //}
+//    else {
+//     custom = lastitem.custom + 1
+//    }
+    system("gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \"['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/']\"");
+    system("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ name 'com.github.slawtul.hamster'");
+    system("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ command 'com.github.slawtul.hamster'");
+    system("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ binding '<Alt>v'");
+}
+
 void WindowBody::append_welcome_items() const
 {
     const auto row0 = *(ref_primary_item_store->append());
@@ -127,12 +150,24 @@ void WindowBody::append_welcome_items() const
     row0[columns.item_display_value] = _("Welcome to Hamster !");
 
     const auto row1 = *(ref_primary_item_store->append());
-    row1[columns.item_value] = _("Press <Alt+S> to open shortcuts window");
-    row1[columns.item_display_value] = _("Press <Alt+S> to open shortcuts window");
+    row1[columns.item_value] = "---";
+    row1[columns.item_display_value] = "---";
 
     const auto row2 = *(ref_primary_item_store->append());
-    row2[columns.item_value] = _("Press <Alt+P> to open preferences window");
-    row2[columns.item_display_value] = _("Press <Alt+P> to open preferences window");
+    row2[columns.item_value] = _("Press <Ctrl+S> to open shortcuts window");
+    row2[columns.item_display_value] = _("Press <Ctrl+S> to open shortcuts window");
+
+    const auto row3 = *(ref_primary_item_store->append());
+    row3[columns.item_value] = _("Press <Ctrl+P> to open preferences window");
+    row3[columns.item_display_value] = _("Press <Ctrl+P> to open preferences window");
+
+    const auto row4 = *(ref_primary_item_store->append());
+    row4[columns.item_value] = "---";
+    row4[columns.item_display_value] = "---";
+
+    const auto row5 = *(ref_primary_item_store->append());
+    row5[columns.item_value] = _("Show app with system shortcut <Alt+V>");
+    row5[columns.item_display_value] = _("Show app with system shortcut <Alt+V>");
 }
 
 bool WindowBody::move_item(Gtk::TreeNodeChildren&& rows, const Glib::ustring& text) const
