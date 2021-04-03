@@ -20,13 +20,6 @@ ninja
 ninja install
 ```
 
-### Todo (last stuff)
-
-* to generate translations
-* to prepare debian package
-* to link mason and cmake (ask on stackoverflow)
-* to handle memory leak (ask on stackoverflow)
-
 ### Known issues
 
 #### 1. Pinned screenshot from Flameshot app
