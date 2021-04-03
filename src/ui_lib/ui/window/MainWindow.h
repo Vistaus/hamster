@@ -35,7 +35,7 @@ struct MainWindow : public Gtk::ApplicationWindow
 {
     MainWindow();
 
-    Glib::RefPtr <Gio::Settings> ref_settings;
+    Glib::RefPtr<Gio::Settings> ref_settings;
 
     Gtk::HeaderBar header_bar;
     SettingsMenuButton menu_btn;
