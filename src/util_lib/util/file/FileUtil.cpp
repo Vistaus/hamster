@@ -20,17 +20,22 @@ using json = nlohmann::json;
 
 std::string FileUtil::config_dir()
 {
-    return std::string(getenv("HOME")) + "/.config/hamster";
+    return std::string(getenv("HOME")) + "/.config/hamster/";
 }
 
-std::string FileUtil::items_json_file()
+std::string FileUtil::autostart_dir()
 {
-    return config_dir() + "/items.json";
+    return std::string(getenv("HOME")) + "/.config/autostart/";
+}
+
+std::string FileUtil::items_json_filepath()
+{
+    return config_dir() + "items.json";
 }
 
 void FileUtil::write_items_to_file(std::vector<std::map<std::string, std::string>> items)
 {
-    const auto json_file = items_json_file();
+    const auto json_file = items_json_filepath();
     std::filesystem::create_directory(config_dir());
     std::filesystem::remove(json_file); // Always write items to new file
 
@@ -46,7 +51,7 @@ void FileUtil::write_items_to_file(std::vector<std::map<std::string, std::string
 
 json FileUtil::read_items_from_file()
 {
-    const auto json_file = items_json_file();
+    const auto json_file = items_json_filepath();
 
     std::ifstream ifs(json_file);
     json j {};

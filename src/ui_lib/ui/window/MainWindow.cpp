@@ -34,6 +34,13 @@ MainWindow::MainWindow()
         this->iconify();
     }
 
+    FileUtil fu {};
+    std::filesystem::remove(fu.autostart_dir() + fu.desktop_filename);
+    if (ref_settings->get_boolean("run-automatically"))
+    {
+        std::filesystem::copy_file(fu.user_apps_dir + fu.desktop_filename, fu.autostart_dir() + fu.desktop_filename);
+    }
+
     header_bar.set_show_close_button(true);
     header_bar.set_title(_("🐹 Hamster"));
     header_bar.set_has_subtitle(false);

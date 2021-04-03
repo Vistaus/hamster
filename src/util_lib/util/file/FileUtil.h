@@ -25,8 +25,12 @@
 
 struct FileUtil
 {
+    std::string desktop_filename = "com.github.slawtul.hamster.desktop";
+    std::string user_apps_dir = "/usr/share/applications/";
+
     std::string config_dir();
-    std::string items_json_file();
+    std::string autostart_dir();
+    std::string items_json_filepath();
     void write_items_to_file(std::vector<std::map<std::string, std::string>> items);
     nlohmann::json read_items_from_file();
 };
