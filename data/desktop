@@ -9,3 +9,6 @@ Icon=com.github.slawtul.hamster
 Terminal=false
 Categories=Utility;GTK;
 Keywords=Hamster;Clipboard;Clipboard Manager;
+StartupWMClass=com.github.slawtul.hamster
+X-GNOME-Autostart-enabled=true
+X-GNOME-Gettext-Domain=hamster
