@@ -65,7 +65,6 @@ MainWindow::MainWindow()
 
 void MainWindow::show_about_dialog()
 {
-    about_dialog.show();
     about_dialog.present();
 }
 
@@ -79,13 +78,11 @@ void MainWindow::hide_about_dialog(int response_id)
 
 void MainWindow::show_shortcuts_win()
 {
-    shortcuts_window.show_all();
     shortcuts_window.present();
 }
 
 void MainWindow::show_preferences_win()
 {
-    preferences_window.show_all();
     preferences_window.present();
 }
 
