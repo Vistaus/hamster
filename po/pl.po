@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.slawtul.hamster\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-03 22:18+0200\n"
+"POT-Creation-Date: 2021-04-03 22:24+0200\n"
 "PO-Revision-Date: 2021-04-03 00:11+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -58,25 +58,25 @@ msgstr "Prefiks:"
 msgid "Suffix:"
 msgstr "Sufiks:"
 
+#: src/ui_lib/ui/window/WindowBody.cpp:149
 #: src/ui_lib/ui/window/WindowBody.cpp:150
-#: src/ui_lib/ui/window/WindowBody.cpp:151
 msgid "Welcome to Hamster !"
 msgstr "Witaj w aplikacji Chomik !"
 
+#: src/ui_lib/ui/window/WindowBody.cpp:157
 #: src/ui_lib/ui/window/WindowBody.cpp:158
-#: src/ui_lib/ui/window/WindowBody.cpp:159
 #, fuzzy
 msgid "Press <Ctrl+S> to open shortcuts window"
 msgstr "Wciśnij <Alt+S> aby otworzyć okienko ze skrótami klawiszowymi"
 
+#: src/ui_lib/ui/window/WindowBody.cpp:161
 #: src/ui_lib/ui/window/WindowBody.cpp:162
-#: src/ui_lib/ui/window/WindowBody.cpp:163
 #, fuzzy
 msgid "Press <Ctrl+P> to open preferences window"
 msgstr "Wciśnij <Alt+P> aby otworzyć okienko z ustawieniami"
 
+#: src/ui_lib/ui/window/WindowBody.cpp:169
 #: src/ui_lib/ui/window/WindowBody.cpp:170
-#: src/ui_lib/ui/window/WindowBody.cpp:171
 msgid "Show app with system shortcut <Alt+V>"
 msgstr "Pokaż aplikację systemowym skrótem <Alt+V>"
 
