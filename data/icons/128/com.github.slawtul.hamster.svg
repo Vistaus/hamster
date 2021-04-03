@@ -12,7 +12,7 @@
    width="128"
    height="128"
    id="svg5157"
-   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)"
+   inkscape:version="1.0.2 (394de47547, 2021-03-26)"
    sodipodi:docname="com.github.slawtul.hamster.svg">
   <metadata
      id="metadata46">
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -36,7 +36,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="3840"
-     inkscape:window-height="2042"
+     inkscape:window-height="2097"
      id="namedview29"
      showgrid="false"
      inkscape:zoom="9.2734106"
@@ -240,7 +240,7 @@
        inkscape:export-ydpi="96" />
     <path
        id="path861-6-7-6-9"
-       style="display:inline;opacity:0.92;mix-blend-mode:normal;fill:#f5b22c;fill-opacity:0.93000001;fill-rule:evenodd;stroke:#000000;stroke-width:1.02695;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;opacity:1;mix-blend-mode:normal;fill:#f5b22c;fill-opacity:0.93000001;fill-rule:evenodd;stroke:#000000;stroke-width:1.02695;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 60.968455,17.604079 a 37.923365,35.574498 0 0 0 -37.896662,35.57447 37.923365,35.574498 0 0 0 1.639455,10.345916 c -1.108412,2.466463 -2.178412,4.875165 -3.22199,7.152518 -1.958319,4.383343 -2.975707,9.190933 -2.975785,14.061819 10e-6,17.809508 5.26158,30.442418 21.473828,33.042498 1.328256,0.21302 11.219917,1.15456 11.219917,1.15456 12.03597,0.50868 8.657096,0.43468 13.313172,0.43475 3.375086,-3e-5 14.854516,-0.1622 17.168989,-0.70879 10.930518,-2.60362 27.495021,-20.312024 27.912041,-37.742718 -2e-5,-4.94143 -0.7637,-9.834765 -2.2477,-14.402303 -2.9699,-9.405723 -6.24903,-17.368321 -10.115755,-23.810991 -3.9e-5,-6.3e-5 3.4e-5,-1.31e-4 0,-2.57e-4 a 37.923365,35.574498 0 0 0 -36.242927,-25.101479 37.923365,35.574498 0 0 0 -0.02659,0 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />

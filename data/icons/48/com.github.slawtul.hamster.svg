@@ -12,7 +12,7 @@
    width="48"
    height="48"
    id="svg5157"
-   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)"
+   inkscape:version="1.0.2 (394de47547, 2021-03-26)"
    sodipodi:docname="com.github.slawtul.hamster.svg">
   <metadata
      id="metadata46">
@@ -40,10 +40,10 @@
      id="namedview29"
      showgrid="false"
      inkscape:zoom="12.27157"
-     inkscape:cx="7.3077931"
+     inkscape:cx="-10.090144"
      inkscape:cy="27.401001"
-     inkscape:window-x="78"
-     inkscape:window-y="254"
+     inkscape:window-x="347"
+     inkscape:window-y="407"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer4"
      showguides="true"
@@ -243,7 +243,7 @@
        inkscape:export-ydpi="96" />
     <path
        id="path861-6-7-6-9"
-       style="display:inline;opacity:0.92;mix-blend-mode:normal;fill:#f5b22c;fill-opacity:0.93000001;fill-rule:evenodd;stroke:#000000;stroke-width:0.389253;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;opacity:1;mix-blend-mode:normal;fill:#f5b22c;fill-opacity:0.93000001;fill-rule:evenodd;stroke:#000000;stroke-width:0.389253;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 22.786731,6.3886432 A 14.374444,13.484131 0 0 0 8.4224086,19.872764 14.374444,13.484131 0 0 0 9.0438263,23.794272 c -0.4201314,0.934886 -0.8257035,1.847879 -1.2212605,2.711085 -0.7422797,1.661459 -1.1279099,3.483725 -1.1279393,5.329982 3.7e-6,6.750502 1.9943451,11.538872 8.1394235,12.524404 0.503462,0.08074 4.252789,0.437624 4.252789,0.437624 4.562105,0.192809 3.281379,0.16476 5.046215,0.164786 1.27929,-9e-6 5.630445,-0.06148 6.507721,-0.268658 4.143095,-0.986874 10.421691,-7.699055 10.579758,-14.305973 -8e-6,-1.872995 -0.289472,-3.727762 -0.851965,-5.459038 -1.12571,-3.565138 -2.368627,-6.583275 -3.834268,-9.0253 -1.5e-5,-2.4e-5 1.2e-5,-5e-5 0,-9.8e-5 a 14.374444,13.484131 0 0 0 -13.737493,-9.5144454 14.374444,13.484131 0 0 0 -0.01008,0 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
