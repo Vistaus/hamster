@@ -115,7 +115,6 @@ struct WindowBody : public Gtk::VBox
     std::vector<Gtk::TreeRow> convert_to_rows(std::vector<Gtk::TreePath>& paths);
     void past_items(const std::string& prefix, const std::string& suffix, bool decorate_any_item);
     void append_welcome_items() const;
-    void create_app_shortcut() const;
 };
 
 #endif //HAMSTER_WINDOW_BODY_H

@@ -94,8 +94,6 @@ WindowBody::WindowBody()
     if (ref_settings->get_boolean("app-first-run"))
     {
         append_welcome_items();
-        //create_app_shortcut();
-
         ref_settings->set_boolean("app-first-run", false);
     }
     else if (ref_settings->get_boolean("save-list"))
@@ -121,27 +119,6 @@ WindowBody::WindowBody()
     selection_counter = 0;
 
     show();
-}
-
-void WindowBody::create_app_shortcut() const
-{
-    auto media_keys = Gio::Settings::create("org.gnome.settings-daemon.plugins.media-keys");
-    auto r = media_keys->get_string_array("custom-keybindings");
-    for (const auto &item : r)
-    {
-        g_print("%s\n", item.c_str());
-    }
-    // if (r.size == 0)
-    //{
-      //custom = 0
-    //}
-//    else {
-//     custom = lastitem.custom + 1
-//    }
-    system("gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings \"['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/hamster0/']\"");
-    system("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/hamster0/ name 'com.github.slawtul.hamster'");
-    system("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/hamster0/ command 'com.github.slawtul.hamster'");
-    system("gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/hamster0/ binding '<Ctrl><Alt>v'");
 }
 
 void WindowBody::append_welcome_items() const
