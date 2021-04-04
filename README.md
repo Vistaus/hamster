@@ -14,7 +14,7 @@ sudo apt install g++ cmake libgtkmm-3.0-dev libgtkmm-3.0-doc
 
 ```bash
 cd hamster
-meson build --prefix=/usr &&
+meson build --prefix=/usr
 cd build
 ninja
 ninja install
@@ -26,12 +26,7 @@ ninja install
 
 You cannot paste text if you took a screenshot and pinned to desktop
 
-#### 2. Gsettings schema not installed
+#### 2. About text item masking
 
-```bash
-sudo cp data/gschema.xml /usr/share/glib-2.0/schemas/
-sudo /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
-```
-
-#### 3. About mask password
-//todo
+You can mask with stars ****** passwords but remember if you chose _'Save list to file'_ in 'Preferences' window your
+password will be save as __plain text__ in ~/.config/hamster/item.json file 
