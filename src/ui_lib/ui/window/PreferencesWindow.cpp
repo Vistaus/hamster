@@ -181,11 +181,11 @@ void PreferencesWindow::on_run_automatically_click()
     FileUtil fu {};
     if (run_automatically)
     {
-        std::filesystem::copy_file(fu.user_apps_dir + fu.desktop_filename, fu.autostart_dir() + fu.desktop_filename);
+        std::experimental::filesystem::copy_file(fu.user_apps_dir + fu.desktop_filename, fu.autostart_dir() + fu.desktop_filename);
     }
     else
     {
-        std::filesystem::remove(fu.autostart_dir() + fu.desktop_filename);
+        std::experimental::filesystem::remove(fu.autostart_dir() + fu.desktop_filename);
     }
 }
 
@@ -210,7 +210,7 @@ void PreferencesWindow::on_save_list_click()
     if (!save_list_check.get_active())
     {
         FileUtil fu {};
-        std::filesystem::remove(fu.items_json_filepath());
+        std::experimental::filesystem::remove(fu.items_json_filepath());
     }
 }
 
