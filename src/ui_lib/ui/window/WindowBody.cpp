@@ -190,7 +190,8 @@ void WindowBody::delete_items(Gtk::TreeNodeChildren&& rows, const Glib::ustring&
 
 void WindowBody::delete_last_items(int store_sz, int max_list_size) const
 {
-    if (const auto diff_sz = store_sz - max_list_size; diff_sz > 0)
+    const auto diff_sz = store_sz - max_list_size;
+    if (diff_sz > 0)
     {
         for (int i = 1; i <= diff_sz; ++i)
         {
@@ -361,7 +362,8 @@ bool WindowBody::on_item_list_focus_in(GdkEventFocus* focus_event)
     }
 
     // Select first row if no selected rows
-    if (const auto ref_item_store = item_list.get_model(); !ref_item_store->children().empty() && get_selected_paths().empty())
+    const auto ref_item_store = item_list.get_model();
+    if (!ref_item_store->children().empty() && get_selected_paths().empty())
     {
         item_list.set_cursor(ref_item_store->get_path(ref_item_store->children()[0]));
     }
@@ -513,7 +515,8 @@ bool WindowBody::on_item_list_key_press(GdkEventKey* key_event)
         return true;
     }
 
-    if (const auto state = key_event->state; state == 8 || state == 10 || state == 24 || state == 26)
+    const auto state = key_event->state;
+    if (state == 8 || state == 10 || state == 24 || state == 26)
     {
         // 'ALT + D' show item details window
         if (key == GDK_KEY_d || key == GDK_KEY_D)

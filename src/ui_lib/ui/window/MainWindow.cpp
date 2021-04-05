@@ -124,7 +124,8 @@ bool MainWindow::on_main_window_event(GdkEvent* gdk_event)
         return false;
     }
 
-    if (const auto state = gdk_event->key.state; state == 4 || state == 6 || state == 20 || state == 22)
+    const auto state = gdk_event->key.state;
+    if (state == 4 || state == 6 || state == 20 || state == 22)
     {
         const auto key = gdk_event->key.keyval;
 
